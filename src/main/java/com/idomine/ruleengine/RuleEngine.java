@@ -37,14 +37,14 @@ public class RuleEngine
     {
         result = false;
 
-        for (RuleModel dolphinRuleModel : ruleModel)
+        for (RuleModel ruleModel : ruleModel)
         {
-            RuleEngineHelper.prepareFacts(dolphinRuleModel.getDolphinRule(), fatos);
+            RuleEngineHelper.prepareFacts(ruleModel.getRule(), fatos);
 
-            for (String metodoRule : dolphinRuleModel.getMetodoRule())
+            for (String metodoRule : ruleModel.getMetodoRule())
             {
-                result = RuleEngineHelper.execute(dolphinRuleModel.getDolphinRule(), metodoRule);
-                dolphinRuleModel.getDolphinRule().setLastResult(result);
+                result = RuleEngineHelper.execute(ruleModel.getRule(), metodoRule);
+                ruleModel.getRule().setLastResult(result);
 
                 if (!result)
                     break;
@@ -57,7 +57,7 @@ public class RuleEngine
     }
 
     // Notifications
-    
+
     private void callNotifications()
     {
     }
@@ -75,7 +75,7 @@ public class RuleEngine
     {
         InformeFato addFato(String nomeFato, Object objeto);
 
-        InformeRule addClasseRule(Rule dolphinRule);
+        InformeRule addClasseRule(Rule rule);
     }
     // step 3
 
@@ -90,7 +90,7 @@ public class RuleEngine
     {
         InformeMetodo addMetodoRule(String nomeMetodo);
 
-        InformeNovoRule addNovoClasseRule(Rule dolphinRule);
+        InformeNovoRule addNovoClasseRule(Rule rule);
 
         RuleEngine buildRules();
 
@@ -118,7 +118,7 @@ public class RuleEngine
         List<Fato> fatos;
         List<RuleModel> ruleModels;
         RuleModel ruleModel;
-        Rule dolphinRule;
+        Rule rule;
         List<String> metodoRule;
 
         public Builder()
@@ -136,9 +136,9 @@ public class RuleEngine
         }
 
         @Override
-        public InformeRule addClasseRule(Rule dolphinRule)
+        public InformeRule addClasseRule(Rule rule)
         {
-            iniciarRule(dolphinRule);
+            iniciarRule(rule);
             return this;
         }
 
@@ -150,10 +150,10 @@ public class RuleEngine
         }
 
         @Override
-        public InformeNovoRule addNovoClasseRule(Rule dolphinRule)
+        public InformeNovoRule addNovoClasseRule(Rule rule)
         {
             adicionarRuleModel();
-            iniciarRule(dolphinRule);
+            iniciarRule(rule);
             return this;
         }
 
@@ -179,15 +179,15 @@ public class RuleEngine
         private void adicionarRuleModel()
         {
             RuleModel ruleModel = new RuleModel();
-            ruleModel.setDolphinRule(dolphinRule);
+            ruleModel.setRule(rule);
             ruleModel.setMetodoRule(metodoRule);
             ruleModels.add(ruleModel);
         }
 
-        private void iniciarRule(Rule dolphinRule)
+        private void iniciarRule(Rule rule)
         {
-            this.dolphinRule = dolphinRule;
-            this.dolphinRule.setFatos(new ArrayList<>());
+            this.rule = rule;
+            this.rule.setFatos(new ArrayList<>());
             metodoRule = new ArrayList<>();
         }
 

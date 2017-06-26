@@ -5,18 +5,13 @@ import java.util.List;
 public class RuleModel
 {
 
-    private Rule dolphinRule;
+    private Rule rule;
     
     private List<String> metodoRule;
 
-    public Rule getDolphinRule()
+    public Rule getRule()
     {
-        return dolphinRule;
-    }
-
-    public void setDolphinRule(Rule dolphinRule)
-    {
-        this.dolphinRule = dolphinRule;
+        return rule;
     }
 
     public List<String> getMetodoRule()
@@ -24,17 +19,15 @@ public class RuleModel
         return metodoRule;
     }
 
+    public void setRule(Rule rule)
+    {
+        this.rule = rule;
+    }
+
     public void setMetodoRule(List<String> metodoRule)
     {
         this.metodoRule = metodoRule;
     }
-
-    @Override
-    public String toString()
-    {
-        return "DolphinRuleModel [dolphinRule=" + dolphinRule + ", metodoRule=" + metodoRule + "]";
-    }
-    
     
     
 }
