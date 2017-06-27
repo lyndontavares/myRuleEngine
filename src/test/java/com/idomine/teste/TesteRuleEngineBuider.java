@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.idomine.model.Entidade;
 import com.idomine.model.Fatura;
-import com.idomine.rmodel.Mercadoria;
+import com.idomine.model.Mercadoria;
 import com.idomine.ruleengine.RuleEngine;
 import com.idomine.rules.EntidadeRule;
 import com.idomine.rules.FaturaRule;

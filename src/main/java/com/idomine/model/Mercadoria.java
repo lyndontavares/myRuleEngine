@@ -1,4 +1,4 @@
-package com.idomine.rmodel;
+package com.idomine.model;
 
 public class Mercadoria
 {
