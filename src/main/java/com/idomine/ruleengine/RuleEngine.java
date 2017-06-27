@@ -69,12 +69,23 @@ public class RuleEngine
         this.fatos = fatos;
     }
 
+    // add ruleEngine
+
+    public RuleEngine addRuleEngine(RuleEngine ruleEngine)
+    {
+        if (!ruleEngine.getFatos().isEmpty())
+            this.getFatos().addAll(ruleEngine.getFatos());
+        if (!ruleEngine.getRuleModel().isEmpty())
+            this.getRuleModel().addAll(ruleEngine.getRuleModel());
+        return this;
+    }
+
     // check
 
     public boolean check()
     {
         showMensagemChecking();
-        
+
         result = false;
 
         for (RuleModel ruleModel : ruleModel)
@@ -99,21 +110,21 @@ public class RuleEngine
 
     private void showMensagemChecking()
     {
-        if ( mensagemChecking!=null)
+        if (mensagemChecking != null)
         {
-            System.out.println("<<INFO>>"+mensagemChecking);
+            System.out.println("<<INFO>>" + mensagemChecking);
         }
     }
-    
+
     private void showMensagemCheck()
     {
-        if (result && mensagemCheckTrue!=null)
+        if (result && mensagemCheckTrue != null)
         {
-            System.out.println("<<INFO>>"+mensagemCheckTrue);
+            System.out.println("<<INFO>>" + mensagemCheckTrue);
         }
-        else if(!result && mensagemCheckFalse!=null)
+        else if (!result && mensagemCheckFalse != null)
         {
-            System.out.println("<<ERRO>>"+mensagemCheckFalse);
+            System.out.println("<<ERRO>>" + mensagemCheckFalse);
         }
     }
 
@@ -122,15 +133,16 @@ public class RuleEngine
     private boolean checarNotificacao(Object result)
     {
         boolean retorno = false;
-        
+
         if (result.getClass().equals(ArrayList.class))
         {
-            if (  !((ArrayList<?>) result).isEmpty() )
+            if (!((ArrayList<?>) result).isEmpty())
             {
-                if ( ((ArrayList<?>) result).get(0).getClass().equals(Notificacao.class) ){
+                if (((ArrayList<?>) result).get(0).getClass().equals(Notificacao.class))
+                {
                     @SuppressWarnings("unchecked")
-                    List<Notificacao> nots = ((ArrayList<Notificacao>) result); 
-                    
+                    List<Notificacao> nots = ((ArrayList<Notificacao>) result);
+
                     for (Notificacao notificacao : nots)
                     {
                         retorno = notificacao.isResultado();
@@ -250,7 +262,7 @@ public class RuleEngine
         @Override
         public InformeRule addClasseRule(Object rule)
         {
-            Validate.notNull(rule, ">>>RuleEngine: Rule não pode ser null!");
+            Validate.notNull(rule, ">>>RuleEngine: Rule nï¿½o pode ser null!");
             iniciarRule(rule);
             return this;
         }
@@ -258,7 +270,7 @@ public class RuleEngine
         @Override
         public InformeMetodo addMetodoRule(String nomeMetodo)
         {
-            Validate.notNull(nomeMetodo, ">>>RuleEngine: nomeMetodo não pode ser null!");
+            Validate.notNull(nomeMetodo, ">>>RuleEngine: nomeMetodo nï¿½o pode ser null!");
             metodoRule.add(nomeMetodo);
             return this;
         }
@@ -266,7 +278,7 @@ public class RuleEngine
         @Override
         public InformeNovoRule addNovoClasseRule(Object rule)
         {
-            Validate.notNull(rule, ">>>RuleEngine: Rule não pode ser null!");
+            Validate.notNull(rule, ">>>RuleEngine: Rule nï¿½o pode ser null!");
             adicionarRuleModel();
             iniciarRule(rule);
             return this;

@@ -9,17 +9,17 @@ import java.util.List;
 import com.idomine.model.Entidade;
 import com.idomine.model.Fatura;
 import com.idomine.notification.Notificacao;
-import com.idomine.ruleengine.interfaces.IFato;
+import com.idomine.ruleengine.interfaces.InjectFact;
 
 public class FaturaRule
 {
-    @IFato(name = "fatura")
+    @InjectFact(name = "fatura")
     public Fatura fatura;
 
-    @IFato(name = "entidade")
+    @InjectFact(name = "entidade")
     private Entidade entidade;
 
-    @IFato(name = "valorMinimo")
+    @InjectFact(name = "valorMinimo")
     private BigDecimal valor;
 
     public Notificacao validarValor()
@@ -64,7 +64,7 @@ public class FaturaRule
 
     private Notificacao regraUm()
     {
-        boolean regra = false;
+        boolean regra = true;
         return new Notificacao()
                 .expressaoLogica(regra)
                 .addMensagemInfo("regra 1 checada")

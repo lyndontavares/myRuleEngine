@@ -2,12 +2,11 @@ package com.idomine.rules;
 
 import com.idomine.model.Entidade;
 import com.idomine.notification.Notificacao;
-import com.idomine.ruleengine.Rule;
-import com.idomine.ruleengine.interfaces.IFato;
+import com.idomine.ruleengine.interfaces.InjectFact;
 
-public class EntidadeRule extends Rule
+public class EntidadeRule  
 {
-    @IFato(name="entidade")
+    @InjectFact(name="entidade")
     private Entidade entidade;
 
     public Notificacao validarNome()

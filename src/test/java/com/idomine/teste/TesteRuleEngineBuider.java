@@ -7,9 +7,11 @@ import org.junit.Test;
 
 import com.idomine.model.Entidade;
 import com.idomine.model.Fatura;
+import com.idomine.rmodel.Mercadoria;
 import com.idomine.ruleengine.RuleEngine;
 import com.idomine.rules.EntidadeRule;
 import com.idomine.rules.FaturaRule;
+import com.idomine.rules.MercadoriaRule;
 
 public class TesteRuleEngineBuider
 {
@@ -26,8 +28,9 @@ public class TesteRuleEngineBuider
         // rules
         FaturaRule faturaRule = new FaturaRule();
         EntidadeRule entidadeRule = new EntidadeRule();
+        MercadoriaRule mercadoriaRule = new MercadoriaRule();
 
-        //Engine
+        //Engine 1
         RuleEngine re = RuleEngine
                 .Builder()
                 .addFato("entidade", entidade)
@@ -44,12 +47,22 @@ public class TesteRuleEngineBuider
                 .addMetodoRule("validarNome")
                 .addMetodoRule("validarEmail")
                 .buildRules();
-
+        
         re.setMensagemCheckTrue("Gravado com sucesso!");
-        re.setMensagemCheckFalse("Validações falharam!");
-        re.setMensagemChecking("Checando validações!");
+        re.setMensagemCheckFalse("Validacoes falharam!");
+        re.setMensagemChecking("Checando validacoes!");
+        
+        //Engine 2
+        RuleEngine re2 = RuleEngine
+                .Builder()
+                .addFato("mercadoria", new Mercadoria("merc 1"))
+                .addClasseRule(mercadoriaRule)
+                .addMetodoRule("validarNomeMercadoria")
+                .buildRules();
 
-
+        // Engine 1 + 2
+        re.addRuleEngine(re2);
+        
         boolean res  = re.check();
         System.out.println(">>> engine result "+res);
         

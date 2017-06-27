@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import com.idomine.ruleengine.Fato;
-import com.idomine.ruleengine.interfaces.IFato;
+import com.idomine.ruleengine.interfaces.InjectFact;
 
 public final class RuleEngineHelper
 {
@@ -107,7 +107,7 @@ public final class RuleEngineHelper
         if (annotations.length != 0)
             for (int j = 0; j < annotations.length; j++)
             {
-                if ((annotations[j].annotationType() ==  IFato.class) &&  ((IFato) annotations[j]).name()[0].equals(nome))
+                if ((annotations[j].annotationType() ==  InjectFact.class) &&  ((InjectFact) annotations[j]).name()[0].equals(nome))
                 {
                     return true;
                 }

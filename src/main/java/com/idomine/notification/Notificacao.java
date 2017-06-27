@@ -88,7 +88,7 @@ public class Notificacao
         return this;
     }
 
-    public Notificacao addMensagemAdvertência(String mensagem)
+    public Notificacao addMensagemAdvertencia(String mensagem)
     {
         mensagens.add(new Mensagem(mensagem,MensagemTipo.ADVERTENCIA));
         return this;
