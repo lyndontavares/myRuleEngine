@@ -29,6 +29,8 @@ public class FaturaRule
                 .expressaoLogica(regra)
                 .addMensagemInfo("Checando valor fatura")
                 .addMensagemInfo("Valor fatura dentro do limite de credito!")
+                .addMensagemAdvertencia("Teste msg warning!")
+                .addMensagemErro("Teste msg erro!")
                 .addMensagemTrue("Valor fatura passou na checagem")
                 .addMensagemFalse("valor fatura deve ser maior ou igual a " + valor);
 
