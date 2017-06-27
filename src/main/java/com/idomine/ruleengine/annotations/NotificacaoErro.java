@@ -1,4 +1,4 @@
-package com.idomine.ruleengine.interfaces;
+package com.idomine.ruleengine.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,9 +7,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Documented
-@Target(ElementType.FIELD)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface InjectFact
+public @interface NotificacaoErro
 {
-    String[] name() default {};
+
 }

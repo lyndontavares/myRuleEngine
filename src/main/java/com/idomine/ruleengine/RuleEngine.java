@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.commons.lang.Validate;
 
+import com.idomine.ruleengine.annotations.NotificacaoInfo;
+import com.idomine.ruleengine.annotations.NotificacaoWarn;
 import com.idomine.ruleengine.helper.RuleEngineHelper;
 import com.idomine.ruleengine.notification.Mensagem;
 import com.idomine.ruleengine.notification.MensagemTipo;
@@ -18,6 +20,17 @@ public class RuleEngine
     private String mensagemCheckFalse;
     private List<RuleFact> fatos;
     private List<RuleModel> ruleModel;
+    private Class<?> classOutputMesagem;
+
+    public Class<?> getClassOutputMesagem()
+    {
+        return classOutputMesagem;
+    }
+
+    public void setClassOutputMesagem(Class<?> classOutputMesagem)
+    {
+        this.classOutputMesagem = classOutputMesagem;
+    }
 
     public String getMensagemChecking()
     {
@@ -106,25 +119,27 @@ public class RuleEngine
         return result;
     }
 
-    // Mensagens
+    // mensagemChecking
 
     private void showMensagemChecking()
     {
         if (mensagemChecking != null)
         {
-            System.out.println("<<INFO>>" + mensagemChecking);
+            showNotificacao(new Mensagem(mensagemChecking, MensagemTipo.INFO));
         }
     }
+
+    // mensagemCheckTrue mensagemCheckFalse
 
     private void showMensagemCheck()
     {
         if (result && mensagemCheckTrue != null)
         {
-            System.out.println("<<INFO>>" + mensagemCheckTrue);
+            showNotificacao(new Mensagem(mensagemCheckTrue, MensagemTipo.INFO));
         }
         else if (!result && mensagemCheckFalse != null)
         {
-            System.out.println("<<ERRO>>" + mensagemCheckFalse);
+            showNotificacao(new Mensagem(mensagemCheckFalse, MensagemTipo.ERRO));
         }
     }
 
@@ -174,6 +189,29 @@ public class RuleEngine
 
     // show notificacoes
 
+    private void showNotificacao(Mensagem m)
+    {
+        if (classOutputMesagem != null)
+        {
+            if ( m.getTipo().equals(MensagemTipo.INFO) || m.getTipo().equals(MensagemTipo.EXPRESSAO_TRUE) )
+            {
+                RuleEngineHelper. executeNotificacao(classOutputMesagem,m.getTexto(),NotificacaoInfo.class);    
+            }
+            else if ( m.getTipo().equals(MensagemTipo.ADVERTENCIA))
+            {
+                RuleEngineHelper. executeNotificacao(classOutputMesagem,m.getTexto(),NotificacaoWarn.class);
+            }
+            else if ( m.getTipo().equals(MensagemTipo.ERRO) || m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE))
+            {
+                RuleEngineHelper. executeNotificacao(classOutputMesagem,m.getTexto(),NotificacaoWarn.class);
+            }
+        }
+        else
+        {
+            System.out.println("<<" + m.getTipo() + ">> " + m.getTexto());
+        }
+    }
+
     private void showNoticacoes(List<Mensagem> mensagens, boolean retorno)
     {
         for (Mensagem m : mensagens)
@@ -181,7 +219,7 @@ public class RuleEngine
             if ((retorno && !m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE)) ||
                     (!retorno && !m.getTipo().equals(MensagemTipo.EXPRESSAO_TRUE)))
             {
-                System.out.println(m);
+                showNotificacao(m);
             }
         }
     }

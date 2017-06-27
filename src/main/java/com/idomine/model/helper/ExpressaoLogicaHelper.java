@@ -1,4 +1,4 @@
-package com.idomine.helper;
+package com.idomine.model.helper;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

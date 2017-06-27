@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import com.idomine.ruleengine.RuleFact;
-import com.idomine.ruleengine.interfaces.InjectFact;
+import com.idomine.ruleengine.annotations.InjectFact;
 
 public final class RuleEngineHelper
 {
@@ -35,6 +35,35 @@ public final class RuleEngineHelper
         }
         return retorno;
     }
+    
+    public static void executeNotificacao(Class<?>  o, String msg, Class<?> anotacao )
+    {
+        Class<?> cc =null;
+        try
+        {
+            cc = Class.forName(o.getName());
+        }
+        catch (ClassNotFoundException e1)
+        {
+            e1.printStackTrace();
+        }
+        
+        for (Method m : cc .getMethods())
+        {
+            if (metodoContemAnotacao(m,anotacao))
+            {
+                try
+                {
+                     m.invoke(o, msg);
+                    break;
+                }
+                catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     public static void prepareFacts(Object o, String metodo, Object... objects)
     {
@@ -54,15 +83,7 @@ public final class RuleEngineHelper
             }
         }
     }
-
-    //
-    public static void prepareFacts2(Object classe, List<RuleFact> fatos)
-    {
-        for (Field field : classe.getClass(). getDeclaredFields())
-        {
-        }
-    }
-    
+ 
     public static void prepareFacts(Object classe, List<RuleFact> fatos)
     {
         if (fatos != null)
@@ -101,6 +122,20 @@ public final class RuleEngineHelper
         return null;
     }
 
+    private static boolean metodoContemAnotacao(Method method,Class<?> anotacao)
+    {
+        Annotation[] annotations = method.getDeclaredAnnotations();
+        if (annotations.length != 0)
+            for (int j = 0; j < annotations.length; j++)
+            {
+                if ((annotations[j].annotationType() ==  anotacao))
+                {
+                    return true;
+                }
+            }
+        return false;
+    }      
+    
     private static boolean contemAnotacao(Field field,String nome)
     {
         Annotation[] annotations = field.getDeclaredAnnotations();
@@ -114,9 +149,5 @@ public final class RuleEngineHelper
             }
         return false;
     }    
-    
-    private static boolean contemAnotacaoIFato(Object classe)
-    {
-        return false;
-    }
+ 
 }

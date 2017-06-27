@@ -8,10 +8,11 @@ import org.junit.Test;
 import com.idomine.model.Entidade;
 import com.idomine.model.Fatura;
 import com.idomine.model.Mercadoria;
+import com.idomine.model.rules.EntidadeRule;
+import com.idomine.model.rules.FaturaRule;
+import com.idomine.model.rules.MercadoriaRule;
+import com.idomine.model.rules.NotificacaoHelper;
 import com.idomine.ruleengine.RuleEngine;
-import com.idomine.rules.EntidadeRule;
-import com.idomine.rules.FaturaRule;
-import com.idomine.rules.MercadoriaRule;
 
 public class TesteRuleEngineBuider
 {
@@ -22,7 +23,7 @@ public class TesteRuleEngineBuider
         // fatos
         Fatura fatura = Fatura.getFake();
         Entidade entidade = Entidade.getFake();
-        //entidade.setEmail(null);
+        // entidade.setEmail(null);
         fatura.setEntidade(entidade);
 
         // rules
@@ -30,7 +31,7 @@ public class TesteRuleEngineBuider
         EntidadeRule entidadeRule = new EntidadeRule();
         MercadoriaRule mercadoriaRule = new MercadoriaRule();
 
-        //Engine 1
+        // Engine 1
         RuleEngine re = RuleEngine
                 .Builder()
                 .addFato("entidade", entidade)
@@ -42,17 +43,18 @@ public class TesteRuleEngineBuider
                 .addMetodoRule("validarEntidade")
                 .addMetodoRule("validarData")
                 .addMetodoRule("validarListaRegras")
-                
+
                 .addNovoClasseRule(entidadeRule)
                 .addMetodoRule("validarNome")
                 .addMetodoRule("validarEmail")
                 .buildRules();
-        
+
         re.setMensagemCheckTrue("Gravado com sucesso!");
         re.setMensagemCheckFalse("Validacoes falharam!");
         re.setMensagemChecking("Checando validacoes!");
-        
-        //Engine 2
+        re.setClassOutputMesagem(NotificacaoHelper.class);
+
+        // Engine 2
         RuleEngine re2 = RuleEngine
                 .Builder()
                 .addFato("mercadoria", new Mercadoria("merc 1"))
@@ -62,10 +64,10 @@ public class TesteRuleEngineBuider
 
         // Engine 1 + 2
         re.addRuleEngine(re2);
-        
-        boolean res  = re.check();
-        System.out.println(">>> engine result "+res);
-        
+
+        boolean res = re.check();
+        System.out.println(">>> engine result " + res);
+
         Assert.assertTrue(res);
 
     }

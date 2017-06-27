@@ -9,9 +9,9 @@ import org.junit.Test;
 
 import com.idomine.model.Entidade;
 import com.idomine.model.Fatura;
+import com.idomine.model.rules.FaturaRule;
 import com.idomine.ruleengine.RuleFact;
 import com.idomine.ruleengine.helper.RuleEngineHelper;
-import com.idomine.rules.FaturaRule;
 
 public class TesteRuleEngineHelper
 {

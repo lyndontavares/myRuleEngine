@@ -1,6 +1,6 @@
-package com.idomine.rules;
+package com.idomine.model.rules;
 
-import static com.idomine.helper.ExpressaoLogicaHelper.maiorOuIgualQue;
+import static com.idomine.model.helper.ExpressaoLogicaHelper.maiorOuIgualQue;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.idomine.model.Entidade;
 import com.idomine.model.Fatura;
-import com.idomine.ruleengine.interfaces.InjectFact;
+import com.idomine.ruleengine.annotations.InjectFact;
 import com.idomine.ruleengine.notification.Notificacao;
 
 public class FaturaRule

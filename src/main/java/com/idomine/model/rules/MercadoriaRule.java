@@ -1,7 +1,7 @@
-package com.idomine.rules;
+package com.idomine.model.rules;
 
 import com.idomine.model.Mercadoria;
-import com.idomine.ruleengine.interfaces.InjectFact;
+import com.idomine.ruleengine.annotations.InjectFact;
 import com.idomine.ruleengine.notification.Notificacao;
 
 public class MercadoriaRule
