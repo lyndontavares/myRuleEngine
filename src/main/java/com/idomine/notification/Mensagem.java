@@ -23,11 +23,17 @@ public class Mensagem
     }
     public Mensagem(String texto, MensagemTipo tipo)
     {
-        super();
         this.texto = texto;
         this.tipo = tipo;
     }
+    @Override
+    public String toString()
+    {
+        return "<<"+getTipo()+">>"+getTexto();
+    }
 
+    
+    
 }
 
 

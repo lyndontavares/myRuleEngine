@@ -15,16 +15,16 @@ public final class RuleEngineHelper
     {
     }
 
-    public static boolean execute(Object o, String metodo, Object... objects)
+    public static Object execute(Object o, String metodo, Object... objects)
     {
-        boolean retorno = false;
+        Object retorno = false;
         for (Method m : o.getClass().getMethods())
         {
             if (m.getName().equals(metodo))
             {
                 try
                 {
-                    retorno = (boolean) m.invoke(o);
+                    retorno = m.invoke(o);
                     break;
                 }
                 catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)

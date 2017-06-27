@@ -60,9 +60,49 @@ public class Notificacao
         mensagens = new ArrayList<>();
     }
 
+    
+    
+    
+    //
+    
     public Notificacao addMensagem(Mensagem mensagem)
     {
         mensagens.add(mensagem);
+        return this;
+    }
+
+    public Notificacao addMensagemTrue(String mensagem)
+    {
+        mensagens.add(new Mensagem(mensagem,MensagemTipo.EXPRESSAO_TRUE));
+        return this;
+    }
+
+    public Notificacao addMensagemFalse(String mensagem)
+    {
+        mensagens.add(new Mensagem(mensagem,MensagemTipo.EXPRESSAO_FALSE));
+        return this;
+    }
+    public Notificacao addMensagemInfo(String mensagem)
+    {
+        mensagens.add(new Mensagem(mensagem,MensagemTipo.INFO));
+        return this;
+    }
+
+    public Notificacao addMensagemAdvertência(String mensagem)
+    {
+        mensagens.add(new Mensagem(mensagem,MensagemTipo.ADVERTENCIA));
+        return this;
+    }
+
+    public Notificacao addMensagemErro(String mensagem)
+    {
+        mensagens.add(new Mensagem(mensagem,MensagemTipo.ERRO));
+        return this;
+    }
+    
+    public Notificacao expressaoLogica(boolean resultado)
+    {
+        this.resultado=resultado;
         return this;
     }
 

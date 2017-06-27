@@ -5,11 +5,11 @@ import java.util.List;
 public class RuleModel
 {
 
-    private Rule rule;
+    private Object rule;
     
     private List<String> metodoRule;
 
-    public Rule getRule()
+    public Object getRule()
     {
         return rule;
     }
@@ -19,7 +19,7 @@ public class RuleModel
         return metodoRule;
     }
 
-    public void setRule(Rule rule)
+    public void setRule(Object rule)
     {
         this.rule = rule;
     }
