@@ -16,7 +16,7 @@ public class RuleEngine
     private String mensagemChecking;
     private String mensagemCheckTrue;
     private String mensagemCheckFalse;
-    private List<Fato> fatos;
+    private List<RuleFact> fatos;
     private List<RuleModel> ruleModel;
 
     public String getMensagemChecking()
@@ -59,12 +59,12 @@ public class RuleEngine
         this.ruleModel = ruleModel;
     }
 
-    public List<Fato> getFatos()
+    public List<RuleFact> getFatos()
     {
         return fatos;
     }
 
-    public void setFatos(List<Fato> fatos)
+    public void setFatos(List<RuleFact> fatos)
     {
         this.fatos = fatos;
     }
@@ -239,7 +239,7 @@ public class RuleEngine
 
     public static class Builder implements InformeFato, InformeRule, InformeMetodo, InformeNovoRule, BuildRules
     {
-        List<Fato> fatos;
+        List<RuleFact> fatos;
         List<RuleModel> ruleModels;
         RuleModel ruleModel;
         Object rule;
@@ -254,7 +254,7 @@ public class RuleEngine
         @Override
         public InformeFato addFato(String nomeFato, Object objeto)
         {
-            Fato fato = new Fato(nomeFato, objeto);
+            RuleFact fato = new RuleFact(nomeFato, objeto);
             fatos.add(fato);
             return this;
         }

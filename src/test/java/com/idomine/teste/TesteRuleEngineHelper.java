@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.idomine.model.Entidade;
 import com.idomine.model.Fatura;
-import com.idomine.ruleengine.Fato;
+import com.idomine.ruleengine.RuleFact;
 import com.idomine.ruleengine.helper.RuleEngineHelper;
 import com.idomine.rules.FaturaRule;
 
@@ -21,10 +21,10 @@ public class TesteRuleEngineHelper
     {
         FaturaRule faturaRule = new FaturaRule();
         
-        List<Fato> fatos = new ArrayList<>();
-        fatos.add(new Fato("fatura", Fatura.getFake()));
-        fatos.add(new Fato("entidade",Entidade.getFake()));
-        fatos.add(new Fato("valorMinimo",BigDecimal.TEN));
+        List<RuleFact> fatos = new ArrayList<>();
+        fatos.add(new RuleFact("fatura", Fatura.getFake()));
+        fatos.add(new RuleFact("entidade",Entidade.getFake()));
+        fatos.add(new RuleFact("valorMinimo",BigDecimal.TEN));
 
         RuleEngineHelper.prepareFacts(faturaRule, fatos);
          Assert.assertTrue(faturaRule.fatura.getCodigo() == 1);

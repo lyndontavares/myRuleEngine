@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import com.idomine.ruleengine.Fato;
+import com.idomine.ruleengine.RuleFact;
 import com.idomine.ruleengine.interfaces.InjectFact;
 
 public final class RuleEngineHelper
@@ -56,23 +56,23 @@ public final class RuleEngineHelper
     }
 
     //
-    public static void prepareFacts2(Object classe, List<Fato> fatos)
+    public static void prepareFacts2(Object classe, List<RuleFact> fatos)
     {
         for (Field field : classe.getClass(). getDeclaredFields())
         {
         }
     }
     
-    public static void prepareFacts(Object classe, List<Fato> fatos)
+    public static void prepareFacts(Object classe, List<RuleFact> fatos)
     {
         if (fatos != null)
-            for (Fato fato : fatos)
+            for (RuleFact fato : fatos)
             {
                 atribuirFato(classe, fato);
             }
     }
 
-    private static void atribuirFato(Object classe, Fato fato)
+    private static void atribuirFato(Object classe, RuleFact fato)
     {
         Field field = localizarAtributo(classe, fato.getNome());
         if (field != null)
