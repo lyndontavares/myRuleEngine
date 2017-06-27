@@ -1,4 +1,4 @@
-package com.idomine.notification;
+package com.idomine.ruleengine.notification;
 
 import java.util.ArrayList;
 import java.util.List;

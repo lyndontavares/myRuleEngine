@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.apache.commons.lang.Validate;
 
-import com.idomine.notification.Mensagem;
-import com.idomine.notification.MensagemTipo;
-import com.idomine.notification.Notificacao;
 import com.idomine.ruleengine.helper.RuleEngineHelper;
+import com.idomine.ruleengine.notification.Mensagem;
+import com.idomine.ruleengine.notification.MensagemTipo;
+import com.idomine.ruleengine.notification.Notificacao;
 
 public class RuleEngine
 {

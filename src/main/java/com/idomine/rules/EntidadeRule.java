@@ -1,8 +1,8 @@
 package com.idomine.rules;
 
 import com.idomine.model.Entidade;
-import com.idomine.notification.Notificacao;
 import com.idomine.ruleengine.interfaces.InjectFact;
+import com.idomine.ruleengine.notification.Notificacao;
 
 public class EntidadeRule  
 {
