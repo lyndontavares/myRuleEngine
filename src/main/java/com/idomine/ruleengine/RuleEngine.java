@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.Validate;
 
+import com.idomine.ruleengine.annotations.NotificacaoErro;
 import com.idomine.ruleengine.annotations.NotificacaoInfo;
 import com.idomine.ruleengine.annotations.NotificacaoWarn;
 import com.idomine.ruleengine.helper.RuleEngineHelper;
@@ -203,7 +204,7 @@ public class RuleEngine
             }
             else if ( m.getTipo().equals(MensagemTipo.ERRO) || m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE))
             {
-                RuleEngineHelper. executeNotificacao(classOutputMesagem,m.getTexto(),NotificacaoWarn.class);
+                RuleEngineHelper. executeNotificacao(classOutputMesagem,m.getTexto(),NotificacaoErro.class);
             }
         }
         else
