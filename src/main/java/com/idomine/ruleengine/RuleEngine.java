@@ -309,7 +309,7 @@ public class RuleEngine
         @Override
         public InformeMetodo addMetodoRule(String nomeMetodo)
         {
-            Validate.notNull(nomeMetodo, ">>>RuleEngine: nomeMetodo n�o pode ser null!");
+            Validate.notNull(nomeMetodo, ">>>RuleEngine: nomeMetodo nao pode ser null!");
             metodoRule.add(nomeMetodo);
             return this;
         }
@@ -317,7 +317,7 @@ public class RuleEngine
         @Override
         public InformeNovoRule addNovoClasseRule(Object rule)
         {
-            Validate.notNull(rule, ">>>RuleEngine: Rule n�o pode ser null!");
+            Validate.notNull(rule, ">>>RuleEngine: Rule nao pode ser null!");
             adicionarRuleModel();
             iniciarRule(rule);
             return this;
