@@ -9,19 +9,19 @@ public class NotificacaoHelper
     @NotificacaoInfo
     public static void info(String msg)
     {
-        System.out.println("<<INFO>>" + msg);
+        System.out.println("<<PRIMEFACES INFO>>" + msg);
     }
 
     @NotificacaoWarn
     public static void warn(String msg)
     {
-        System.out.println("<<WARN>>" + msg);
+        System.out.println("<<PRIMEFACES WARN>>" + msg);
     }
 
     @NotificacaoErro
     public static void erro(String msg)
     {
-        System.out.println("<<ERRO>>" + msg);
+        System.out.println("<<PRIMEFACES ERROR>>" + msg);
     }
 
 }

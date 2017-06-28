@@ -96,7 +96,7 @@ public class Notificacao
 
     public Notificacao addMensagemErro(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem,MensagemTipo.ERRO));
+        mensagens.add(new Mensagem(mensagem,MensagemTipo.ERROR));
         return this;
     }
     

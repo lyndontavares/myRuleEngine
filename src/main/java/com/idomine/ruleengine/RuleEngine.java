@@ -140,7 +140,7 @@ public class RuleEngine
         }
         else if (!result && mensagemCheckFalse != null)
         {
-            showNotificacao(new Mensagem(mensagemCheckFalse, MensagemTipo.ERRO));
+            showNotificacao(new Mensagem(mensagemCheckFalse, MensagemTipo.ERROR));
         }
     }
 
@@ -202,7 +202,7 @@ public class RuleEngine
             {
                 RuleEngineHelper. executeNotificacao(classOutputMesagem,m.getTexto(),NotificacaoWarn.class);
             }
-            else if ( m.getTipo().equals(MensagemTipo.ERRO) || m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE))
+            else if ( m.getTipo().equals(MensagemTipo.ERROR) || m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE))
             {
                 RuleEngineHelper. executeNotificacao(classOutputMesagem,m.getTexto(),NotificacaoErro.class);
             }

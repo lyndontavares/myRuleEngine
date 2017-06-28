@@ -24,7 +24,7 @@ public class FaturaRule
 
     public Notificacao validarValor()
     {
-        boolean regra = maiorOuIgualQue(fatura.getValor(), valor);
+        boolean regra = false;//maiorOuIgualQue(fatura.getValor(), valor);
         return new Notificacao()
                 .expressaoLogica(regra)
                 .addMensagemInfo("Checando valor fatura")
