@@ -106,14 +106,18 @@ public class RuleEngine
         {
             RuleEngineHelper.prepareFacts(ruleModel.getRule(), fatos);
 
-            for (String metodoRule : ruleModel.getMetodoRule())
+            if (ruleModel.getMetodoRule().get(0).equals("@all"))
             {
-                result = checarNotificacao(RuleEngineHelper.execute(ruleModel.getRule(), metodoRule));
-                if (!result)
-                    break;
+                result = checarNotificacaoExecutantoAllMetodos(ruleModel.getRule());
+            }
+            else
+            {
+                result = checarNotificacaoExecutandoMedodo(ruleModel);
             }
             if (!result)
+            {
                 break;
+            }
         }
 
         showMensagemCheck();
@@ -145,6 +149,37 @@ public class RuleEngine
     }
 
     // Notification
+
+    private boolean checarNotificacaoExecutandoMedodo(RuleModel ruleModel)
+    {
+        boolean result = false;
+        for (String metodoRule : ruleModel.getMetodoRule())
+        {
+            result = checarNotificacao(RuleEngineHelper.execute(ruleModel.getRule(), metodoRule));
+            if (!result)
+            {
+                break;
+            }
+        }
+        return result;
+    }
+
+    private boolean checarNotificacaoExecutantoAllMetodos(Object rule)
+    {
+        List<String> metodos = RuleEngineHelper.metodosNotificaveis(rule);
+        Validate.notNull(metodos, ">>>RuleEngine: Nenhum metodo notificavel em " + rule.getClass().getName());
+
+        boolean result = false;
+        for (String metodo : metodos)
+        {
+            result = checarNotificacao(RuleEngineHelper.execute(rule, metodo));
+            if (!result)
+            {
+                break;
+            }
+        }
+        return result;
+    }
 
     private boolean checarNotificacao(Object result)
     {
@@ -194,17 +229,17 @@ public class RuleEngine
     {
         if (classOutputMesagem != null)
         {
-            if ( m.getTipo().equals(MensagemTipo.INFO) || m.getTipo().equals(MensagemTipo.EXPRESSAO_TRUE) )
+            if (m.getTipo().equals(MensagemTipo.INFO) || m.getTipo().equals(MensagemTipo.EXPRESSAO_TRUE))
             {
-                RuleEngineHelper. executeNotificacao(classOutputMesagem,m.getTexto(),NotificacaoInfo.class);    
+                RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoInfo.class);
             }
-            else if ( m.getTipo().equals(MensagemTipo.ADVERTENCIA))
+            else if (m.getTipo().equals(MensagemTipo.ADVERTENCIA))
             {
-                RuleEngineHelper. executeNotificacao(classOutputMesagem,m.getTexto(),NotificacaoWarn.class);
+                RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoWarn.class);
             }
-            else if ( m.getTipo().equals(MensagemTipo.ERROR) || m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE))
+            else if (m.getTipo().equals(MensagemTipo.ERROR) || m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE))
             {
-                RuleEngineHelper. executeNotificacao(classOutputMesagem,m.getTexto(),NotificacaoErro.class);
+                RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoErro.class);
             }
         }
         else
@@ -240,14 +275,32 @@ public class RuleEngine
 
         InformeRule addClasseRule(Object rule);
     }
+
     // step 3
 
     public interface InformeRule
     {
+        InformeAllRule addAllMetodoRule();
+
+        InformeAllRule addAllMetodoRuleQueRetornaNotificacao();
+
+        InformeAllRule addAllMetodoRuleQueRetornaListNotificacao();
+
+        InformeAllRule addAllMetodoRuleQueRetornaBoolean();
+
         InformeMetodo addMetodoRule(String nomeMetodo);
     }
 
     // step 4
+
+    public interface InformeAllRule
+    {
+        InformeNovoRule addNovoClasseRule(Object rule);
+
+        RuleEngine buildRules();
+    }
+
+    // step 5
 
     public interface InformeMetodo
     {
@@ -260,14 +313,22 @@ public class RuleEngine
         boolean fireRules();
     }
 
-    // step 5
+    // step 6
 
     public interface InformeNovoRule
     {
+        InformeAllRule addAllMetodoRule();
+
+        InformeAllRule addAllMetodoRuleQueRetornaNotificacao();
+
+        InformeAllRule addAllMetodoRuleQueRetornaListNotificacao();
+
+        InformeAllRule addAllMetodoRuleQueRetornaBoolean();
+
         InformeMetodo addMetodoRule(String nomeMetodo);
     }
 
-    // step 6
+    // step 7
 
     public interface BuildRules
     {
@@ -276,7 +337,8 @@ public class RuleEngine
 
     // builder
 
-    public static class Builder implements InformeFato, InformeRule, InformeMetodo, InformeNovoRule, BuildRules
+    public static class Builder
+            implements InformeFato, InformeRule, InformeMetodo, InformeNovoRule, BuildRules, InformeAllRule
     {
         List<RuleFact> fatos;
         List<RuleModel> ruleModels;
@@ -301,8 +363,36 @@ public class RuleEngine
         @Override
         public InformeRule addClasseRule(Object rule)
         {
-            Validate.notNull(rule, ">>>RuleEngine: Rule n�o pode ser null!");
+            Validate.notNull(rule, ">>>RuleEngine: Rule nao pode ser null!");
             iniciarRule(rule);
+            return this;
+        }
+
+        @Override
+        public InformeAllRule addAllMetodoRule()
+        {
+            metodoRule.add("@all");
+            return this;
+        }
+
+        @Override
+        public InformeAllRule addAllMetodoRuleQueRetornaNotificacao()
+        {
+            metodoRule.add("@noti");
+            return this;
+        }
+
+        @Override
+        public InformeAllRule addAllMetodoRuleQueRetornaListNotificacao()
+        {
+            metodoRule.add("@list");
+            return this;
+        }
+
+        @Override
+        public InformeAllRule addAllMetodoRuleQueRetornaBoolean()
+        {
+            metodoRule.add("@bool");
             return this;
         }
 
@@ -344,10 +434,13 @@ public class RuleEngine
 
         private void adicionarRuleModel()
         {
-            RuleModel ruleModel = new RuleModel();
-            ruleModel.setRule(rule);
-            ruleModel.setMetodoRule(metodoRule);
-            ruleModels.add(ruleModel);
+            if (rule != null)
+            {
+                RuleModel ruleModel = new RuleModel();
+                ruleModel.setRule(rule);
+                ruleModel.setMetodoRule(metodoRule);
+                ruleModels.add(ruleModel);
+            }
         }
 
         private void iniciarRule(Object rule)

@@ -39,31 +39,33 @@ public class TesteRuleEngineBuider
                 .addFato("valorMinimo", new BigDecimal(11))
 
                 .addClasseRule(faturaRule)
-                .addMetodoRule("validarValor")
-                .addMetodoRule("validarEntidade")
-                .addMetodoRule("validarData")
-                .addMetodoRule("validarListaRegras")
+                .addAllMetodoRule()
+//                .addMetodoRule("validarValor")
+//                .addMetodoRule("validarEntidade")
+//                .addMetodoRule("validarData")
+//                .addMetodoRule("validarListaRegras")
 
                 .addNovoClasseRule(entidadeRule)
-                .addMetodoRule("validarNome")
-                .addMetodoRule("validarEmail")
+                .addAllMetodoRule()
+//                .addMetodoRule("validarNome")
+//                .addMetodoRule("validarEmail")
                 .buildRules();
 
-        re.setMensagemCheckTrue("Gravado com sucesso!");
-        re.setMensagemCheckFalse("Validacoes falharam!");
-        re.setMensagemChecking("Checando validacoes!");
-        re.setClassOutputMesagem(NotificacaoHelper.class);
+//        re.setMensagemCheckTrue("Gravado com sucesso!");
+//        re.setMensagemCheckFalse("Validacoes falharam!");
+//        re.setMensagemChecking("Checando validacoes!");
+//        re.setClassOutputMesagem(NotificacaoHelper.class);
 
         // Engine 2
-        RuleEngine re2 = RuleEngine
-                .Builder()
-                .addFato("mercadoria", new Mercadoria("merc 1"))
-                .addClasseRule(mercadoriaRule)
-                .addMetodoRule("validarNomeMercadoria")
-                .buildRules();
+//        RuleEngine re2 = RuleEngine
+//                .Builder()
+//                .addFato("mercadoria", new Mercadoria("merc 1"))
+//                .addClasseRule(mercadoriaRule)
+//                .addMetodoRule("validarNomeMercadoria")
+//                .buildRules();
 
         // Engine 1 + 2
-        re.addRuleEngine(re2);
+//        re.addRuleEngine(re2);
 
         boolean res = re.check();
         System.out.println(">>> engine result " + res);

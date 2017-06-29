@@ -4,10 +4,12 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.idomine.ruleengine.RuleFact;
 import com.idomine.ruleengine.annotations.InjectFact;
+import com.idomine.ruleengine.notification.Notificacao;
 
 public final class RuleEngineHelper
 {
@@ -35,10 +37,10 @@ public final class RuleEngineHelper
         }
         return retorno;
     }
-    
-    public static void executeNotificacao(Class<?>  o, String msg, Class<?> anotacao )
+
+    public static void executeNotificacao(Class<?> o, String msg, Class<?> anotacao)
     {
-        Class<?> cc =null;
+        Class<?> cc = null;
         try
         {
             cc = Class.forName(o.getName());
@@ -47,14 +49,14 @@ public final class RuleEngineHelper
         {
             e1.printStackTrace();
         }
-        
-        for (Method m : cc .getMethods())
+
+        for (Method m : cc.getMethods())
         {
-            if (metodoContemAnotacao(m,anotacao))
+            if (metodoContemAnotacao(m, anotacao))
             {
                 try
                 {
-                     m.invoke(o, msg);
+                    m.invoke(o, msg);
                     break;
                 }
                 catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
@@ -83,7 +85,7 @@ public final class RuleEngineHelper
             }
         }
     }
- 
+
     public static void prepareFacts(Object classe, List<RuleFact> fatos)
     {
         if (fatos != null)
@@ -112,9 +114,9 @@ public final class RuleEngineHelper
 
     private static Field localizarAtributo(Object classe, String nome)
     {
-        for (Field field : classe.getClass(). getDeclaredFields())
+        for (Field field : classe.getClass().getDeclaredFields())
         {
-            if(  contemAnotacao(field,nome)  )
+            if (contemAnotacao(field, nome))
             {
                 return field;
             }
@@ -122,32 +124,111 @@ public final class RuleEngineHelper
         return null;
     }
 
-    private static boolean metodoContemAnotacao(Method method,Class<?> anotacao)
+    private static boolean metodoContemAnotacao(Method method, Class<?> anotacao)
     {
         Annotation[] annotations = method.getDeclaredAnnotations();
         if (annotations.length != 0)
             for (int j = 0; j < annotations.length; j++)
             {
-                if ((annotations[j].annotationType() ==  anotacao))
+                if ((annotations[j].annotationType() == anotacao))
                 {
                     return true;
                 }
             }
         return false;
-    }      
-    
-    private static boolean contemAnotacao(Field field,String nome)
+    }
+
+    private static boolean contemAnotacao(Field field, String nome)
     {
         Annotation[] annotations = field.getDeclaredAnnotations();
         if (annotations.length != 0)
             for (int j = 0; j < annotations.length; j++)
             {
-                if ((annotations[j].annotationType() ==  InjectFact.class) &&  ((InjectFact) annotations[j]).name()[0].equals(nome))
+                if ((annotations[j].annotationType() == InjectFact.class)
+                        && ((InjectFact) annotations[j]).name()[0].equals(nome))
                 {
                     return true;
                 }
             }
         return false;
-    }    
- 
+    }
+
+    public static List<String> metodosNotificaveisReturnandoNotificacao(Object rule)
+    {
+        List<String> metodos = new ArrayList<>();
+        for (Method metodo : metodosPublicos(rule))
+        {
+            if (metodo.getReturnType().equals(Notificacao.class))
+            {
+                metodos.add(metodo.getName());
+            }
+        }
+        return metodos;
+    }
+
+    public static List<String> metodosNotificaveisRetornandoListNotificacao(Object rule)
+    {
+        List<String> metodos = new ArrayList<>();
+        for (Method metodo : metodosPublicos(rule))
+        {
+            if (metodo.getReturnType().equals(List.class))
+            {
+                metodos.add(metodo.getName());
+            }
+        }
+        return metodos;
+    }
+
+    public static List<String> metodosNotificaveisRetornandoBoolean(Object rule)
+    {
+        List<String> metodos = new ArrayList<>();
+        for (Method metodo : metodosPublicos(rule))
+        {
+            if (metodo.getReturnType().equals(Boolean.class))
+            {
+                metodos.add(metodo.getName());
+            }
+        }
+        return metodos;
+    }
+
+    public static List<Method> metodosPublicos(Object rule)
+    {
+        List<Method> listaRetorno = new ArrayList<>();
+
+        for (Method m : rule.getClass().getMethods())
+        {
+            try
+            {
+                listaRetorno.add(m);
+            }
+            catch (IllegalArgumentException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return listaRetorno;
+    }
+
+    public static List<String> metodosNotificaveis(Object rule)
+    {
+        List<String> listaRetorno = new ArrayList<>();
+
+        for (Method m : rule.getClass().getMethods())
+        {
+            if (m.getReturnType().equals(Notificacao.class))
+            {
+                try
+                {
+                    listaRetorno.add(m.getName());
+                }
+                catch (IllegalArgumentException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return listaRetorno;
+    }
+
 }

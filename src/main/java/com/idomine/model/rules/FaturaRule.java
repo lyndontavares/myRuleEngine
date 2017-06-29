@@ -24,15 +24,15 @@ public class FaturaRule
 
     public Notificacao validarValor()
     {
-        boolean regra = false;//maiorOuIgualQue(fatura.getValor(), valor);
+        boolean regra = maiorOuIgualQue(fatura.getValor(), valor);
         return new Notificacao()
                 .expressaoLogica(regra)
-                .addMensagemInfo("Checando valor fatura")
-                .addMensagemInfo("Valor fatura dentro do limite de credito!")
-                .addMensagemAdvertencia("Teste msg warning!")
-                .addMensagemErro("Teste msg erro!")
-                .addMensagemTrue("Valor fatura passou na checagem")
-                .addMensagemFalse("valor fatura deve ser maior ou igual a " + valor);
+                .addMensagemInfo("1 Checando valor fatura")
+                //.addMensagemInfo("1 Valor fatura dentro do limite de credito!")
+                //.addMensagemAdvertencia("Teste msg warning!")
+                //.addMensagemErro("1 Teste msg erro!")
+                //.addMensagemTrue("1 Valor fatura passou na checagem")
+                .addMensagemFalse("1 valor fatura deve ser maior ou igual a " + valor);
 
     }
 
@@ -41,8 +41,8 @@ public class FaturaRule
         boolean regra = fatura.getEntidade() != null;
         return new Notificacao()
                 .expressaoLogica(regra)
-                .addMensagemInfo("Entidade fatura checado")
-                .addMensagemFalse("Informe uma entidade para fatura.");
+                .addMensagemInfo("2 Checando Entidade fatura")
+                .addMensagemFalse("2 Informe uma entidade para fatura.");
     }
 
     public Notificacao validarData()
@@ -51,7 +51,8 @@ public class FaturaRule
 
         return new Notificacao()
                 .expressaoLogica(regra)
-                .addMensagemFalse("Informe data emissao da fatura");
+                .addMensagemInfo("2 Checando Data fatura")
+                .addMensagemFalse("3 Informe data emissao da fatura");
     }
 
     public List<Notificacao> validarListaRegras()
@@ -69,8 +70,8 @@ public class FaturaRule
         boolean regra = true;
         return new Notificacao()
                 .expressaoLogica(regra)
-                .addMensagemInfo("regra 1 checada")
-                .addMensagemFalse("Regra 1 da fatura falhou");
+                .addMensagemInfo("4 regra 1 checada")
+                .addMensagemFalse("4 Regra 1 da fatura falhou");
     }
 
     private Notificacao regraDois()
@@ -78,8 +79,8 @@ public class FaturaRule
         boolean regra = true;
         return new Notificacao()
                 .expressaoLogica(regra)
-                .addMensagemInfo("Regra 2 checada")
-                .addMensagemFalse("Regra 2 da fatura falhou");
+                .addMensagemInfo("5 Regra 2 checada")
+                .addMensagemFalse("5 Regra 2 da fatura falhou");
     }
 
 }

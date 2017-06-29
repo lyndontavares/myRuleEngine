@@ -14,8 +14,8 @@ public class EntidadeRule
         boolean regra = entidade.getNome() != null;
         return new Notificacao()
                 .expressaoLogica(regra)
-                .addMensagemInfo("Nome entidade checado")
-                .addMensagemFalse("Informe nome para entidade.");
+                .addMensagemInfo("6 Nome entidade checado")
+                .addMensagemFalse("6 Informe nome para entidade.");
     }
 
     public Notificacao validarEmail()
@@ -23,8 +23,8 @@ public class EntidadeRule
         boolean regra = entidade.getEmail() != null;
         return new Notificacao()
                 .expressaoLogica(regra)
-                .addMensagemInfo("Email entidade checado")
-                .addMensagemFalse("Informe email para entidade.");
+                .addMensagemInfo("7 Email entidade checado")
+                .addMensagemFalse("7 Informe email para entidade.");
     }
  
 
