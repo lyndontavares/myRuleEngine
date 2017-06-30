@@ -32,6 +32,7 @@ public class FaturaRule
                 //.addMensagemAdvertencia("Teste msg warning!")
                 //.addMensagemErro("1 Teste msg erro!")
                 //.addMensagemTrue("1 Valor fatura passou na checagem")
+                .addMensagemContext("valorFatura")
                 .addMensagemFalse("1 valor fatura deve ser maior ou igual a " + valor);
 
     }

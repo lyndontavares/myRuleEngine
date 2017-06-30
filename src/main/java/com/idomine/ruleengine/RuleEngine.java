@@ -9,6 +9,7 @@ import static com.idomine.ruleengine.helper.JavaClassHelper.isJavaMethodName;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.idomine.ruleengine.annotations.NotificacaoContext;
 import com.idomine.ruleengine.annotations.NotificacaoError;
 import com.idomine.ruleengine.annotations.NotificacaoInfo;
 import com.idomine.ruleengine.annotations.NotificacaoWarn;
@@ -32,6 +33,11 @@ public class RuleEngine
     {
         fatos = new ArrayList<>();
         ruleModel = new ArrayList<>();
+    }
+
+    public boolean isResult()
+    {
+        return result;
     }
 
     public void setNotifications(boolean notifications)
@@ -275,6 +281,10 @@ public class RuleEngine
                 else if (m.getTipo().equals(MensagemTipo.ERROR) || m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE))
                 {
                     RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoError.class);
+                }
+                else if ( !isResult() &&  m.getTipo().equals(MensagemTipo.CONTEXT) || m.getTipo().equals(MensagemTipo.CONTEXT))
+                {
+                    RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoContext.class);
                 }
             }
             else
