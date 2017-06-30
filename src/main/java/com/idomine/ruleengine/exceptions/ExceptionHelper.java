@@ -25,5 +25,13 @@ public final class ExceptionHelper
                 + " notificável deve ser Ntificacao. ";
         throwException(new MyRuleReturnTypeException(messageTypeError));
     }
+    
+    public static void myRuleMethodNameException(String message)
+    {
+        String messageTypeError = RULE_ENGINE + "Nome do método " + message
+                + " inválido. Use regra java para nome de método.";
+        throwException(new MyRuleReturnTypeException(messageTypeError));
+    }
+    
 
 }

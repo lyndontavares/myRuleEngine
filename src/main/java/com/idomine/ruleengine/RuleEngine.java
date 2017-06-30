@@ -1,5 +1,8 @@
 package com.idomine.ruleengine;
 
+import static com.idomine.ruleengine.exceptions.ExceptionHelper.myRuleMethodNameException;
+import static com.idomine.ruleengine.helper.JavaClassHelper.isJavaMethodName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +29,7 @@ public class RuleEngine
     public RuleEngine()
     {
         fatos = new ArrayList<>();
-        ruleModel= new ArrayList<>();
+        ruleModel = new ArrayList<>();
     }
 
     public Class<?> getClassOutputMesagem()
@@ -349,6 +352,7 @@ public class RuleEngine
         @Override
         public InformeFato addFato(String nomeFato, Object objeto)
         {
+            validarNome(nomeFato);
             RuleFact fato = new RuleFact(nomeFato, objeto);
             fatos.add(fato);
             return this;
@@ -372,7 +376,7 @@ public class RuleEngine
         @Override
         public InformeMetodo addMetodoRule(String nomeMetodo)
         {
-            Validate.notNull(nomeMetodo, ">>>RuleEngine: nomeMetodo nao pode ser null!");
+            validarNome(nomeMetodo);
             metodoRule.add(nomeMetodo);
             return this;
         }
@@ -422,6 +426,14 @@ public class RuleEngine
             metodoRule = new ArrayList<>();
         }
 
+        private void validarNome(String nomeMetodo)
+        {
+            if (nomeMetodo == null || !isJavaMethodName(nomeMetodo))
+            {
+                myRuleMethodNameException(nomeMetodo);
+            }
+
+        }
     }
 
 }
