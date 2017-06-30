@@ -1,6 +1,6 @@
 package com.idomine.model.rules;
 
-import com.idomine.ruleengine.annotations.NotificacaoErro;
+import com.idomine.ruleengine.annotations.NotificacaoError;
 import com.idomine.ruleengine.annotations.NotificacaoInfo;
 import com.idomine.ruleengine.annotations.NotificacaoWarn;
 
@@ -18,7 +18,7 @@ public class NotificacaoHelper
         System.out.println("<<PRIMEFACES WARN>> " + msg);
     }
 
-    @NotificacaoErro
+    @NotificacaoError
     public static void erro(String msg)
     {
         System.out.println("<<PRIMEFACES ERROR>> " + msg);

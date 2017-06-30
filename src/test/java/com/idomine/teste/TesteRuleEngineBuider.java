@@ -20,10 +20,10 @@ public class TesteRuleEngineBuider
     @Test
     public void testeRuleEngine()
     {
+
         // fatos
         Fatura fatura = Fatura.getFake();
         Entidade entidade = Entidade.getFake();
-        // entidade.setEmail(null);
         fatura.setEntidade(entidade);
 
         // rules
@@ -31,43 +31,43 @@ public class TesteRuleEngineBuider
         EntidadeRule entidadeRule = new EntidadeRule();
         MercadoriaRule mercadoriaRule = new MercadoriaRule();
 
-        // Engine 1
-        RuleEngine re = RuleEngine
+        // RuleEngine 1
+        RuleEngine re1 = new RuleEngine();
+        re1.setMensagemCheckTrue("Gravado com sucesso!");
+        re1.setMensagemCheckFalse("Validacoes falharam!");
+        re1.setMensagemChecking("Checando validacoes!");
+        re1.setClassOutputMesagem(NotificacaoHelper.class);
+
+        //RuleEngine 2
+        RuleEngine re2 = RuleEngine
                 .Builder()
                 .addFato("entidade", entidade)
                 .addFato("fatura", fatura)
                 .addFato("valorMinimo", new BigDecimal(11))
 
                 .addClasseRule(faturaRule)
-                .addAllMetodoRule()
-//                .addMetodoRule("validarValor")
-//                .addMetodoRule("validarEntidade")
-//                .addMetodoRule("validarData")
-//                .addMetodoRule("validarListaRegras")
+                .addMetodoRule("validarValor")
+                .addMetodoRule("validarEntidade")
+                .addMetodoRule("validarData")
+                .addMetodoRule("validarListaRegras")
 
                 .addNovoClasseRule(entidadeRule)
-                .addAllMetodoRule()
-//                .addMetodoRule("validarNome")
-//                .addMetodoRule("validarEmail")
+                .addMetodoRule("validarNome")
+                .addMetodoRule("validarEmail")
                 .buildRules();
 
-//        re.setMensagemCheckTrue("Gravado com sucesso!");
-//        re.setMensagemCheckFalse("Validacoes falharam!");
-//        re.setMensagemChecking("Checando validacoes!");
-//        re.setClassOutputMesagem(NotificacaoHelper.class);
+        // RuleEngine 3
+        RuleEngine re3 = RuleEngine
+                .Builder()
+                .addFato("mercadoria", new Mercadoria("merc 1"))
+                .addClasseRule(mercadoriaRule)
+                .addMetodoRule("validarNomeMercadoria")
+                .buildRules();
 
-        // Engine 2
-//        RuleEngine re2 = RuleEngine
-//                .Builder()
-//                .addFato("mercadoria", new Mercadoria("merc 1"))
-//                .addClasseRule(mercadoriaRule)
-//                .addMetodoRule("validarNomeMercadoria")
-//                .buildRules();
+        // RuleEngine 1 + 2 + 3
+        re1.addRuleEngine(re2).addRuleEngine(re3);
 
-        // Engine 1 + 2
-//        re.addRuleEngine(re2);
-
-        boolean res = re.check();
+        boolean res = re1.check();
         System.out.println(">>> engine result " + res);
 
         Assert.assertTrue(res);

@@ -7,7 +7,7 @@ public class Notificacao
 {
     private boolean resultado;
     private List<Mensagem> mensagens;
-    private long prioridade;
+    private long prioridade; //?
     private String elementoToFocus;
 
     public boolean isResultado()

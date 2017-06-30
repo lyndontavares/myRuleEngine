@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.Validate;
 
-import com.idomine.ruleengine.annotations.NotificacaoErro;
+import com.idomine.ruleengine.annotations.NotificacaoError;
 import com.idomine.ruleengine.annotations.NotificacaoInfo;
 import com.idomine.ruleengine.annotations.NotificacaoWarn;
 import com.idomine.ruleengine.helper.RuleEngineHelper;
@@ -22,6 +22,12 @@ public class RuleEngine
     private List<RuleFact> fatos;
     private List<RuleModel> ruleModel;
     private Class<?> classOutputMesagem;
+
+    public RuleEngine()
+    {
+        fatos = new ArrayList<>();
+        ruleModel= new ArrayList<>();
+    }
 
     public Class<?> getClassOutputMesagem()
     {
@@ -239,7 +245,7 @@ public class RuleEngine
             }
             else if (m.getTipo().equals(MensagemTipo.ERROR) || m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE))
             {
-                RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoErro.class);
+                RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoError.class);
             }
         }
         else
@@ -282,12 +288,6 @@ public class RuleEngine
     {
         InformeAllRule addAllMetodoRule();
 
-        InformeAllRule addAllMetodoRuleQueRetornaNotificacao();
-
-        InformeAllRule addAllMetodoRuleQueRetornaListNotificacao();
-
-        InformeAllRule addAllMetodoRuleQueRetornaBoolean();
-
         InformeMetodo addMetodoRule(String nomeMetodo);
     }
 
@@ -318,12 +318,6 @@ public class RuleEngine
     public interface InformeNovoRule
     {
         InformeAllRule addAllMetodoRule();
-
-        InformeAllRule addAllMetodoRuleQueRetornaNotificacao();
-
-        InformeAllRule addAllMetodoRuleQueRetornaListNotificacao();
-
-        InformeAllRule addAllMetodoRuleQueRetornaBoolean();
 
         InformeMetodo addMetodoRule(String nomeMetodo);
     }
@@ -372,27 +366,6 @@ public class RuleEngine
         public InformeAllRule addAllMetodoRule()
         {
             metodoRule.add("@all");
-            return this;
-        }
-
-        @Override
-        public InformeAllRule addAllMetodoRuleQueRetornaNotificacao()
-        {
-            metodoRule.add("@noti");
-            return this;
-        }
-
-        @Override
-        public InformeAllRule addAllMetodoRuleQueRetornaListNotificacao()
-        {
-            metodoRule.add("@list");
-            return this;
-        }
-
-        @Override
-        public InformeAllRule addAllMetodoRuleQueRetornaBoolean()
-        {
-            metodoRule.add("@bool");
             return this;
         }
 

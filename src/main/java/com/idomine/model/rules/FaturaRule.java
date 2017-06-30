@@ -3,11 +3,10 @@ package com.idomine.model.rules;
 import static com.idomine.model.helper.ExpressaoLogicaHelper.maiorOuIgualQue;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.idomine.model.Entidade;
 import com.idomine.model.Fatura;
+import com.idomine.ruleengine.annotations.Condition;
 import com.idomine.ruleengine.annotations.InjectFact;
 import com.idomine.ruleengine.notification.Notificacao;
 
@@ -22,6 +21,7 @@ public class FaturaRule
     @InjectFact(name = "valorMinimo")
     private BigDecimal valor;
 
+    @Condition(priorite=1)
     public Notificacao validarValor()
     {
         boolean regra = maiorOuIgualQue(fatura.getValor(), valor);
@@ -36,6 +36,7 @@ public class FaturaRule
 
     }
 
+    @Condition(priorite=2)
     public Notificacao validarEntidade()
     {
         boolean regra = fatura.getEntidade() != null;
@@ -45,6 +46,7 @@ public class FaturaRule
                 .addMensagemFalse("2 Informe uma entidade para fatura.");
     }
 
+    @Condition(priorite=3)
     public Notificacao validarData()
     {
         boolean regra = fatura.getEmissao() != null;
@@ -55,14 +57,25 @@ public class FaturaRule
                 .addMensagemFalse("3 Informe data emissao da fatura");
     }
 
-    public List<Notificacao> validarListaRegras()
+    @Condition(priorite=4)
+    public Notificacao validarListaRegras()
     {
-        List<Notificacao> notificacoes = new ArrayList<>();
+        Notificacao notificacao = new Notificacao();
         Notificacao regraUm = regraUm();
-        notificacoes.add(regraUm);
-        if (regraUm.isResultado())
-            notificacoes.add(regraDois());
-        return notificacoes;
+        
+        //criar metodos fluente para rule
+        notificacao.setElementoToFocus( regraUm.getElementoToFocus() );
+        notificacao.setMensagens(regraUm.getMensagens());
+        notificacao.setResultado(regraUm.isResultado());
+        
+        if (notificacao.isResultado())
+        {
+            notificacao.setElementoToFocus( regraDois().getElementoToFocus() );
+            notificacao.getMensagens().addAll( regraDois().getMensagens());
+            notificacao.setResultado(regraDois().isResultado());
+        }
+        
+        return notificacao;
     }
 
     private Notificacao regraUm()
@@ -70,7 +83,7 @@ public class FaturaRule
         boolean regra = true;
         return new Notificacao()
                 .expressaoLogica(regra)
-                .addMensagemInfo("4 regra 1 checada")
+                .addMensagemInfo("4 Regra 1 checada")
                 .addMensagemFalse("4 Regra 1 da fatura falhou");
     }
 

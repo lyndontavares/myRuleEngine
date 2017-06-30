@@ -1,5 +1,7 @@
 package com.idomine.ruleengine.helper;
 
+import static com.idomine.ruleengine.exceptions.ExceptionHelper.*;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -9,6 +11,7 @@ import java.util.List;
 
 import com.idomine.ruleengine.RuleFact;
 import com.idomine.ruleengine.annotations.InjectFact;
+import com.idomine.ruleengine.exceptions.MyRuleReturnTypeException;
 import com.idomine.ruleengine.notification.Notificacao;
 
 public final class RuleEngineHelper
@@ -22,8 +25,11 @@ public final class RuleEngineHelper
         Object retorno = false;
         for (Method m : o.getClass().getMethods())
         {
-            if (m.getName().equals(metodo))
+            if (m.getName().equals(metodo) )
             {
+                
+                checarTipoRetornoMetodo(m);
+                
                 try
                 {
                     retorno = m.invoke(o);
@@ -36,6 +42,14 @@ public final class RuleEngineHelper
             }
         }
         return retorno;
+    }
+
+    private static void checarTipoRetornoMetodo(Method m)
+    {
+        if ( !m.getReturnType().equals(Notificacao.class))
+        {
+            myRuleReturnTypeException(m.getName());
+        }
     }
 
     public static void executeNotificacao(Class<?> o, String msg, Class<?> anotacao)
