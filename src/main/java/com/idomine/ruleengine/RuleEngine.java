@@ -1,12 +1,12 @@
 package com.idomine.ruleengine;
 
+import static com.idomine.ruleengine.exceptions.ExceptionHelper.checkNull;
+import static com.idomine.ruleengine.exceptions.ExceptionHelper.myRuleException;
 import static com.idomine.ruleengine.exceptions.ExceptionHelper.myRuleMethodNameException;
 import static com.idomine.ruleengine.helper.JavaClassHelper.isJavaMethodName;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.lang.Validate;
 
 import com.idomine.ruleengine.annotations.NotificacaoError;
 import com.idomine.ruleengine.annotations.NotificacaoInfo;
@@ -176,7 +176,7 @@ public class RuleEngine
     private boolean checarNotificacaoExecutantoAllMetodos(Object rule)
     {
         List<String> metodos = RuleEngineHelper.metodosNotificaveis(rule);
-        Validate.notNull(metodos, ">>>RuleEngine: Nenhum metodo notificavel em " + rule.getClass().getName());
+        checkNull(metodos,  rule.getClass().getName());
 
         boolean result = false;
         for (String metodo : metodos)
@@ -219,7 +219,6 @@ public class RuleEngine
             retorno = ((Notificacao) result).isResultado();
             List<Mensagem> mensagens = ((Notificacao) result).getMensagens();
             showNoticacoes(mensagens, retorno);
-
         }
         else if (result.getClass().equals(Boolean.class))
         {
@@ -227,7 +226,7 @@ public class RuleEngine
         }
         else
         {
-            Validate.isTrue(false, ">>>RuleEngine: MetodoRule deve retornar Boolean ou Notification");
+            myRuleException( "MetodoRule deve retornar Boolean ou Notification");
         }
         return retorno;
     }
@@ -361,7 +360,7 @@ public class RuleEngine
         @Override
         public InformeRule addClasseRule(Object rule)
         {
-            Validate.notNull(rule, ">>>RuleEngine: Rule nao pode ser null!");
+            checkNull(rule, "Rule nao pode ser null!");
             iniciarRule(rule);
             return this;
         }
@@ -384,7 +383,7 @@ public class RuleEngine
         @Override
         public InformeNovoRule addNovoClasseRule(Object rule)
         {
-            Validate.notNull(rule, ">>>RuleEngine: Rule nao pode ser null!");
+            checkNull(rule, "Rule nao pode ser null!");
             adicionarRuleModel();
             iniciarRule(rule);
             return this;
