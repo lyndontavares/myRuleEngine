@@ -46,7 +46,7 @@ public class TesteAddAllRuleRuleEngineBuider
         re.setMensagemChecking("Checando validacoes!");
         re.setClassOutputMesagem(NotificacaoHelper.class);
 
-        boolean res = re.check();
+        boolean res = re.fireRules();
         System.out.println(">>> engine result " + res);
 
         Assert.assertTrue(res);

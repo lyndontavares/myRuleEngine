@@ -67,7 +67,7 @@ public class TesteRuleEngineBuider
         // RuleEngine 1 + 2 + 3
         re1.addRuleEngine(re2).addRuleEngine(re3);
 
-        boolean res = re1.checkRules();
+        boolean res = re1.fireRules();
         System.out.println(">>> engine result " + res);
 
         Assert.assertTrue(res);
