@@ -382,7 +382,7 @@ public class RuleEngine
         @Override
         public InformeFato addFato(String nomeFato, Object objeto)
         {
-            validarNome(nomeFato);
+            verificarNomeValido(nomeFato);
             RuleFact fato = new RuleFact(nomeFato, objeto);
             fatos.add(fato);
             return this;
@@ -406,7 +406,7 @@ public class RuleEngine
         @Override
         public InformeMetodo addMetodoRule(String nomeMetodo)
         {
-            validarNome(nomeMetodo);
+            verificarNomeValido(nomeMetodo);
             verificarNomeMetodoRepetido(nomeMetodo);
             verificarMetodoNotificavel(nomeMetodo);
             metodoRule.add(nomeMetodo);
@@ -467,7 +467,7 @@ public class RuleEngine
             metodoRule = new ArrayList<>();
         }
 
-        private void validarNome(String nomeMetodo)
+        private void verificarNomeValido(String nomeMetodo)
         {
             if (nomeMetodo == null || !isJavaMethodName(nomeMetodo))
             {
