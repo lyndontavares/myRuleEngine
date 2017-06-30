@@ -1,8 +1,9 @@
 package com.idomine.ruleengine;
 
+import static com.idomine.ruleengine.helper.RuleEngineHelper.*;
 import static com.idomine.ruleengine.exceptions.ExceptionHelper.checkNull;
 import static com.idomine.ruleengine.exceptions.ExceptionHelper.myRuleException;
-import static com.idomine.ruleengine.exceptions.ExceptionHelper.myRuleMethodNameException;
+import static com.idomine.ruleengine.exceptions.ExceptionHelper.*;
 import static com.idomine.ruleengine.helper.JavaClassHelper.isJavaMethodName;
 
 import java.util.ArrayList;
@@ -376,9 +377,12 @@ public class RuleEngine
         public InformeMetodo addMetodoRule(String nomeMetodo)
         {
             validarNome(nomeMetodo);
+            verificarNomeMetodoRepetido(nomeMetodo);
+            verificarMetodoNotificavel(nomeMetodo);
             metodoRule.add(nomeMetodo);
             return this;
         }
+
 
         @Override
         public InformeNovoRule addNovoClasseRule(Object rule)
@@ -431,8 +435,21 @@ public class RuleEngine
             {
                 myRuleMethodNameException(nomeMetodo);
             }
-
         }
+
+        private void verificarNomeMetodoRepetido(String nomeMetodo)
+        {
+           if ( metodoRule.indexOf((Object) nomeMetodo)>-1)
+           {
+               myRuleMethodNameRepetitionException(nomeMetodo);
+           }
+        }
+        
+        private void verificarMetodoNotificavel(String nomeMetodo)
+        {
+           checkIsTrue( metodoNotificavel(rule, nomeMetodo),"Metodo ["+nomeMetodo+"] nao declarado  em "+rule.getClass());
+        }
+        
     }
 
 }

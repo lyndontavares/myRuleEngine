@@ -2,8 +2,6 @@ package com.idomine.ruleengine.exceptions;
 
 public final class ExceptionHelper
 {
-    private static String RULE_ENGINE = ">>>MyRuleEgine: ";
-
     private ExceptionHelper()
     {
     }
@@ -20,27 +18,32 @@ public final class ExceptionHelper
     }
     public static void myRuleException(String message)
     {
-        String messageTypeError = RULE_ENGINE ;
-        throwException(new MyRuleGeneralException(messageTypeError));
+        throwException(new MyRuleGeneralException(message));
     }
 
     public static void myRuleReturnTypeException(String message)
     {
-        String messageTypeError = RULE_ENGINE + "O tipo de retorno do método " + message
+        String messageTypeError ="O tipo de retorno do método " + message
                 + " notificável deve ser Ntificacao. ";
         throwException(new MyRuleReturnTypeException(messageTypeError));
     }
 
     public static void myRuleMethodNameException(String message)
     {
-        String messageTypeError = RULE_ENGINE + "Nome do método " + message
-                + " inválido. Use regra java para nome de método.";
+        String messageTypeError = "Nome do método [" + message
+                + "] inválido. Use regra da liguagem Java para nome de método.";
         throwException(new MyRuleMethodNameException(messageTypeError));
+    }
+
+    public static void myRuleMethodNameRepetitionException(String message)
+    {
+        String messageTypeError = "metodoNome [" + message  + "]  já adicionado.";
+        throwException(new MyRuleMethodNameRepetitionException(messageTypeError));
     }
 
     public static void myRuleNullException(String message)
     {
-        String messageTypeError = RULE_ENGINE + "Objeto não pode ser null: " + message;
+        String messageTypeError =  "Objeto não pode ser null: " + message;
         throwException(new MyRuleNullException(messageTypeError));
     }
 
@@ -66,6 +69,5 @@ public final class ExceptionHelper
             myRuleException(message);
         }
     }
-
 
 }
