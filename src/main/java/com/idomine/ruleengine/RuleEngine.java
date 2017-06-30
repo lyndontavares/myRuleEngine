@@ -286,14 +286,15 @@ public class RuleEngine
 
     private void showNoticacoes(List<Mensagem> mensagens, boolean retorno)
     {
-        for (Mensagem m : mensagens)
-        {
-            if ((retorno && !m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE)) ||
-                    (!retorno && !m.getTipo().equals(MensagemTipo.EXPRESSAO_TRUE)))
+        if (isNotifications())
+            for (Mensagem m : mensagens)
             {
-                showNotificacao(m);
+                if ((retorno && !m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE)) ||
+                        (!retorno && !m.getTipo().equals(MensagemTipo.EXPRESSAO_TRUE)))
+                {
+                    showNotificacao(m);
+                }
             }
-        }
     }
 
     // step 1
