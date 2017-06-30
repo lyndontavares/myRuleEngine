@@ -7,14 +7,14 @@ public class RuleModel
 
     private Object rule;
     
-    private List<String> metodoRule;
+    private List<RuleMethod> metodoRule;
 
     public Object getRule()
     {
         return rule;
     }
 
-    public List<String> getMetodoRule()
+    public List<RuleMethod> getMetodoRule()
     {
         return metodoRule;
     }
@@ -24,10 +24,12 @@ public class RuleModel
         this.rule = rule;
     }
 
-    public void setMetodoRule(List<String> metodoRule)
+    public void setMetodoRule(List<RuleMethod> metodoRule)
     {
         this.metodoRule = metodoRule;
     }
+
+ 
     
     
 }

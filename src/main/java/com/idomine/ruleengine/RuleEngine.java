@@ -139,7 +139,7 @@ public class RuleEngine
         {
             RuleEngineHelper.prepareFacts(ruleModel.getRule(), fatos);
 
-            if (ruleModel.getMetodoRule().get(0).equals("@all"))
+            if (ruleModel.getMetodoRule().get(0).getNome().equals("@all"))
             {
                 result = checarNotificacaoExecutantoAllMetodos(ruleModel.getRule());
             }
@@ -187,9 +187,9 @@ public class RuleEngine
     private boolean checarNotificacaoExecutandoMedodo(RuleModel ruleModel)
     {
         boolean result = false;
-        for (String metodoRule : ruleModel.getMetodoRule())
+        for (RuleMethod metodoRule : ruleModel.getMetodoRule())
         {
-            result = checarNotificacao(RuleEngineHelper.execute(ruleModel.getRule(), metodoRule));
+            result = checarNotificacao(RuleEngineHelper.execute(ruleModel.getRule(), metodoRule.getNome()));
             if (!result)
             {
                 break;
@@ -373,7 +373,7 @@ public class RuleEngine
         List<RuleModel> ruleModels;
         RuleModel ruleModel;
         Object rule;
-        List<String> metodoRule;
+        List<RuleMethod> metodoRule;
 
         public Builder()
         {
@@ -401,7 +401,7 @@ public class RuleEngine
         @Override
         public InformeAllRule addAllMetodoRule()
         {
-            metodoRule.add("@all");
+            metodoRule.add(new RuleMethod("@all"));
             return this;
         }
 
@@ -411,7 +411,7 @@ public class RuleEngine
             verificarNomeValido(nomeMetodo);
             verificarNomeMetodoRepetido(nomeMetodo);
             verificarMetodoNotificavel(nomeMetodo);
-            metodoRule.add(nomeMetodo);
+            metodoRule.add(new RuleMethod(nomeMetodo));
             return this;
         }
 

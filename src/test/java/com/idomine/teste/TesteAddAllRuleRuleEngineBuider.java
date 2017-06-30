@@ -38,7 +38,7 @@ public class TesteAddAllRuleRuleEngineBuider
                 .addAllMetodoRule()
 
                 .addNovoClasseRule(entidadeRule)
-                .addAllMetodoRule()
+                .addMetodoRule("validarEmail")
                 .buildRules();
 
         re.setMensagemCheckTrue("Gravado com sucesso!");
