@@ -19,7 +19,8 @@ import com.idomine.ruleengine.notification.Notificacao;
 
 public class RuleEngine
 {
-    boolean result;
+    private boolean result;
+    private boolean notifications = false;
     private String mensagemChecking;
     private String mensagemCheckTrue;
     private String mensagemCheckFalse;
@@ -31,6 +32,16 @@ public class RuleEngine
     {
         fatos = new ArrayList<>();
         ruleModel = new ArrayList<>();
+    }
+
+    public void setNotifications(boolean notifications)
+    {
+        this.notifications = notifications;
+    }
+
+    public boolean isNotifications()
+    {
+        return notifications;
     }
 
     public Class<?> getClassOutputMesagem()
@@ -106,7 +117,19 @@ public class RuleEngine
 
     // check
 
-    public boolean check()
+    public boolean fireRules()
+    {
+        setNotifications(true);
+        return runRules();
+    }
+
+    public boolean checkRules()
+    {
+        setNotifications(false);
+        return runRules();
+    }
+
+    private boolean runRules()
     {
         showMensagemChecking();
 
@@ -138,16 +161,16 @@ public class RuleEngine
 
     private void showMensagemChecking()
     {
-        if (mensagemChecking != null)
-        {
-            showNotificacao(new Mensagem(mensagemChecking, MensagemTipo.INFO));
-        }
+
+        showNotificacao(new Mensagem(mensagemChecking, MensagemTipo.INFO));
+
     }
 
     // mensagemCheckTrue mensagemCheckFalse
 
     private void showMensagemCheck()
     {
+
         if (result && mensagemCheckTrue != null)
         {
             showNotificacao(new Mensagem(mensagemCheckTrue, MensagemTipo.INFO));
@@ -156,6 +179,7 @@ public class RuleEngine
         {
             showNotificacao(new Mensagem(mensagemCheckFalse, MensagemTipo.ERROR));
         }
+
     }
 
     // Notification
@@ -177,7 +201,7 @@ public class RuleEngine
     private boolean checarNotificacaoExecutantoAllMetodos(Object rule)
     {
         List<String> metodos = RuleEngineHelper.metodosNotificaveis(rule);
-        checkNull(metodos,  rule.getClass().getName());
+        checkNull(metodos, rule.getClass().getName());
 
         boolean result = false;
         for (String metodo : metodos)
@@ -227,7 +251,7 @@ public class RuleEngine
         }
         else
         {
-            myRuleException( "MetodoRule deve retornar Boolean ou Notification");
+            myRuleException("MetodoRule deve retornar Boolean ou Notification");
         }
         return retorno;
     }
@@ -236,24 +260,27 @@ public class RuleEngine
 
     private void showNotificacao(Mensagem m)
     {
-        if (classOutputMesagem != null)
+        if (isNotifications())
         {
-            if (m.getTipo().equals(MensagemTipo.INFO) || m.getTipo().equals(MensagemTipo.EXPRESSAO_TRUE))
+            if (classOutputMesagem != null)
             {
-                RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoInfo.class);
+                if (m.getTipo().equals(MensagemTipo.INFO) || m.getTipo().equals(MensagemTipo.EXPRESSAO_TRUE))
+                {
+                    RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoInfo.class);
+                }
+                else if (m.getTipo().equals(MensagemTipo.ADVERTENCIA))
+                {
+                    RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoWarn.class);
+                }
+                else if (m.getTipo().equals(MensagemTipo.ERROR) || m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE))
+                {
+                    RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoError.class);
+                }
             }
-            else if (m.getTipo().equals(MensagemTipo.ADVERTENCIA))
+            else
             {
-                RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoWarn.class);
+                System.out.println("<<" + m.getTipo() + ">> " + m.getTexto());
             }
-            else if (m.getTipo().equals(MensagemTipo.ERROR) || m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE))
-            {
-                RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoError.class);
-            }
-        }
-        else
-        {
-            System.out.println("<<" + m.getTipo() + ">> " + m.getTexto());
         }
     }
 
@@ -330,6 +357,8 @@ public class RuleEngine
     public interface BuildRules
     {
         boolean fireRules();
+
+        boolean checkRules();
     }
 
     // builder
@@ -383,7 +412,6 @@ public class RuleEngine
             return this;
         }
 
-
         @Override
         public InformeNovoRule addNovoClasseRule(Object rule)
         {
@@ -409,7 +437,16 @@ public class RuleEngine
             RuleEngine re = new RuleEngine();
             re.setRuleModel(ruleModels);
             re.setFatos(fatos);
-            return re.check();
+            return re.fireRules();
+        }
+
+        @Override
+        public boolean checkRules()
+        {
+            RuleEngine re = new RuleEngine();
+            re.setRuleModel(ruleModels);
+            re.setFatos(fatos);
+            return re.checkRules();
         }
 
         private void adicionarRuleModel()
@@ -439,17 +476,18 @@ public class RuleEngine
 
         private void verificarNomeMetodoRepetido(String nomeMetodo)
         {
-           if ( metodoRule.indexOf((Object) nomeMetodo)>-1)
-           {
-               myRuleMethodNameRepetitionException(nomeMetodo);
-           }
+            if (metodoRule.indexOf((Object) nomeMetodo) > -1)
+            {
+                myRuleMethodNameRepetitionException(nomeMetodo);
+            }
         }
-        
+
         private void verificarMetodoNotificavel(String nomeMetodo)
         {
-           checkIsTrue( metodoNotificavel(rule, nomeMetodo),"Metodo ["+nomeMetodo+"] nao declarado  em "+rule.getClass());
+            checkIsTrue(metodoNotificavel(rule, nomeMetodo),
+                    "Metodo [" + nomeMetodo + "] nao declarado  em " + rule.getClass());
         }
-        
+
     }
 
 }
