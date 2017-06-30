@@ -342,6 +342,8 @@ public class RuleEngine
         RuleEngine buildRules();
 
         boolean fireRules();
+
+        boolean checkRules();
     }
 
     // step 6
