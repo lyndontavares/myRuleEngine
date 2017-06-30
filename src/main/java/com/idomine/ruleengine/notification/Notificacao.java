@@ -7,8 +7,8 @@ public class Notificacao
 {
     private boolean resultado;
     private List<Mensagem> mensagens;
-    private long prioridade; //?
-    private String elementoToFocus;
+    private long prioridade;
+    private String notificationContext;
 
     public boolean isResultado()
     {
@@ -35,24 +35,14 @@ public class Notificacao
         return prioridade;
     }
 
-    public String getElementoToFocus()
-    {
-        return elementoToFocus;
-    }
-
     public void setPrioridade(long prioridade)
     {
         this.prioridade = prioridade;
     }
 
-    public void setElementoToFocus(String elementoToFocus)
-    {
-        this.elementoToFocus = elementoToFocus;
-    }
-
     public Notificacao(String mensagem, MensagemTipo tipo)
     {
-        addMensagem(new Mensagem(mensagem,tipo));
+        addMensagem(new Mensagem(mensagem, tipo));
     }
 
     public Notificacao()
@@ -60,49 +50,63 @@ public class Notificacao
         mensagens = new ArrayList<>();
     }
 
-    
-    
-    
-    //
-    
+    public String getNotificationContext()
+    {
+        return notificationContext;
+    }
+
+    public void setNotificationContext(String notificationContext)
+    {
+        this.notificationContext = notificationContext;
+    }
+
+    // fluente
+
     public Notificacao addMensagem(Mensagem mensagem)
     {
         mensagens.add(mensagem);
         return this;
     }
 
+    public Notificacao addMensagemContext(String mensagem)
+    {
+        mensagens.add(new Mensagem(mensagem, MensagemTipo.CONTEXT));
+        return this;
+    }
+
     public Notificacao addMensagemTrue(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem,MensagemTipo.EXPRESSAO_TRUE));
+        mensagens.add(new Mensagem(mensagem, MensagemTipo.EXPRESSAO_TRUE));
         return this;
     }
 
     public Notificacao addMensagemFalse(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem,MensagemTipo.EXPRESSAO_FALSE));
+        mensagens.add(new Mensagem(mensagem, MensagemTipo.EXPRESSAO_FALSE));
         return this;
     }
+
     public Notificacao addMensagemInfo(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem,MensagemTipo.INFO));
+        mensagens.add(new Mensagem(mensagem, MensagemTipo.INFO));
         return this;
     }
 
     public Notificacao addMensagemAdvertencia(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem,MensagemTipo.ADVERTENCIA));
+        mensagens.add(new Mensagem(mensagem, MensagemTipo.ADVERTENCIA));
         return this;
     }
 
     public Notificacao addMensagemErro(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem,MensagemTipo.ERROR));
+        mensagens.add(new Mensagem(mensagem, MensagemTipo.ERROR));
         return this;
     }
-    
+
     public Notificacao expressaoLogica(boolean resultado)
     {
-        this.resultado=resultado;
+        this.resultado = resultado;
         return this;
     }
 

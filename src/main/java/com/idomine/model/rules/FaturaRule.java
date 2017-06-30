@@ -64,13 +64,13 @@ public class FaturaRule
         Notificacao regraUm = regraUm();
         
         //criar metodos fluente para rule
-        notificacao.setElementoToFocus( regraUm.getElementoToFocus() );
+        notificacao.setNotificationContext( regraUm.getNotificationContext() );
         notificacao.setMensagens(regraUm.getMensagens());
         notificacao.setResultado(regraUm.isResultado());
         
         if (notificacao.isResultado())
         {
-            notificacao.setElementoToFocus( regraDois().getElementoToFocus() );
+            notificacao.setNotificationContext( regraDois().getNotificationContext() );
             notificacao.getMensagens().addAll( regraDois().getMensagens());
             notificacao.setResultado(regraDois().isResultado());
         }
