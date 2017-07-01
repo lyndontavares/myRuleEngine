@@ -21,7 +21,7 @@ public class FaturaRule
     @InjectFact(name = "valorMinimo")
     private BigDecimal valor;
 
-    @Condition(prioridade=10)
+    @Condition(prioridade=1)
     public Notificacao validarValor()
     {
         boolean regra = maiorOuIgualQue(fatura.getValor(), valor);
@@ -32,7 +32,6 @@ public class FaturaRule
                 //.addMensagemAdvertencia("Teste msg warning!")
                 //.addMensagemErro("1 Teste msg erro!")
                 //.addMensagemTrue("1 Valor fatura passou na checagem")
-                .addMensagemContext("valorFatura")
                 .addMensagemFalse("1 valor fatura deve ser maior ou igual a " + valor);
 
     }
@@ -90,11 +89,12 @@ public class FaturaRule
 
     private Notificacao regraDois()
     {
-        boolean regra = true;
+        boolean regra = false;
         return new Notificacao()
                 .expressaoLogica(regra)
                 .addMensagemInfo("5 Regra 2 checada")
-                .addMensagemFalse("5 Regra 2 da fatura falhou");
+                .addMensagemFalse("5 Regra 2 da fatura falhou")
+                .addMensagemContext("regradois");
     }
 
 }
