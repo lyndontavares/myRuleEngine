@@ -1,8 +1,8 @@
 package com.idomine.business;
 
 import com.idomine.model.Person;
-import com.idomine.ruleengine.annotations.InjectFact;
-import com.idomine.ruleengine.notification.Notification;
+import com.idomine.myruleengine.annotations.InjectFact;
+import com.idomine.myruleengine.notification.Notification;
 
 public class PersonRule  
 {

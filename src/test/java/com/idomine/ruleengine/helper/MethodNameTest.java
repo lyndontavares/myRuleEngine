@@ -2,8 +2,9 @@ package com.idomine.ruleengine.helper;
 
 import org.junit.Test;
 
+import com.idomine.myruleengine.helper.MyRuleJavaClassHelper;
+
 import static org.junit.Assert.*;
-import com.idomine.ruleengine.helper.MyRuleJavaClassHelper;
 
 public class MethodNameTest
 {

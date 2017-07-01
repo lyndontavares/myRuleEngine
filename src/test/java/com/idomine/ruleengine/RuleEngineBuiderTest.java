@@ -11,8 +11,8 @@ import com.idomine.business.ProductRule;
 import com.idomine.business.SaleRule;
 import com.idomine.model.Person;
 import com.idomine.model.Sale;
+import com.idomine.myruleengine.RuleEngine;
 import com.idomine.model.Product;
-import com.idomine.ruleengine.RuleEngine;
 
 public class RuleEngineBuiderTest
 {

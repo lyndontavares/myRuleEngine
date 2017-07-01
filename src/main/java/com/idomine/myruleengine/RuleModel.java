@@ -1,4 +1,4 @@
-package com.idomine.ruleengine;
+package com.idomine.myruleengine;
 
 import java.util.List;
 

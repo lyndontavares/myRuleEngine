@@ -1,6 +1,6 @@
-package com.idomine.ruleengine.helper;
+package com.idomine.myruleengine.helper;
 
-import static com.idomine.ruleengine.exceptions.ExceptionHelper.myRuleReturnTypeException;
+import static com.idomine.myruleengine.exceptions.ExceptionHelper.myRuleReturnTypeException;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.idomine.ruleengine.RuleFact;
-import com.idomine.ruleengine.RuleMethod;
-import com.idomine.ruleengine.annotations.RuleCondition;
-import com.idomine.ruleengine.annotations.InjectFact;
-import com.idomine.ruleengine.notification.Notification;
+import com.idomine.myruleengine.RuleFact;
+import com.idomine.myruleengine.RuleMethod;
+import com.idomine.myruleengine.annotations.InjectFact;
+import com.idomine.myruleengine.annotations.RuleCondition;
+import com.idomine.myruleengine.notification.Notification;
 
 public final class MyRuleReflectionHelper
 {

@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 
 import com.idomine.model.Person;
 import com.idomine.model.Sale;
-import com.idomine.ruleengine.annotations.RuleCondition;
-import com.idomine.ruleengine.annotations.InjectFact;
-import com.idomine.ruleengine.notification.Notification;
+import com.idomine.myruleengine.annotations.InjectFact;
+import com.idomine.myruleengine.annotations.RuleCondition;
+import com.idomine.myruleengine.notification.Notification;
 
 public class SaleRule
 {

@@ -1,9 +1,9 @@
 package com.idomine.business;
 
-import com.idomine.ruleengine.annotations.NotifyCustom;
-import com.idomine.ruleengine.annotations.NotifyError;
-import com.idomine.ruleengine.annotations.NotifyInformation;
-import com.idomine.ruleengine.annotations.NotifyWarning;
+import com.idomine.myruleengine.annotations.NotifyCustom;
+import com.idomine.myruleengine.annotations.NotifyError;
+import com.idomine.myruleengine.annotations.NotifyInformation;
+import com.idomine.myruleengine.annotations.NotifyWarning;
 
 public class NotificationsHelper
 {

@@ -1,4 +1,4 @@
-package com.idomine.ruleengine.annotations;
+package com.idomine.myruleengine.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface NotifyInformation
+public @interface NotifyCustom
 {
 
 }

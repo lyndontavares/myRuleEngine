@@ -10,8 +10,8 @@ import org.junit.Test;
 import com.idomine.business.SaleRule;
 import com.idomine.model.Person;
 import com.idomine.model.Sale;
-import com.idomine.ruleengine.RuleFact;
-import com.idomine.ruleengine.helper.MyRuleReflectionHelper;
+import com.idomine.myruleengine.RuleFact;
+import com.idomine.myruleengine.helper.MyRuleReflectionHelper;
 
 public class MyRuleEngineReflectionHelperTest
 {

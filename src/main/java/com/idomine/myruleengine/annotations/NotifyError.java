@@ -1,4 +1,4 @@
-package com.idomine.ruleengine.annotations;
+package com.idomine.myruleengine.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -10,7 +10,7 @@ import com.idomine.business.PersonRule;
 import com.idomine.business.SaleRule;
 import com.idomine.model.Person;
 import com.idomine.model.Sale;
-import com.idomine.ruleengine.RuleEngine;
+import com.idomine.myruleengine.RuleEngine;
 
 public class AddAllRuleTest
 {

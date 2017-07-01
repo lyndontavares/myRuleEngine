@@ -1,4 +1,4 @@
-package com.idomine.ruleengine.exceptions;
+package com.idomine.myruleengine.exceptions;
 
 public class MyRuleMethodNameRepetitionException extends Throwable
 {

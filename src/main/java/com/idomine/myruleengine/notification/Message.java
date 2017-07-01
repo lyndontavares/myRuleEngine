@@ -1,4 +1,4 @@
-package com.idomine.ruleengine.notification;
+package com.idomine.myruleengine.notification;
 
 public class Message
 {

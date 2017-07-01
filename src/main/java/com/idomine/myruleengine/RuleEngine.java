@@ -1,22 +1,20 @@
-package com.idomine.ruleengine;
+package com.idomine.myruleengine;
 
-import static com.idomine.ruleengine.helper.MyRuleReflectionHelper.*;
-import static com.idomine.ruleengine.exceptions.ExceptionHelper.checkNull;
-import static com.idomine.ruleengine.exceptions.ExceptionHelper.myRuleException;
-import static com.idomine.ruleengine.exceptions.ExceptionHelper.*;
-import static com.idomine.ruleengine.helper.MyRuleJavaClassHelper.isJavaMethodName;
+import static com.idomine.myruleengine.exceptions.ExceptionHelper.*;
+import static com.idomine.myruleengine.helper.MyRuleJavaClassHelper.isJavaMethodName;
+import static com.idomine.myruleengine.helper.MyRuleReflectionHelper.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.idomine.ruleengine.annotations.NotifyCustom;
-import com.idomine.ruleengine.annotations.NotifyError;
-import com.idomine.ruleengine.annotations.NotifyInformation;
-import com.idomine.ruleengine.annotations.NotifyWarning;
-import com.idomine.ruleengine.helper.MyRuleReflectionHelper;
-import com.idomine.ruleengine.notification.Message;
-import com.idomine.ruleengine.notification.MessageType;
-import com.idomine.ruleengine.notification.Notification;
+import com.idomine.myruleengine.annotations.NotifyCustom;
+import com.idomine.myruleengine.annotations.NotifyError;
+import com.idomine.myruleengine.annotations.NotifyInformation;
+import com.idomine.myruleengine.annotations.NotifyWarning;
+import com.idomine.myruleengine.helper.MyRuleReflectionHelper;
+import com.idomine.myruleengine.notification.Message;
+import com.idomine.myruleengine.notification.MessageType;
+import com.idomine.myruleengine.notification.Notification;
 
 public class RuleEngine
 {

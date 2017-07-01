@@ -1,4 +1,4 @@
-package com.idomine.ruleengine.helper;
+package com.idomine.myruleengine.helper;
 
 import java.util.Arrays;
 import java.util.HashSet;
