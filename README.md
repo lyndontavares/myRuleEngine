@@ -10,7 +10,7 @@ myRuleEngine is released under the terms of the MIT license:
 ```
 The MIT License (MIT)
 
-Copyright (c) 2017 Mahmoud Ben Hassine (mahmoud.benhassine@icloud.com)
+Copyright (c) 2017, Lyndon Tavares (integraldominio@gmail.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
