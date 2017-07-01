@@ -44,7 +44,7 @@ public class RuleEngineBuiderTest
     public void testeRuleEngine()
     {
 
-        // fatos
+        // facts
         Sale fatura = Sale.getFake();
         Person entidade = Person.getFake();
         fatura.setEntidade(entidade);
