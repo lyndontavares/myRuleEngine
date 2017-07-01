@@ -1,31 +1,31 @@
-package com.idomine.model.rules;
+package com.idomine.business;
 
-import static com.idomine.model.helper.ExpressaoLogicaHelper.maiorOuIgualQue;
+import static com.idomine.business.helper.LogicHelper.moreThenOrEquals;
 
 import java.math.BigDecimal;
 
-import com.idomine.model.Entidade;
-import com.idomine.model.Fatura;
-import com.idomine.ruleengine.annotations.Condition;
+import com.idomine.model.Person;
+import com.idomine.model.Sale;
+import com.idomine.ruleengine.annotations.RuleCondition;
 import com.idomine.ruleengine.annotations.InjectFact;
-import com.idomine.ruleengine.notification.Notificacao;
+import com.idomine.ruleengine.notification.Notification;
 
-public class FaturaRule
+public class SaleRule
 {
     @InjectFact(name = "fatura")
-    public Fatura fatura;
+    public Sale fatura;
 
     @InjectFact(name = "entidade")
-    private Entidade entidade;
+    private Person entidade;
 
     @InjectFact(name = "valorMinimo")
     private BigDecimal valor;
 
-    @Condition(prioridade=1)
-    public Notificacao validarValor()
+    @RuleCondition(prioridade=1)
+    public Notification validarValor()
     {
-        boolean regra = maiorOuIgualQue(fatura.getValor(), valor);
-        return new Notificacao()
+        boolean regra = moreThenOrEquals(fatura.getValor(), valor);
+        return new Notification()
                 .expressaoLogica(regra)
                 .addMensagemInfo("1 Checando valor fatura")
                 //.addMensagemInfo("1 Valor fatura dentro do limite de credito!")
@@ -36,32 +36,32 @@ public class FaturaRule
 
     }
 
-    @Condition(prioridade=2)
-    public Notificacao validarEntidade()
+    @RuleCondition(prioridade=2)
+    public Notification validarEntidade()
     {
         boolean regra = fatura.getEntidade() != null;
-        return new Notificacao()
+        return new Notification()
                 .expressaoLogica(regra)
                 .addMensagemInfo("2 Checando Entidade fatura")
                 .addMensagemFalse("2 Informe uma entidade para fatura.");
     }
 
-    @Condition(prioridade=3)
-    public Notificacao validarData()
+    @RuleCondition(prioridade=3)
+    public Notification validarData()
     {
         boolean regra = fatura.getEmissao() != null;
 
-        return new Notificacao()
+        return new Notification()
                 .expressaoLogica(regra)
                 .addMensagemInfo("2 Checando Data fatura")
                 .addMensagemFalse("3 Informe data emissao da fatura");
     }
 
-    @Condition(prioridade=4)
-    public Notificacao validarListaRegras()
+    @RuleCondition(prioridade=4)
+    public Notification validarListaRegras()
     {
-        Notificacao notificacao = new Notificacao();
-        Notificacao regraUm = regraUm();
+        Notification notificacao = new Notification();
+        Notification regraUm = regraUm();
         
         //criar metodos fluente para rule
         notificacao.setNotificationContext( regraUm.getNotificationContext() );
@@ -78,19 +78,19 @@ public class FaturaRule
         return notificacao;
     }
 
-    private Notificacao regraUm()
+    private Notification regraUm()
     {
         boolean regra = true;
-        return new Notificacao()
+        return new Notification()
                 .expressaoLogica(regra)
                 .addMensagemInfo("4 Regra 1 checada")
                 .addMensagemFalse("4 Regra 1 da fatura falhou");
     }
 
-    private Notificacao regraDois()
+    private Notification regraDois()
     {
-        boolean regra = false;
-        return new Notificacao()
+        boolean regra = true;
+        return new Notification()
                 .expressaoLogica(regra)
                 .addMensagemInfo("5 Regra 2 checada")
                 .addMensagemFalse("5 Regra 2 da fatura falhou")

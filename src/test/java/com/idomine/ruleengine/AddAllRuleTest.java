@@ -1,38 +1,38 @@
-package com.idomine.teste;
+package com.idomine.ruleengine;
 
 import java.math.BigDecimal;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.idomine.model.Entidade;
-import com.idomine.model.Fatura;
-import com.idomine.model.rules.EntidadeRule;
-import com.idomine.model.rules.FaturaRule;
-import com.idomine.model.rules.NotificacaoHelper;
+import com.idomine.business.NotificationsHelper;
+import com.idomine.business.PersonRule;
+import com.idomine.business.SaleRule;
+import com.idomine.model.Person;
+import com.idomine.model.Sale;
 import com.idomine.ruleengine.RuleEngine;
 
-public class TesteAddAllRuleRuleEngineBuider
+public class AddAllRuleTest
 {
 
     @Test
     public void testeRuleEngine()
     {
         // fatos
-        Fatura fatura = Fatura.getFake();
-        Entidade entidade = Entidade.getFake();
+        Sale fatura = Sale.getFake();
+        Person entidade = Person.getFake();
         fatura.setEntidade(entidade);
 
         // rules
-        FaturaRule faturaRule = new FaturaRule();
-        EntidadeRule entidadeRule = new EntidadeRule();
+        SaleRule faturaRule = new SaleRule();
+        PersonRule entidadeRule = new PersonRule();
 
         // Engine 1
         RuleEngine re = RuleEngine
                 .Builder()
                 .addFato("entidade", entidade)
                 .addFato("fatura", fatura)
-                .addFato("valorMinimo", new BigDecimal(11))
+                .addFato("valorMinimo", new BigDecimal(1L))
 
                 .addClasseRule(faturaRule)
                 .addAllMetodoRule()
@@ -44,7 +44,7 @@ public class TesteAddAllRuleRuleEngineBuider
         re.setMensagemCheckTrue("Gravado com sucesso!");
         re.setMensagemCheckFalse("Validacoes falharam!");
         re.setMensagemChecking("Checando validacoes!");
-        re.setClassOutputMesagem(NotificacaoHelper.class);
+        re.setClassOutputMesagem(NotificationsHelper.class);
 
         boolean res = re.fireRules();
         System.out.println(">>> engine result " + res);

@@ -1,31 +1,31 @@
-package com.idomine.model.rules;
+package com.idomine.business;
 
-import com.idomine.ruleengine.annotations.NotificacaoContext;
-import com.idomine.ruleengine.annotations.NotificacaoError;
-import com.idomine.ruleengine.annotations.NotificacaoInfo;
-import com.idomine.ruleengine.annotations.NotificacaoWarn;
+import com.idomine.ruleengine.annotations.NotifyCustom;
+import com.idomine.ruleengine.annotations.NotifyError;
+import com.idomine.ruleengine.annotations.NotifyInformation;
+import com.idomine.ruleengine.annotations.NotifyWarning;
 
-public class NotificacaoHelper
+public class NotificationsHelper
 {
-    @NotificacaoInfo
+    @NotifyInformation
     public static void info(String msg)
     {
         System.out.println("<<PRIMEFACES INFO>> " + msg);
     }
 
-    @NotificacaoWarn
+    @NotifyWarning
     public static void warn(String msg)
     {
         System.out.println("<<PRIMEFACES WARN>> " + msg);
     }
 
-    @NotificacaoError
+    @NotifyError
     public static void erro(String msg)
     {
         System.out.println("<<PRIMEFACES ERROR>> " + msg);
     }
 
-    @NotificacaoContext
+    @NotifyCustom
     public static void notificationContext(String msg)
     {
         System.out.println("FacesServicesUtil.receberFoco(" + msg + ");");

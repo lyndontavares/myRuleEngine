@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 
 import com.idomine.ruleengine.RuleFact;
 import com.idomine.ruleengine.RuleMethod;
-import com.idomine.ruleengine.annotations.Condition;
+import com.idomine.ruleengine.annotations.RuleCondition;
 import com.idomine.ruleengine.annotations.InjectFact;
-import com.idomine.ruleengine.notification.Notificacao;
+import com.idomine.ruleengine.notification.Notification;
 
-public final class RuleEngineHelper
+public final class MyRuleReflectionHelper
 {
-    private RuleEngineHelper()
+    private MyRuleReflectionHelper()
     {
     }
 
@@ -48,7 +48,7 @@ public final class RuleEngineHelper
 
     private static void checarTipoRetornoMetodo(Method m)
     {
-        if (!m.getReturnType().equals(Notificacao.class))
+        if (!m.getReturnType().equals(Notification.class))
         {
             myRuleReturnTypeException(m.getName());
         }
@@ -174,7 +174,7 @@ public final class RuleEngineHelper
         List<String> metodos = new ArrayList<>();
         for (Method metodo : metodosPublicos(rule))
         {
-            if (metodo.getReturnType().equals(Notificacao.class))
+            if (metodo.getReturnType().equals(Notification.class))
             {
                 metodos.add(metodo.getName());
             }
@@ -237,7 +237,7 @@ public final class RuleEngineHelper
 
         for (Method m : rule.getClass().getMethods())
         {
-            if (m.getReturnType().equals(Notificacao.class))
+            if (m.getReturnType().equals(Notification.class))
             {
                 try
                 {
@@ -258,7 +258,7 @@ public final class RuleEngineHelper
 
         for (Method m : rule.getClass().getMethods())
         {
-            if (m.getReturnType().equals(Notificacao.class))
+            if (m.getReturnType().equals(Notification.class))
             {
                 try
                 {
@@ -313,9 +313,9 @@ public final class RuleEngineHelper
         if (annotations.length != 0)
             for (int j = 0; j < annotations.length; j++)
             {
-                if (annotations[j].annotationType() == Condition.class)
+                if (annotations[j].annotationType() == RuleCondition.class)
                 {
-                    return ((Condition) annotations[j]).prioridade();
+                    return ((RuleCondition) annotations[j]).prioridade();
                 }
             }
         return 999999;

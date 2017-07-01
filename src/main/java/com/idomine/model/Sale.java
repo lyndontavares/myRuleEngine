@@ -3,7 +3,7 @@ package com.idomine.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Fatura
+public class Sale
 {
 
     private Long codigo;
@@ -12,7 +12,7 @@ public class Fatura
     
     private BigDecimal valor;
     
-    private Entidade entidade;
+    private Person entidade;
 
     public Long getCodigo()
     {
@@ -44,19 +44,19 @@ public class Fatura
         this.valor = valor;
     }
 
-    public Entidade getEntidade()
+    public Person getEntidade()
     {
         return entidade;
     }
 
-    public void setEntidade(Entidade entidade)
+    public void setEntidade(Person entidade)
     {
         this.entidade = entidade;
     }
 
-    public static Fatura getFake()
+    public static Sale getFake()
     {
-        Fatura fatura = new Fatura();
+        Sale fatura = new Sale();
         fatura.setCodigo(1000L);
         fatura.setValor(new BigDecimal(1000));
         fatura.setEmissao(new Date());

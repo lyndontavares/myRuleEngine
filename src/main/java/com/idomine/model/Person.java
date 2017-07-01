@@ -2,7 +2,7 @@ package com.idomine.model;
 
 import java.util.List;
 
-public class Entidade
+public class Person
 {
 
     private Long codigo;
@@ -11,7 +11,7 @@ public class Entidade
     
     private String email;
 
-    private List<Entidade> contatos;
+    private List<Person> contatos;
 
     public Long getCodigo()
     {
@@ -43,19 +43,19 @@ public class Entidade
         this.email = email;
     }
 
-    public List<Entidade> getContatos()
+    public List<Person> getContatos()
     {
         return contatos;
     }
 
-    public void setContatos(List<Entidade> contatos)
+    public void setContatos(List<Person> contatos)
     {
         this.contatos = contatos;
     }
 
-    public static Entidade getFake()
+    public static Person getFake()
     {
-        Entidade entidade = new Entidade();
+        Person entidade = new Person();
         entidade.setNome("Lyndon Tavares");
         entidade.setEmail("lyndon.tavares@datapar.com.py");
         return entidade;

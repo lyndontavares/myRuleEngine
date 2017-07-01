@@ -1,22 +1,22 @@
 package com.idomine.ruleengine;
 
-import static com.idomine.ruleengine.helper.RuleEngineHelper.*;
+import static com.idomine.ruleengine.helper.MyRuleReflectionHelper.*;
 import static com.idomine.ruleengine.exceptions.ExceptionHelper.checkNull;
 import static com.idomine.ruleengine.exceptions.ExceptionHelper.myRuleException;
 import static com.idomine.ruleengine.exceptions.ExceptionHelper.*;
-import static com.idomine.ruleengine.helper.JavaClassHelper.isJavaMethodName;
+import static com.idomine.ruleengine.helper.MyRuleJavaClassHelper.isJavaMethodName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.idomine.ruleengine.annotations.NotificacaoContext;
-import com.idomine.ruleengine.annotations.NotificacaoError;
-import com.idomine.ruleengine.annotations.NotificacaoInfo;
-import com.idomine.ruleengine.annotations.NotificacaoWarn;
-import com.idomine.ruleengine.helper.RuleEngineHelper;
-import com.idomine.ruleengine.notification.Mensagem;
-import com.idomine.ruleengine.notification.MensagemTipo;
-import com.idomine.ruleengine.notification.Notificacao;
+import com.idomine.ruleengine.annotations.NotifyCustom;
+import com.idomine.ruleengine.annotations.NotifyError;
+import com.idomine.ruleengine.annotations.NotifyInformation;
+import com.idomine.ruleengine.annotations.NotifyWarning;
+import com.idomine.ruleengine.helper.MyRuleReflectionHelper;
+import com.idomine.ruleengine.notification.Message;
+import com.idomine.ruleengine.notification.MessageType;
+import com.idomine.ruleengine.notification.Notification;
 
 public class RuleEngine
 {
@@ -143,7 +143,7 @@ public class RuleEngine
 
         for (RuleModel ruleModel : ruleModel)
         {
-            RuleEngineHelper.prepareFacts(ruleModel.getRule(), fatos);
+            MyRuleReflectionHelper.prepareFacts(ruleModel.getRule(), fatos);
 
             if (ruleModel.getMetodoRule().get(0).getNome().equals("@all"))
             {
@@ -167,7 +167,7 @@ public class RuleEngine
 
     private void showMensagemChecking()
     {
-        showNotificacao(new Mensagem(mensagemChecking, MensagemTipo.INFO));
+        showNotificacao(new Message(mensagemChecking, MessageType.INFO));
     }
 
     // mensagemCheckTrue mensagemCheckFalse
@@ -177,11 +177,11 @@ public class RuleEngine
 
         if (result && mensagemCheckTrue != null)
         {
-            showNotificacao(new Mensagem(mensagemCheckTrue, MensagemTipo.INFO));
+            showNotificacao(new Message(mensagemCheckTrue, MessageType.INFO));
         }
         else if (!result && mensagemCheckFalse != null)
         {
-            showNotificacao(new Mensagem(mensagemCheckFalse, MensagemTipo.ERROR));
+            showNotificacao(new Message(mensagemCheckFalse, MessageType.ERROR));
         }
 
     }
@@ -192,11 +192,11 @@ public class RuleEngine
     {
         List<RuleMethod> metodos = ruleModel.getMetodoRule();
         checkNull(metodos, ruleModel.getRule().getClass().getName());
-        metodos=RuleEngineHelper.ordenarPorPrioridade(ruleModel.getRule(), metodos );
+        metodos=MyRuleReflectionHelper.ordenarPorPrioridade(ruleModel.getRule(), metodos );
         
         for (RuleMethod metodoRule : metodos)
         {
-            result = checarNotificacao(RuleEngineHelper.execute(ruleModel.getRule(), metodoRule.getNome()));
+            result = checarNotificacao(MyRuleReflectionHelper.execute(ruleModel.getRule(), metodoRule.getNome()));
             if (!result)
             {
                 break;
@@ -207,14 +207,14 @@ public class RuleEngine
 
     private boolean checarNotificacaoExecutantoAllMetodos(Object rule)
     {
-        List<RuleMethod> metodos = RuleEngineHelper.metodosNotificaveis(rule);
+        List<RuleMethod> metodos = MyRuleReflectionHelper.metodosNotificaveis(rule);
         checkNull(metodos, rule.getClass().getName());
-        metodos=RuleEngineHelper.ordenarPorPrioridade(rule, metodos);
+        metodos=MyRuleReflectionHelper.ordenarPorPrioridade(rule, metodos);
 
         boolean result = false;
         for (RuleMethod metodo : metodos)
         {
-            result = checarNotificacao(RuleEngineHelper.execute(rule, metodo.getNome()));
+            result = checarNotificacao(MyRuleReflectionHelper.execute(rule, metodo.getNome()));
             if (!result)
             {
                 break;
@@ -225,10 +225,10 @@ public class RuleEngine
 
     private boolean checarNotificacao(Object notificacao)
     {
-        if (notificacao.getClass().equals(Notificacao.class))
+        if (notificacao.getClass().equals(Notification.class))
         {
-            result = ((Notificacao) notificacao).isResultado();
-            List<Mensagem> mensagens = ((Notificacao) notificacao).getMensagens();
+            result = ((Notification) notificacao).isResultado();
+            List<Message> mensagens = ((Notification) notificacao).getMensagens();
             showNoticacoes(mensagens, result);
         }
         else
@@ -240,27 +240,27 @@ public class RuleEngine
 
     // show notificacoes
 
-    private void showNotificacao(Mensagem m)
+    private void showNotificacao(Message m)
     {
         if (isNotifications())
         {
             if (classOutputMesagem != null)
             {
-                if (m.getTipo().equals(MensagemTipo.INFO) || m.getTipo().equals(MensagemTipo.EXPRESSAO_TRUE))
+                if (m.getTipo().equals(MessageType.INFO) || m.getTipo().equals(MessageType.EXPRESSAO_TRUE))
                 {
-                    RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoInfo.class);
+                    MyRuleReflectionHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotifyInformation.class);
                 }
-                else if (m.getTipo().equals(MensagemTipo.ADVERTENCIA))
+                else if (m.getTipo().equals(MessageType.ADVERTENCIA))
                 {
-                    RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoWarn.class);
+                    MyRuleReflectionHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotifyWarning.class);
                 }
-                else if (m.getTipo().equals(MensagemTipo.ERROR) || m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE))
+                else if (m.getTipo().equals(MessageType.ERROR) || m.getTipo().equals(MessageType.EXPRESSAO_FALSE))
                 {
-                    RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoError.class);
+                    MyRuleReflectionHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotifyError.class);
                 }
-                else if ( !isResult() && m.getTipo().equals(MensagemTipo.CONTEXT))
+                else if ( !isResult() && m.getTipo().equals(MessageType.CONTEXT))
                 {
-                    RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoContext.class);
+                    MyRuleReflectionHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotifyCustom.class);
                 }
             }
             else
@@ -270,13 +270,13 @@ public class RuleEngine
         }
     }
 
-    private void showNoticacoes(List<Mensagem> mensagens, boolean retorno)
+    private void showNoticacoes(List<Message> mensagens, boolean retorno)
     {
         if (isNotifications())
-            for (Mensagem m : mensagens)
+            for (Message m : mensagens)
             {
-                if ((retorno && !m.getTipo().equals(MensagemTipo.EXPRESSAO_FALSE)) ||
-                        (!retorno && !m.getTipo().equals(MensagemTipo.EXPRESSAO_TRUE)))
+                if ((retorno && !m.getTipo().equals(MessageType.EXPRESSAO_FALSE)) ||
+                        (!retorno && !m.getTipo().equals(MessageType.EXPRESSAO_TRUE)))
                 {
                     showNotificacao(m);
                 }

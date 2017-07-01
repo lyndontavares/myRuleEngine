@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-public final class JavaClassHelper
+public final class MyRuleJavaClassHelper
 {
 
     private static final Set<String> javaKeywords = new HashSet<String>(Arrays.asList(
@@ -24,7 +24,7 @@ public final class JavaClassHelper
     private static final Pattern JAVA_CLASS_NAME_PART_PATTERN = Pattern.compile("[A-Za-z_$]+[a-zA-Z0-9_$]*");
     private static final Pattern JAVA_METHOD_NAME_PART_PATTERN = Pattern.compile("[a-z_$]+[a-zA-Z0-9_$]*");
 
-    private JavaClassHelper()
+    private MyRuleJavaClassHelper()
     {
     }
 

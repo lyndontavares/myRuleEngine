@@ -1,11 +1,11 @@
 package com.idomine.model;
 
-public class Mercadoria
+public class Product
 {
     private long codigo;
     private String nome;
 
-    public Mercadoria(String string)
+    public Product(String string)
     {
         nome = string;
     }

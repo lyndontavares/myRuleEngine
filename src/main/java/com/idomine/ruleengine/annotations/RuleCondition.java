@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface NotificacaoInfo
+public @interface RuleCondition
 {
-
+    long prioridade() default 1L;
 }

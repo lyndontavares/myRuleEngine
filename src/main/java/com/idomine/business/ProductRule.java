@@ -1,19 +1,19 @@
-package com.idomine.model.rules;
+package com.idomine.business;
 
-import com.idomine.model.Mercadoria;
+import com.idomine.model.Product;
 import com.idomine.ruleengine.annotations.InjectFact;
-import com.idomine.ruleengine.notification.Notificacao;
+import com.idomine.ruleengine.notification.Notification;
 
-public class MercadoriaRule
+public class ProductRule
 {
 
     @InjectFact(name="mercadoria")
-    private Mercadoria mercadoria;
+    private Product mercadoria;
     
-    public Notificacao validarNomeMercadoria()
+    public Notification validarNomeMercadoria()
     {
         boolean regra=mercadoria.getNome()!=null;
-        return new Notificacao()
+        return new Notification()
                 .expressaoLogica(regra)
                 .addMensagemInfo("mercadoria checada")
                 .addMensagemFalse("Informe nome mercadoria");

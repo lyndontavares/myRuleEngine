@@ -3,10 +3,10 @@ package com.idomine.ruleengine.notification;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Notificacao
+public class Notification
 {
     private boolean resultado;
-    private List<Mensagem> mensagens;
+    private List<Message> mensagens;
     private long prioridade;
     private String notificationContext;
 
@@ -15,7 +15,7 @@ public class Notificacao
         return resultado;
     }
 
-    public List<Mensagem> getMensagens()
+    public List<Message> getMensagens()
     {
         return mensagens;
     }
@@ -25,7 +25,7 @@ public class Notificacao
         this.resultado = resultado;
     }
 
-    public void setMensagens(List<Mensagem> mensagens)
+    public void setMensagens(List<Message> mensagens)
     {
         this.mensagens = mensagens;
     }
@@ -40,12 +40,12 @@ public class Notificacao
         this.prioridade = prioridade;
     }
 
-    public Notificacao(String mensagem, MensagemTipo tipo)
+    public Notification(String mensagem, MessageType tipo)
     {
-        addMensagem(new Mensagem(mensagem, tipo));
+        addMensagem(new Message(mensagem, tipo));
     }
 
-    public Notificacao()
+    public Notification()
     {
         mensagens = new ArrayList<>();
     }
@@ -62,49 +62,49 @@ public class Notificacao
 
     // fluente
 
-    public Notificacao addMensagem(Mensagem mensagem)
+    public Notification addMensagem(Message mensagem)
     {
         mensagens.add(mensagem);
         return this;
     }
 
-    public Notificacao addMensagemContext(String mensagem)
+    public Notification addMensagemContext(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem, MensagemTipo.CONTEXT));
+        mensagens.add(new Message(mensagem, MessageType.CONTEXT));
         return this;
     }
 
-    public Notificacao addMensagemTrue(String mensagem)
+    public Notification addMensagemTrue(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem, MensagemTipo.EXPRESSAO_TRUE));
+        mensagens.add(new Message(mensagem, MessageType.EXPRESSAO_TRUE));
         return this;
     }
 
-    public Notificacao addMensagemFalse(String mensagem)
+    public Notification addMensagemFalse(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem, MensagemTipo.EXPRESSAO_FALSE));
+        mensagens.add(new Message(mensagem, MessageType.EXPRESSAO_FALSE));
         return this;
     }
 
-    public Notificacao addMensagemInfo(String mensagem)
+    public Notification addMensagemInfo(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem, MensagemTipo.INFO));
+        mensagens.add(new Message(mensagem, MessageType.INFO));
         return this;
     }
 
-    public Notificacao addMensagemAdvertencia(String mensagem)
+    public Notification addMensagemAdvertencia(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem, MensagemTipo.ADVERTENCIA));
+        mensagens.add(new Message(mensagem, MessageType.ADVERTENCIA));
         return this;
     }
 
-    public Notificacao addMensagemErro(String mensagem)
+    public Notification addMensagemErro(String mensagem)
     {
-        mensagens.add(new Mensagem(mensagem, MensagemTipo.ERROR));
+        mensagens.add(new Message(mensagem, MessageType.ERROR));
         return this;
     }
 
-    public Notificacao expressaoLogica(boolean resultado)
+    public Notification expressaoLogica(boolean resultado)
     {
         this.resultado = resultado;
         return this;

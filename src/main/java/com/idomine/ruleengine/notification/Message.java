@@ -1,15 +1,15 @@
 package com.idomine.ruleengine.notification;
 
-public class Mensagem
+public class Message
 {
     private String texto;
-    private MensagemTipo tipo;
+    private MessageType tipo;
     
     public String getTexto()
     {
         return texto;
     }
-    public MensagemTipo getTipo()
+    public MessageType getTipo()
     {
         return tipo;
     }
@@ -17,11 +17,11 @@ public class Mensagem
     {
         this.texto = texto;
     }
-    public void setTipo(MensagemTipo tipo)
+    public void setTipo(MessageType tipo)
     {
         this.tipo = tipo;
     }
-    public Mensagem(String texto, MensagemTipo tipo)
+    public Message(String texto, MessageType tipo)
     {
         this.texto = texto;
         this.tipo = tipo;
