@@ -2,12 +2,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.idomine</groupId>
-	<artifactId>MyRuleEngine</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>MyRuleEngine</name>
-	<description>MyRuleEngine</description>
+	<parent>
+		<groupId>com.idomine</groupId>
+		<artifactId>MyRuleEngine</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
 
+	<artifactId>myruleengine-core</artifactId>
+	<name>myRuleEngine core module</name>
+	<description>Public API and core implementation of myRuleEngine Rules</description>
+
+	<packaging>jar</packaging>
 
 	<developers>
 		<developer>
@@ -21,16 +26,6 @@
 		</developer>
 	</developers>
 
-
-	<modules>
-		<module>myruleengine-core</module>
-		<module>myruleengine-tutorials</module>
-	</modules>
-
-
-	<packaging>pom</packaging>
-
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -40,6 +35,12 @@
 		</dependency>
 	</dependencies>
 
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
 
 	<build>
 		<finalName>${project.name}</finalName>

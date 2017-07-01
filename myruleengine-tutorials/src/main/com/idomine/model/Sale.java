@@ -80,7 +80,7 @@ public class Sale
     public static Sale getFake()
     {
         Sale fatura = new Sale();
-        fatura.setCodigo(1000L);
+        fatura.setCodigo(1L);
         fatura.setValor(new BigDecimal(1000));
         fatura.setEmissao(new Date());
         return fatura;
