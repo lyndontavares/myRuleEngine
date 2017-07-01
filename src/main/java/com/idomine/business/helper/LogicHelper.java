@@ -44,7 +44,7 @@ public final class LogicHelper
 
     // BigDecimal
 
-    public static boolean notEquals( BigDecimal primeiroNumero, BigDecimal segundoNumero)
+    public static boolean notEquals( BigDecimal primeiroNumero, BigDecimal segundoNumero) 
     {
         return !isEquals(primeiroNumero,segundoNumero);
     }

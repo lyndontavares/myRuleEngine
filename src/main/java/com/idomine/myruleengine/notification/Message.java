@@ -52,7 +52,7 @@ public class Message
     @Override
     public String toString()
     {
-        return "<<"+getTipo()+">>"+getTexto();
+        return "<<"+getTipo()+">>"+getTexto(); 
     }
 
     

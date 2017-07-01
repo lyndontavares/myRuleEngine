@@ -41,7 +41,7 @@ public class MyRuleFact
     {
         return valor;
     }
-    public void setValor(Object valor)
+    public void setValor(Object valor) 
     {
         this.valor = valor;
     }

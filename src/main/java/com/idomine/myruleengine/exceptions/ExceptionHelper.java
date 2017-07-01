@@ -25,7 +25,7 @@ package com.idomine.myruleengine.exceptions;
 
 public final class ExceptionHelper
 {
-    private ExceptionHelper()
+    private ExceptionHelper() 
     {
     }
 

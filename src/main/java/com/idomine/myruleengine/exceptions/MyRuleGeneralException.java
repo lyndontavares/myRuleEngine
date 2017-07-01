@@ -29,6 +29,6 @@ public class MyRuleGeneralException extends Exception
 
     public MyRuleGeneralException(String message)
     {
-        super(message);
+        super(message); 
     }
 }

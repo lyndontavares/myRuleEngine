@@ -29,6 +29,6 @@ public class MyRuleNullException extends Exception
 
     public MyRuleNullException(String message)
     {
-        super(message);
+        super(message); 
     }
 }

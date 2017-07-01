@@ -34,7 +34,7 @@ public class Product
     }
 
     public long getCodigo()
-    {
+    { 
         return codigo;
     }
 

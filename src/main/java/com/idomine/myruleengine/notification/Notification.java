@@ -31,7 +31,7 @@ public class Notification
     private boolean resultado;
     private List<Message> mensagens;
     private long prioridade;
-    private String notificationContext;
+    private String notificationContext; 
 
     public boolean isResultado()
     {
@@ -58,7 +58,7 @@ public class Notification
         return prioridade;
     }
 
-    public void setPrioridade(long prioridade)
+    public void setPrioridade(long prioridade) 
     {
         this.prioridade = prioridade;
     }

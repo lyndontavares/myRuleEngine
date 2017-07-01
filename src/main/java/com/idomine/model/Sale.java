@@ -36,7 +36,7 @@ public class Sale
     private BigDecimal valor;
     
     private Person entidade;
-
+ 
     public Long getCodigo()
     {
         return codigo;

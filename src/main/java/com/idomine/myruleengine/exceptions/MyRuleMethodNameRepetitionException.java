@@ -29,7 +29,7 @@ public class MyRuleMethodNameRepetitionException extends Throwable
 
     public MyRuleMethodNameRepetitionException(String message)
     {
-        super(message);
+        super(message); 
     }
     
 }

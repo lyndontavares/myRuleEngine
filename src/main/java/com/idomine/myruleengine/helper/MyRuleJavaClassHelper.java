@@ -40,7 +40,7 @@ public final class MyRuleJavaClassHelper
             "import", "instanceof", "int", "interface", "long",
             "native", "new", "null", "package", "private",
             "protected", "public", "return", "short", "static",
-            "strictfp", "super", "switch", "synchronized", "this",
+            "strictfp", "super", "switch", "synchronized", "this", 
             "throw", "throws", "transient", "true", "try",
             "void", "volatile", "while"));
 

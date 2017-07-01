@@ -48,7 +48,7 @@ public class MethodNameTest
 
         assertFalse(MyRuleJavaClassHelper.isJavaMethodName("NomeInvalido"));
         assertFalse(MyRuleJavaClassHelper.isJavaMethodName("1NomeInvalido"));
-        assertFalse(MyRuleJavaClassHelper.isJavaMethodName("nome Invalido"));
+        assertFalse(MyRuleJavaClassHelper.isJavaMethodName("nome Invalido")); 
 
     }
     

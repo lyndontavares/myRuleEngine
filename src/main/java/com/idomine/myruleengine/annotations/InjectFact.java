@@ -34,5 +34,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface InjectFact
 {
-    String[] name() default {};
+    String[] name() default {}; 
 }

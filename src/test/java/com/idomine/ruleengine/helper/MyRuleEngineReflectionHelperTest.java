@@ -49,7 +49,7 @@ public class MyRuleEngineReflectionHelperTest
         fatos.add(new MyRuleFact("entidade",Person.getFake()));
         fatos.add(new MyRuleFact("valorMinimo",BigDecimal.TEN));
 
-        MyRuleReflectionHelper.prepareFacts(faturaRule, fatos);
+        MyRuleReflectionHelper.prepareFacts(faturaRule, fatos); 
          Assert.assertTrue(faturaRule.fatura.getCodigo() == 1);
         
     }

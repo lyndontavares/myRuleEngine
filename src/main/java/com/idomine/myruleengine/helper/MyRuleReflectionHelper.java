@@ -57,7 +57,7 @@ public final class MyRuleReflectionHelper
 
                 try
                 {
-                    retorno = m.invoke(o);
+                    retorno = m.invoke(o); 
                     break;
                 }
                 catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)

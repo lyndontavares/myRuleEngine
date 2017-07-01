@@ -56,7 +56,7 @@ public class SaleRule
                 //.addMensagemErro("1 Teste msg erro!")
                 //.addMensagemTrue("1 Valor fatura passou na checagem")
                 .addMensagemFalse("1 valor fatura deve ser maior ou igual a " + valor);
-
+ 
     }
 
     @RuleCondition(prioridade=2)

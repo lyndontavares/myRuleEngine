@@ -29,6 +29,6 @@ public class MyRuleMethodNameException extends Exception
 
     public MyRuleMethodNameException(String message)
     {
-        super(message);
+        super(message); 
     }
 }

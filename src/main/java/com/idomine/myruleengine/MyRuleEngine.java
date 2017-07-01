@@ -52,7 +52,7 @@ public class MyRuleEngine
     private List<MyRuleModel> ruleModel;
     private Class<?> classOutputMesagem;
 
-    public MyRuleEngine()
+    public MyRuleEngine() 
     {
         fatos = new ArrayList<>();
         ruleModel = new ArrayList<>();

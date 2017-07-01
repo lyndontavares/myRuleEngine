@@ -29,6 +29,6 @@ public class MyRuleReturnTypeException extends Exception
 
     public MyRuleReturnTypeException(String message)
     {
-        super(message);
+        super(message); 
     }
 }

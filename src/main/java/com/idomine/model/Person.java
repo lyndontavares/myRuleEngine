@@ -31,7 +31,7 @@ public class Person
     private Long codigo;
     
     private String nome;
-    
+     
     private String email;
 
     private List<Person> contatos;

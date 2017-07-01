@@ -55,7 +55,7 @@ public class AddAllRuleTest
                 .Builder()
                 .addFato("entidade", entidade)
                 .addFato("fatura", fatura)
-                .addFato("valorMinimo", new BigDecimal(1L))
+                .addFato("valorMinimo", new BigDecimal(1L)) 
 
                 .addClasseRule(faturaRule)
                 .addAllMetodoRule()
@@ -70,7 +70,7 @@ public class AddAllRuleTest
         re.setClassOutputMesagem(NotificationsHelper.class);
 
         boolean res = re.fireRules();
-        System.out.println(">>> engine result " + res);
+        System.out.println(">>> engine result " + res); 
 
         Assert.assertTrue(res);
 
