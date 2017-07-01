@@ -18,7 +18,7 @@ MyRule Engine is a Java rules engine inspired in EasyRule.
 public class PersonRule {
 
     @InjectFact(name="email")
-    private Stringemail;
+    private String email;
     
     @RuleCondition(prioridade=1)
     public Notification validarEmail()
