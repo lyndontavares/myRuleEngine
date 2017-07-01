@@ -1,5 +1,5 @@
 # Windows image file caches
-Thumbs.db 
+Thumbs.db
 ehthumbs.db
 
 # Folder config file
@@ -22,7 +22,7 @@ $RECYCLE.BIN/
 # =========================
 
 # OSX
-# =========================
+# ========================= 
 
 .DS_Store
 .AppleDouble
