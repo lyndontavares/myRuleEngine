@@ -16,18 +16,18 @@ import com.idomine.myruleengine.notification.Message;
 import com.idomine.myruleengine.notification.MessageType;
 import com.idomine.myruleengine.notification.Notification;
 
-public class RuleEngine
+public class MyRuleEngine
 {
     private boolean result;
     private boolean notifications = false;
     private String mensagemChecking;
     private String mensagemCheckTrue;
     private String mensagemCheckFalse;
-    private List<RuleFact> fatos;
-    private List<RuleModel> ruleModel;
+    private List<MyRuleFact> fatos;
+    private List<MyRuleModel> ruleModel;
     private Class<?> classOutputMesagem;
 
-    public RuleEngine()
+    public MyRuleEngine()
     {
         fatos = new ArrayList<>();
         ruleModel = new ArrayList<>();
@@ -88,29 +88,29 @@ public class RuleEngine
         this.mensagemCheckFalse = mensagemCheckFalse;
     }
 
-    public List<RuleModel> getRuleModel()
+    public List<MyRuleModel> getRuleModel()
     {
         return ruleModel;
     }
 
-    public void setRuleModel(List<RuleModel> ruleModel)
+    public void setRuleModel(List<MyRuleModel> ruleModel)
     {
         this.ruleModel = ruleModel;
     }
 
-    public List<RuleFact> getFatos()
+    public List<MyRuleFact> getFatos()
     {
         return fatos;
     }
 
-    public void setFatos(List<RuleFact> fatos)
+    public void setFatos(List<MyRuleFact> fatos)
     {
         this.fatos = fatos;
     }
 
     // add ruleEngine
 
-    public RuleEngine addRuleEngine(RuleEngine ruleEngine)
+    public MyRuleEngine addRuleEngine(MyRuleEngine ruleEngine)
     {
         if (!ruleEngine.getFatos().isEmpty())
             this.getFatos().addAll(ruleEngine.getFatos());
@@ -139,7 +139,7 @@ public class RuleEngine
 
         result = false;
 
-        for (RuleModel ruleModel : ruleModel)
+        for (MyRuleModel ruleModel : ruleModel)
         {
             MyRuleReflectionHelper.prepareFacts(ruleModel.getRule(), fatos);
 
@@ -186,13 +186,13 @@ public class RuleEngine
 
     // Notification
 
-    private boolean checarNotificacaoExecutandoMedodo(RuleModel ruleModel)
+    private boolean checarNotificacaoExecutandoMedodo(MyRuleModel ruleModel)
     {
-        List<RuleMethod> metodos = ruleModel.getMetodoRule();
+        List<MyRuleMethod> metodos = ruleModel.getMetodoRule();
         checkNull(metodos, ruleModel.getRule().getClass().getName());
         metodos=MyRuleReflectionHelper.ordenarPorPrioridade(ruleModel.getRule(), metodos );
         
-        for (RuleMethod metodoRule : metodos)
+        for (MyRuleMethod metodoRule : metodos)
         {
             result = checarNotificacao(MyRuleReflectionHelper.execute(ruleModel.getRule(), metodoRule.getNome()));
             if (!result)
@@ -205,12 +205,12 @@ public class RuleEngine
 
     private boolean checarNotificacaoExecutantoAllMetodos(Object rule)
     {
-        List<RuleMethod> metodos = MyRuleReflectionHelper.metodosNotificaveis(rule);
+        List<MyRuleMethod> metodos = MyRuleReflectionHelper.metodosNotificaveis(rule);
         checkNull(metodos, rule.getClass().getName());
         metodos=MyRuleReflectionHelper.ordenarPorPrioridade(rule, metodos);
 
         boolean result = false;
-        for (RuleMethod metodo : metodos)
+        for (MyRuleMethod metodo : metodos)
         {
             result = checarNotificacao(MyRuleReflectionHelper.execute(rule, metodo.getNome()));
             if (!result)
@@ -312,7 +312,7 @@ public class RuleEngine
     {
         InformeNovoRule addNovoClasseRule(Object rule);
 
-        RuleEngine buildRules();
+        MyRuleEngine buildRules();
     }
 
     // step 5
@@ -323,7 +323,7 @@ public class RuleEngine
 
         InformeNovoRule addNovoClasseRule(Object rule);
 
-        RuleEngine buildRules();
+        MyRuleEngine buildRules();
 
         boolean fireRules();
 
@@ -353,11 +353,11 @@ public class RuleEngine
     public static class Builder
             implements InformeFato, InformeRule, InformeMetodo, InformeNovoRule, BuildRules, InformeAllRule
     {
-        List<RuleFact> fatos;
-        List<RuleModel> ruleModels;
-        RuleModel ruleModel;
+        List<MyRuleFact> fatos;
+        List<MyRuleModel> ruleModels;
+        MyRuleModel ruleModel;
         Object rule;
-        List<RuleMethod> metodoRule;
+        List<MyRuleMethod> metodoRule;
 
         public Builder()
         {
@@ -369,7 +369,7 @@ public class RuleEngine
         public InformeFato addFato(String nomeFato, Object objeto)
         {
             verificarNomeValido(nomeFato);
-            RuleFact fato = new RuleFact(nomeFato, objeto);
+            MyRuleFact fato = new MyRuleFact(nomeFato, objeto);
             fatos.add(fato);
             return this;
         }
@@ -385,7 +385,7 @@ public class RuleEngine
         @Override
         public InformeAllRule addAllMetodoRule()
         {
-            metodoRule.add(new RuleMethod("@all"));
+            metodoRule.add(new MyRuleMethod("@all"));
             return this;
         }
 
@@ -395,7 +395,7 @@ public class RuleEngine
             verificarNomeValido(nomeMetodo);
             verificarNomeMetodoRepetido(nomeMetodo);
             verificarMetodoNotificavel(nomeMetodo);
-            metodoRule.add(new RuleMethod(nomeMetodo));
+            metodoRule.add(new MyRuleMethod(nomeMetodo));
             return this;
         }
 
@@ -409,10 +409,10 @@ public class RuleEngine
         }
 
         @Override
-        public RuleEngine buildRules()
+        public MyRuleEngine buildRules()
         {
             adicionarRuleModel();
-            RuleEngine re = new RuleEngine();
+            MyRuleEngine re = new MyRuleEngine();
             re.setRuleModel(ruleModels);
             re.setFatos(fatos);
             return re;
@@ -421,7 +421,7 @@ public class RuleEngine
         @Override
         public boolean fireRules()
         {
-            RuleEngine re = new RuleEngine();
+            MyRuleEngine re = new MyRuleEngine();
             re.setRuleModel(ruleModels);
             re.setFatos(fatos);
             return re.fireRules();
@@ -430,7 +430,7 @@ public class RuleEngine
         @Override
         public boolean checkRules()
         {
-            RuleEngine re = new RuleEngine();
+            MyRuleEngine re = new MyRuleEngine();
             re.setRuleModel(ruleModels);
             re.setFatos(fatos);
             return re.checkRules();
@@ -440,7 +440,7 @@ public class RuleEngine
         {
             if (rule != null)
             {
-                RuleModel ruleModel = new RuleModel();
+                MyRuleModel ruleModel = new MyRuleModel();
                 ruleModel.setRule(rule);
                 ruleModel.setMetodoRule(metodoRule);
                 ruleModels.add(ruleModel);

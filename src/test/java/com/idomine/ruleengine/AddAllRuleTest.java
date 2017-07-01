@@ -10,7 +10,7 @@ import com.idomine.business.PersonRule;
 import com.idomine.business.SaleRule;
 import com.idomine.model.Person;
 import com.idomine.model.Sale;
-import com.idomine.myruleengine.RuleEngine;
+import com.idomine.myruleengine.MyRuleEngine;
 
 public class AddAllRuleTest
 {
@@ -28,7 +28,7 @@ public class AddAllRuleTest
         PersonRule entidadeRule = new PersonRule();
 
         // Engine 1
-        RuleEngine re = RuleEngine
+        MyRuleEngine re = MyRuleEngine
                 .Builder()
                 .addFato("entidade", entidade)
                 .addFato("fatura", fatura)

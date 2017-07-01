@@ -2,19 +2,19 @@ package com.idomine.myruleengine;
 
 import java.util.List;
 
-public class RuleModel
+public class MyRuleModel
 {
 
     private Object rule;
     
-    private List<RuleMethod> metodoRule;
+    private List<MyRuleMethod> metodoRule;
 
     public Object getRule()
     {
         return rule;
     }
 
-    public List<RuleMethod> getMetodoRule()
+    public List<MyRuleMethod> getMetodoRule()
     {
         return metodoRule;
     }
@@ -24,7 +24,7 @@ public class RuleModel
         this.rule = rule;
     }
 
-    public void setMetodoRule(List<RuleMethod> metodoRule)
+    public void setMetodoRule(List<MyRuleMethod> metodoRule)
     {
         this.metodoRule = metodoRule;
     }

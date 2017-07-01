@@ -1,6 +1,6 @@
 package com.idomine.myruleengine;
 
-public class RuleFact
+public class MyRuleFact
 {
 
     private String nome;
@@ -22,12 +22,12 @@ public class RuleFact
     {
         this.valor = valor;
     }
-    public RuleFact(String nome, Object valor)
+    public MyRuleFact(String nome, Object valor)
     {
         this.nome = nome;
         this.valor = valor;
     }
-    public RuleFact()
+    public MyRuleFact()
     {
     }
     

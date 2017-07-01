@@ -11,7 +11,7 @@ import com.idomine.business.ProductRule;
 import com.idomine.business.SaleRule;
 import com.idomine.model.Person;
 import com.idomine.model.Sale;
-import com.idomine.myruleengine.RuleEngine;
+import com.idomine.myruleengine.MyRuleEngine;
 import com.idomine.model.Product;
 
 public class RuleEngineBuiderTest
@@ -32,14 +32,14 @@ public class RuleEngineBuiderTest
         ProductRule mercadoriaRule = new ProductRule();
 
         // RuleEngine 1
-        RuleEngine re1 = new RuleEngine();
+        MyRuleEngine re1 = new MyRuleEngine();
         re1.setMensagemCheckTrue("Gravado com sucesso!");
         re1.setMensagemCheckFalse("Validacoes falharam!");
         re1.setMensagemChecking("Checando validacoes!");
         re1.setClassOutputMesagem(NotificationsHelper.class);
 
         //RuleEngine 2
-        RuleEngine re2 = RuleEngine
+        MyRuleEngine re2 = MyRuleEngine
                 .Builder()
                 .addFato("entidade", entidade)
                 .addFato("fatura", fatura)
@@ -57,7 +57,7 @@ public class RuleEngineBuiderTest
                 .buildRules();
 
         // RuleEngine 3
-        RuleEngine re3 = RuleEngine
+        MyRuleEngine re3 = MyRuleEngine
                 .Builder()
                 .addFato("mercadoria", new Product("merc 1"))
                 .addClasseRule(mercadoriaRule)

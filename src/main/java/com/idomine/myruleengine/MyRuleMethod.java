@@ -1,6 +1,6 @@
 package com.idomine.myruleengine;
 
-public class RuleMethod
+public class MyRuleMethod
 {
 
     private String nome;
@@ -26,18 +26,18 @@ public class RuleMethod
         this.prioridade = prioridade;
     }
 
-    public RuleMethod(String nome, Long prioridade)
+    public MyRuleMethod(String nome, Long prioridade)
     {
         this.nome = nome;
         this.prioridade = prioridade;
     }
 
-    public RuleMethod(String nome)
+    public MyRuleMethod(String nome)
     {
         this.nome = nome;
     }
 
-    public RuleMethod()
+    public MyRuleMethod()
     {
     }
 

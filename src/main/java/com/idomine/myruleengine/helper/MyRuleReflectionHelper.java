@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.idomine.myruleengine.RuleFact;
-import com.idomine.myruleengine.RuleMethod;
+import com.idomine.myruleengine.MyRuleFact;
+import com.idomine.myruleengine.MyRuleMethod;
 import com.idomine.myruleengine.annotations.InjectFact;
 import com.idomine.myruleengine.annotations.RuleCondition;
 import com.idomine.myruleengine.notification.Notification;
@@ -102,16 +102,16 @@ public final class MyRuleReflectionHelper
         }
     }
 
-    public static void prepareFacts(Object classe, List<RuleFact> fatos)
+    public static void prepareFacts(Object classe, List<MyRuleFact> fatos)
     {
         if (fatos != null)
-            for (RuleFact fato : fatos)
+            for (MyRuleFact fato : fatos)
             {
                 atribuirFato(classe, fato);
             }
     }
 
-    private static void atribuirFato(Object classe, RuleFact fato)
+    private static void atribuirFato(Object classe, MyRuleFact fato)
     {
         Field field = localizarAtributo(classe, fato.getNome());
         if (field != null)
@@ -252,9 +252,9 @@ public final class MyRuleReflectionHelper
         return listaRetorno;
     }
 
-    public static List<RuleMethod> metodosNotificaveis(Object rule)
+    public static List<MyRuleMethod> metodosNotificaveis(Object rule)
     {
-        List<RuleMethod> listaRetorno = new ArrayList<>();
+        List<MyRuleMethod> listaRetorno = new ArrayList<>();
 
         for (Method m : rule.getClass().getMethods())
         {
@@ -262,7 +262,7 @@ public final class MyRuleReflectionHelper
             {
                 try
                 {
-                    listaRetorno.add(new RuleMethod(m.getName()));
+                    listaRetorno.add(new MyRuleMethod(m.getName()));
                 }
                 catch (IllegalArgumentException e)
                 {
@@ -273,9 +273,9 @@ public final class MyRuleReflectionHelper
         return listaRetorno;
     }
 
-    public static List<RuleMethod> ordenarPorPrioridade(Object rule, List<RuleMethod> metodos)
+    public static List<MyRuleMethod> ordenarPorPrioridade(Object rule, List<MyRuleMethod> metodos)
     {
-        for (RuleMethod metodo : metodos)
+        for (MyRuleMethod metodo : metodos)
         {
             metodo.setPrioridade(prioridade(rule, metodo));
             
@@ -288,7 +288,7 @@ public final class MyRuleReflectionHelper
         
     }
 
-    private static long prioridade(Object rule, RuleMethod metodo)
+    private static long prioridade(Object rule, MyRuleMethod metodo)
     {
         for (Method m : rule.getClass().getMethods())
         {

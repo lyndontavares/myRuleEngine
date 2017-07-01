@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.idomine.business.SaleRule;
 import com.idomine.model.Person;
 import com.idomine.model.Sale;
-import com.idomine.myruleengine.RuleFact;
+import com.idomine.myruleengine.MyRuleFact;
 import com.idomine.myruleengine.helper.MyRuleReflectionHelper;
 
 public class MyRuleEngineReflectionHelperTest
@@ -21,10 +21,10 @@ public class MyRuleEngineReflectionHelperTest
     {
         SaleRule faturaRule = new SaleRule();
         
-        List<RuleFact> fatos = new ArrayList<>();
-        fatos.add(new RuleFact("fatura", Sale.getFake()));
-        fatos.add(new RuleFact("entidade",Person.getFake()));
-        fatos.add(new RuleFact("valorMinimo",BigDecimal.TEN));
+        List<MyRuleFact> fatos = new ArrayList<>();
+        fatos.add(new MyRuleFact("fatura", Sale.getFake()));
+        fatos.add(new MyRuleFact("entidade",Person.getFake()));
+        fatos.add(new MyRuleFact("valorMinimo",BigDecimal.TEN));
 
         MyRuleReflectionHelper.prepareFacts(faturaRule, fatos);
          Assert.assertTrue(faturaRule.fatura.getCodigo() == 1);
