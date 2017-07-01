@@ -11,7 +11,7 @@ public class RuleMethod
         return nome;
     }
 
-    public long getPrioridade()
+    public Long getPrioridade()
     {
         return prioridade;
     }
@@ -21,12 +21,12 @@ public class RuleMethod
         this.nome = nome;
     }
 
-    public void setPrioridade(long prioridade)
+    public void setPrioridade(Long prioridade)
     {
         this.prioridade = prioridade;
     }
 
-    public RuleMethod(String nome, long prioridade)
+    public RuleMethod(String nome, Long prioridade)
     {
         this.nome = nome;
         this.prioridade = prioridade;
@@ -39,6 +39,12 @@ public class RuleMethod
 
     public RuleMethod()
     {
+    }
+
+    @Override
+    public String toString()
+    {
+        return "RuleMethod [nome=" + nome + ", prioridade=" + prioridade + "]";
     }
 
 }

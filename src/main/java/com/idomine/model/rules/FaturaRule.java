@@ -21,7 +21,7 @@ public class FaturaRule
     @InjectFact(name = "valorMinimo")
     private BigDecimal valor;
 
-    @Condition(priorite=1)
+    @Condition(prioridade=10)
     public Notificacao validarValor()
     {
         boolean regra = maiorOuIgualQue(fatura.getValor(), valor);
@@ -37,7 +37,7 @@ public class FaturaRule
 
     }
 
-    @Condition(priorite=2)
+    @Condition(prioridade=2)
     public Notificacao validarEntidade()
     {
         boolean regra = fatura.getEntidade() != null;
@@ -47,7 +47,7 @@ public class FaturaRule
                 .addMensagemFalse("2 Informe uma entidade para fatura.");
     }
 
-    @Condition(priorite=3)
+    @Condition(prioridade=3)
     public Notificacao validarData()
     {
         boolean regra = fatura.getEmissao() != null;
@@ -58,7 +58,7 @@ public class FaturaRule
                 .addMensagemFalse("3 Informe data emissao da fatura");
     }
 
-    @Condition(priorite=4)
+    @Condition(prioridade=4)
     public Notificacao validarListaRegras()
     {
         Notificacao notificacao = new Notificacao();

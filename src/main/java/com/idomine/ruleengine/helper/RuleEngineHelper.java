@@ -8,8 +8,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.idomine.ruleengine.RuleFact;
+import com.idomine.ruleengine.RuleMethod;
+import com.idomine.ruleengine.annotations.Condition;
 import com.idomine.ruleengine.annotations.InjectFact;
 import com.idomine.ruleengine.notification.Notificacao;
 
@@ -24,11 +27,11 @@ public final class RuleEngineHelper
         Object retorno = false;
         for (Method m : o.getClass().getMethods())
         {
-            if (m.getName().equals(metodo) )
+            if (m.getName().equals(metodo))
             {
-                
+
                 checarTipoRetornoMetodo(m);
-                
+
                 try
                 {
                     retorno = m.invoke(o);
@@ -45,7 +48,7 @@ public final class RuleEngineHelper
 
     private static void checarTipoRetornoMetodo(Method m)
     {
-        if ( !m.getReturnType().equals(Notificacao.class))
+        if (!m.getReturnType().equals(Notificacao.class))
         {
             myRuleReturnTypeException(m.getName());
         }
@@ -225,10 +228,10 @@ public final class RuleEngineHelper
 
     public static boolean metodoNotificavel(Object rule, String nomeMetodo)
     {
-        return metodosNotificaveis(rule).indexOf((Object) nomeMetodo)>-1;
+        return metodosNotificaveisPorNome(rule).indexOf((Object) nomeMetodo) > -1;
     }
-    
-    public static List<String> metodosNotificaveis(Object rule)
+
+    public static List<String> metodosNotificaveisPorNome(Object rule)
     {
         List<String> listaRetorno = new ArrayList<>();
 
@@ -247,6 +250,77 @@ public final class RuleEngineHelper
             }
         }
         return listaRetorno;
+    }
+
+    public static List<RuleMethod> metodosNotificaveis(Object rule)
+    {
+        List<RuleMethod> listaRetorno = new ArrayList<>();
+
+        for (Method m : rule.getClass().getMethods())
+        {
+            if (m.getReturnType().equals(Notificacao.class))
+            {
+                try
+                {
+                    listaRetorno.add(new RuleMethod(m.getName()));
+                }
+                catch (IllegalArgumentException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return listaRetorno;
+    }
+
+    public static List<RuleMethod> ordenarPorPrioridade(Object rule, List<RuleMethod> metodos)
+    {
+        for (RuleMethod metodo : metodos)
+        {
+            metodo.setPrioridade(prioridade(rule, metodo));
+            
+        }
+
+        metodos = metodos.stream().sorted((p1, p2) -> p1.getPrioridade().compareTo(p2.getPrioridade()))
+                .collect(Collectors.toList());
+        
+        System.out.println(metodos);
+        
+        return metodos;
+        
+    }
+
+    private static long prioridade(Object rule, RuleMethod metodo)
+    {
+        for (Method m : rule.getClass().getMethods())
+        {
+            if (m.getName().equals(metodo.getNome()))
+            {
+                try
+                {
+                    return getPrioridadeMetodo(m, metodo.getNome());
+                }
+                catch (IllegalArgumentException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return 999999;
+    }
+
+    private static long getPrioridadeMetodo(Method metodo, String nome)
+    {
+        Annotation[] annotations = metodo.getDeclaredAnnotations();
+        if (annotations.length != 0)
+            for (int j = 0; j < annotations.length; j++)
+            {
+                if (annotations[j].annotationType() == Condition.class)
+                {
+                    return ((Condition) annotations[j]).prioridade();
+                }
+            }
+        return 999999;
     }
 
 }

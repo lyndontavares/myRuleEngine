@@ -167,9 +167,7 @@ public class RuleEngine
 
     private void showMensagemChecking()
     {
-
         showNotificacao(new Mensagem(mensagemChecking, MensagemTipo.INFO));
-
     }
 
     // mensagemCheckTrue mensagemCheckFalse
@@ -192,8 +190,11 @@ public class RuleEngine
 
     private boolean checarNotificacaoExecutandoMedodo(RuleModel ruleModel)
     {
-        boolean result = false;
-        for (RuleMethod metodoRule : ruleModel.getMetodoRule())
+        List<RuleMethod> metodos = ruleModel.getMetodoRule();
+        checkNull(metodos, ruleModel.getRule().getClass().getName());
+        metodos=RuleEngineHelper.ordenarPorPrioridade(ruleModel.getRule(), metodos );
+        
+        for (RuleMethod metodoRule : metodos)
         {
             result = checarNotificacao(RuleEngineHelper.execute(ruleModel.getRule(), metodoRule.getNome()));
             if (!result)
@@ -206,13 +207,14 @@ public class RuleEngine
 
     private boolean checarNotificacaoExecutantoAllMetodos(Object rule)
     {
-        List<String> metodos = RuleEngineHelper.metodosNotificaveis(rule);
+        List<RuleMethod> metodos = RuleEngineHelper.metodosNotificaveis(rule);
         checkNull(metodos, rule.getClass().getName());
+        metodos=RuleEngineHelper.ordenarPorPrioridade(rule, metodos);
 
         boolean result = false;
-        for (String metodo : metodos)
+        for (RuleMethod metodo : metodos)
         {
-            result = checarNotificacao(RuleEngineHelper.execute(rule, metodo));
+            result = checarNotificacao(RuleEngineHelper.execute(rule, metodo.getNome()));
             if (!result)
             {
                 break;
@@ -225,39 +227,15 @@ public class RuleEngine
     {
         boolean retorno = false;
 
-        if (result.getClass().equals(ArrayList.class))
-        {
-            if (!((ArrayList<?>) result).isEmpty())
-            {
-                if (((ArrayList<?>) result).get(0).getClass().equals(Notificacao.class))
-                {
-                    @SuppressWarnings("unchecked")
-                    List<Notificacao> nots = ((ArrayList<Notificacao>) result);
-
-                    for (Notificacao notificacao : nots)
-                    {
-                        retorno = notificacao.isResultado();
-                        List<Mensagem> mensagens = notificacao.getMensagens();
-                        showNoticacoes(mensagens, retorno);
-                        if (!retorno)
-                            break;
-                    }
-                }
-            }
-        }
-        else if (result.getClass().equals(Notificacao.class))
+        if (result.getClass().equals(Notificacao.class))
         {
             retorno = ((Notificacao) result).isResultado();
             List<Mensagem> mensagens = ((Notificacao) result).getMensagens();
             showNoticacoes(mensagens, retorno);
         }
-        else if (result.getClass().equals(Boolean.class))
-        {
-            retorno = (boolean) result;
-        }
         else
         {
-            myRuleException("MetodoRule deve retornar Boolean ou Notification");
+            myRuleException("MetodoRule deve retornar Notificaticacao");
         }
         return retorno;
     }

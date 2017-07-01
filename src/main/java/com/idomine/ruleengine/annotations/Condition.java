@@ -11,5 +11,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Condition
 {
-    long priorite() default 1L;
+    long prioridade() default 1L;
 }
