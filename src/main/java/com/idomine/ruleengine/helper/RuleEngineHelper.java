@@ -284,8 +284,6 @@ public final class RuleEngineHelper
         metodos = metodos.stream().sorted((p1, p2) -> p1.getPrioridade().compareTo(p2.getPrioridade()))
                 .collect(Collectors.toList());
         
-        System.out.println(metodos);
-        
         return metodos;
         
     }

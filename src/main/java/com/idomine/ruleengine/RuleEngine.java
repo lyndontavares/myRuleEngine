@@ -223,21 +223,19 @@ public class RuleEngine
         return result;
     }
 
-    private boolean checarNotificacao(Object result)
+    private boolean checarNotificacao(Object notificacao)
     {
-        boolean retorno = false;
-
-        if (result.getClass().equals(Notificacao.class))
+        if (notificacao.getClass().equals(Notificacao.class))
         {
-            retorno = ((Notificacao) result).isResultado();
-            List<Mensagem> mensagens = ((Notificacao) result).getMensagens();
-            showNoticacoes(mensagens, retorno);
+            result = ((Notificacao) notificacao).isResultado();
+            List<Mensagem> mensagens = ((Notificacao) notificacao).getMensagens();
+            showNoticacoes(mensagens, result);
         }
         else
         {
             myRuleException("MetodoRule deve retornar Notificaticacao");
         }
-        return retorno;
+        return result;
     }
 
     // show notificacoes
@@ -260,7 +258,7 @@ public class RuleEngine
                 {
                     RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoError.class);
                 }
-                else if ( !isResult() &&  m.getTipo().equals(MensagemTipo.CONTEXT) || m.getTipo().equals(MensagemTipo.CONTEXT))
+                else if ( !isResult() && m.getTipo().equals(MensagemTipo.CONTEXT))
                 {
                     RuleEngineHelper.executeNotificacao(classOutputMesagem, m.getTexto(), NotificacaoContext.class);
                 }
