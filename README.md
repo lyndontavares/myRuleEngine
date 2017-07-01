@@ -1,8 +1,50 @@
 # myRuleEngine
 
+MyRule Engine is a Java rules engine inspired in EasyRule.
+
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
 
-MyRule Engine is a Java rules engine inspired in EasyRule.
+## Core features
+
+ * Lightweight library and easy to learn API
+ * POJO based development with annotation programming model
+ * Useful abstractions to define business rules and apply them easily with Java
+
+## Example
+
+##### First, define your rule..
+
+```java
+public class PersonRule {
+
+    @InjectFact(name="email")
+    private Stringemail;
+    
+    @RuleCondition(prioridade=1)
+    public Notification validarEmail()
+    {
+        boolean regra = entidade.getEmail() != null;
+        return new Notification()
+                .expressaoLogica(regra)
+                .addMensagemFalse("invalide e-mail!");
+    }
+ 
+}
+```
+
+##### Then, fire it!
+
+```java
+public class Test {
+    public static void main(String[] args) {
+        // define facts
+
+        // define rules
+
+        // fire rules on known facts
+    }
+}
+```
 
 ## License
 myRuleEngine is released under the terms of the MIT license:
