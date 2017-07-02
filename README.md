@@ -108,9 +108,6 @@ public class SaleRule
 
 ```java
 
-public class RuleEngineBuiderTest
-{
-
     @Test
     public void testeRuleEngine()
     {
@@ -129,6 +126,8 @@ public class RuleEngineBuiderTest
         re1.setMensagemCheckTrue("Success!");
         re1.setMensagemCheckFalse("Validations fails!");
         re1.setMensagemChecking("Checking rules...");
+        
+        // send messages to primefaces (see tutorial)
         re1.setClassOutputMesagem(NotificationsHelper.class);
 
         //RuleEngine 2
@@ -159,7 +158,6 @@ public class RuleEngineBuiderTest
 
     }
 
-}
 
 ```
 
