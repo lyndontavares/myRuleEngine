@@ -72,7 +72,7 @@ public class SaleRule
 
         return new Notification()
                 .condition(regra)
-                .addMessageInfo("(2) Date checked")
+                .addMessageInfo("(3) Date checked")
                 .addMessageFalse("(3) Date dont be null");
     }
 
