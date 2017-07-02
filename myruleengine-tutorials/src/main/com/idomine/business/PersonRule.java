@@ -36,18 +36,18 @@ public class PersonRule
     {
         boolean regra = customer.getName() != null;
         return new Notification()
-                .expressaoLogica(regra)
-                .addMensagemInfo("6 Nome entidade checado")
-                .addMensagemFalse("6 Informe nome para entidade.");
+                .condition(regra)
+                .addMessageInfo("6 Nome entidade checado")
+                .addMessageFalse("6 Informe nome para entidade.");
     }
 
     public Notification checkEmail()
     {
         boolean regra = customer.getEmail() != null;
         return new Notification()
-                .expressaoLogica(regra)
-                .addMensagemInfo("7 Email entidade checado")
-                .addMensagemFalse("7 Informe email para entidade.");
+                .condition(regra)
+                .addMessageInfo("7 Email entidade checado")
+                .addMessageFalse("7 Informe email para entidade.");
     }
  
 

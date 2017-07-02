@@ -37,9 +37,9 @@ public class ProductRule
     {
         boolean regra=product.getNome()!=null;
         return new Notification()
-                .expressaoLogica(regra)
-                .addMensagemInfo("checking product...")
-                .addMensagemFalse("Name of product dont be null");
+                .condition(regra)
+                .addMessageInfo("checking product...")
+                .addMessageFalse("Name of product dont be null");
     }
     
     

@@ -49,9 +49,9 @@ public class SaleRule
     {
         boolean regra = moreThenOrEquals(fatura.getTotal(), minimal);
         return new Notification()
-                .expressaoLogica(regra)
-                .addMensagemInfo("1 Checando valor fatura")
-                .addMensagemFalse("1 valor fatura deve ser maior ou igual a " + minimal);
+                .condition(regra)
+                .addMessageTrue("(1) Total checked")
+                .addMessageFalse("(1) Total must be greaterthan equals " + minimal);
  
     }
 
@@ -60,9 +60,9 @@ public class SaleRule
     {
         boolean regra = fatura.getCustomer()!= null;
         return new Notification()
-                .expressaoLogica(regra)
-                .addMensagemInfo("2 Checando Entidade fatura")
-                .addMensagemFalse("2 Informe uma entidade para fatura.");
+                .condition(regra)
+                .addMessageInfo("(2) Customer checked")
+                .addMessageFalse("(2) Customer dont be null");
     }
 
     @RuleCondition(prioridade=3)
@@ -71,50 +71,49 @@ public class SaleRule
         boolean regra = fatura.getDate() != null;
 
         return new Notification()
-                .expressaoLogica(regra)
-                .addMensagemInfo("2 Checando Data fatura")
-                .addMensagemFalse("3 Informe data emissao da fatura");
+                .condition(regra)
+                .addMessageInfo("(2) Date checked")
+                .addMessageFalse("(3) Date dont be null");
     }
 
     @RuleCondition(prioridade=4)
     public Notification checkOtherConditions()
     {
-        Notification notificacao = new Notification();
+        Notification notification = new Notification();
         Notification regraUm = contition1();
         
-        //criar metodos fluente para rule
-        notificacao.setNotificationContext( regraUm.getNotificationContext() );
-        notificacao.setMensagens(regraUm.getMensagens());
-        notificacao.setResultado(regraUm.isResultado());
+        notification.setNotificationContext( regraUm.getNotificationContext() );
+        notification.setMessages(regraUm.getMessages());
+        notification.setResultado(regraUm.isResultado());
         
-        if (notificacao.isResultado())
+        if (notification.isResultado())
         {
-            notificacao.setNotificationContext( contition1().getNotificationContext() );
-            notificacao.getMensagens().addAll( contition2().getMensagens());
-            notificacao.setResultado(contition2().isResultado());
+            notification.setNotificationContext( contition1().getNotificationContext() );
+            notification.getMessages().addAll( contition2().getMessages());
+            notification.setResultado(contition2().isResultado());
         }
         
-        return notificacao;
+        return notification;
     }
 
     private Notification contition1()
     {
         boolean regra = true;
         return new Notification()
-                .expressaoLogica(regra)
-                .addMensagemInfo("checking contition 1")
-                .addMensagemFalse("condition 1 fail")
-                .addMensagemContext("condition1");
+                .condition(regra)
+                .addMessageInfo("checking contition 1")
+                .addMessageFalse("condition 1 fail")
+                .addMessageContext("condition1");
     }
 
     private Notification contition2()
     {
         boolean regra = true;
         return new Notification()
-                .expressaoLogica(regra)
-                .addMensagemInfo("checking condition 2")
-                .addMensagemFalse("conditio 2 fail")
-                .addMensagemContext("condition2");
+                .condition(regra)
+                .addMessageInfo("checking condition 2")
+                .addMessageFalse("conditio 2 fail")
+                .addMessageContext("condition2");
     }
 
 }

@@ -15,21 +15,92 @@ MyRule Engine is a Java rules engine inspired in EasyRule.
 ##### First, define your rule..
 
 ```java
-public class PersonRule {
 
-    @InjectFact(name="email")
-    private String email;
-    
+public class SaleRule
+{
+    @InjectFact(name = "sale")
+    public Sale fatura;
+
+    @InjectFact(name = "customer")
+    private Customer customer;
+
+    @InjectFact(name = "minimal")
+    private BigDecimal minimal;
+
     @RuleCondition(prioridade=1)
-    public Notification validarEmail()
+    public Notification checkTotal()
     {
-        boolean regra = entidade.getEmail() != null;
+        boolean regra = moreThenOrEquals(fatura.getTotal(), minimal);
         return new Notification()
-                .expressaoLogica(regra)
-                .addMensagemFalse("invalide e-mail!");
-    }
+                .condition(regra)
+                .addMessageTrue("(1) Total checked")
+                .addMessageFalse("(1) Total must be greaterthan equals " + minimal);
  
+    }
+
+    @RuleCondition(prioridade=2)
+    public Notification checkCustomer()
+    {
+        boolean regra = fatura.getCustomer()!= null;
+        return new Notification()
+                .condition(regra)
+                .addMessageInfo("(2) Customer checked")
+                .addMessageFalse("(2) Customer dont be null");
+    }
+
+    @RuleCondition(prioridade=3)
+    public Notification checkDate()
+    {
+        boolean regra = fatura.getDate() != null;
+
+        return new Notification()
+                .condition(regra)
+                .addMessageInfo("(2) Date checked")
+                .addMessageFalse("(3) Date dont be null");
+    }
+
+    @RuleCondition(prioridade=4)
+    public Notification checkOtherConditions()
+    {
+        Notification notification = new Notification();
+        Notification regraUm = contition1();
+        
+        notification.setNotificationContext( regraUm.getNotificationContext() );
+        notification.setMessages(regraUm.getMessages());
+        notification.setResultado(regraUm.isResultado());
+        
+        if (notification.isResultado())
+        {
+            notification.setNotificationContext( contition1().getNotificationContext() );
+            notification.getMessages().addAll( contition2().getMessages());
+            notification.setResultado(contition2().isResultado());
+        }
+        
+        return notification;
+    }
+
+    private Notification contition1()
+    {
+        boolean regra = true;
+        return new Notification()
+                .condition(regra)
+                .addMessageInfo("checking contition 1")
+                .addMessageFalse("condition 1 fail")
+                .addMessageContext("condition1");
+    }
+
+    private Notification contition2()
+    {
+        boolean regra = true;
+        return new Notification()
+                .condition(regra)
+                .addMessageInfo("checking condition 2")
+                .addMessageFalse("conditio 2 fail")
+                .addMessageContext("condition2");
+    }
+
 }
+
 ```
 
 ##### Then, fire it!

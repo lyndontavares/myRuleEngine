@@ -251,7 +251,7 @@ public class MyRuleEngine
         if (notificacao.getClass().equals(Notification.class))
         {
             result = ((Notification) notificacao).isResultado();
-            List<Message> mensagens = ((Notification) notificacao).getMensagens();
+            List<Message> mensagens = ((Notification) notificacao).getMessages();
             showNoticacoes(mensagens, result);
         }
         else
