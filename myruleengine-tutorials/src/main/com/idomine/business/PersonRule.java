@@ -37,8 +37,8 @@ public class PersonRule
         boolean regra = customer.getName() != null;
         return new Notification()
                 .condition(regra)
-                .addMessageInfo("6 Nome entidade checado")
-                .addMessageFalse("6 Informe nome para entidade.");
+                .addMessageInfo("(6) Name checked")
+                .addMessageFalse("(6) Name dont be null");
     }
 
     public Notification checkEmail()
@@ -46,8 +46,8 @@ public class PersonRule
         boolean regra = customer.getEmail() != null;
         return new Notification()
                 .condition(regra)
-                .addMessageInfo("7 Email entidade checado")
-                .addMessageFalse("7 Informe email para entidade.");
+                .addMessageInfo("(7) Email checked")
+                .addMessageFalse("(7) Email dont be null");
     }
  
 

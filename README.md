@@ -172,10 +172,11 @@ public class RuleEngineBuiderTest
 <<PRIMEFACES INFO>> (3) Date checked
 <<PRIMEFACES INFO>> checking contition 1
 <<PRIMEFACES INFO>> checking condition 2
-<<PRIMEFACES INFO>> 6 Nome entidade checado
-<<PRIMEFACES INFO>> 7 Email entidade checado
+<<PRIMEFACES INFO>> (6) Name checked
+<<PRIMEFACES INFO>> (7) Email checked
 <<PRIMEFACES INFO>> Success!
 >>> engine result true
+
 
 
 ```
