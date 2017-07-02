@@ -160,8 +160,26 @@ public class RuleEngineBuiderTest
 
 }
 
+```
+
+##### Result
+
+```java
+
+<<PRIMEFACES INFO>> Checking rules...
+<<PRIMEFACES INFO>> (1) Total checked
+<<PRIMEFACES INFO>> (2) Customer checked
+<<PRIMEFACES INFO>> (3) Date checked
+<<PRIMEFACES INFO>> checking contition 1
+<<PRIMEFACES INFO>> checking condition 2
+<<PRIMEFACES INFO>> 6 Nome entidade checado
+<<PRIMEFACES INFO>> 7 Email entidade checado
+<<PRIMEFACES INFO>> Success!
+>>> engine result true
+
 
 ```
+
 
 ## License
 myRuleEngine is released under the terms of the MIT license:
