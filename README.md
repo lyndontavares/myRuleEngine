@@ -164,7 +164,7 @@ public class RuleEngineBuiderTest
 
 ##### Result
 
-```java
+```
 
 <<PRIMEFACES INFO>> Checking rules...
 <<PRIMEFACES INFO>> (1) Total checked
