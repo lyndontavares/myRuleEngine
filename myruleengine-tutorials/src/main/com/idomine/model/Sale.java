@@ -29,63 +29,61 @@ import java.util.Date;
 public class Sale
 {
 
-    private Long codigo;
-    
-    private Date emissao;
-    
-    private BigDecimal valor;
-    
-    private Person entidade;
- 
-    public Long getCodigo()
+    private Long id;
+
+    private Date date;
+
+    private BigDecimal total;
+
+    private Customer customer;
+
+    public Long getId()
     {
-        return codigo;
+        return id;
     }
 
-    public void setCodigo(Long codigo)
+    public void setId(Long id)
     {
-        this.codigo = codigo;
+        this.id = id;
     }
 
-    public Date getEmissao()
+    public Date getDate()
     {
-        return emissao;
+        return date;
     }
 
-    public void setEmissao(Date emissao)
+    public void setDate(Date date)
     {
-        this.emissao = emissao;
+        this.date = date;
     }
 
-    public BigDecimal getValor()
+    public BigDecimal getTotal()
     {
-        return valor;
+        return total;
     }
 
-    public void setValor(BigDecimal valor)
+    public void setTotal(BigDecimal total)
     {
-        this.valor = valor;
+        this.total = total;
     }
 
-    public Person getEntidade()
+    public Customer getCustomer()
     {
-        return entidade;
+        return customer;
     }
 
-    public void setEntidade(Person entidade)
+    public void setCustomer(Customer customer)
     {
-        this.entidade = entidade;
+        this.customer = customer;
     }
 
     public static Sale getFake()
     {
-        Sale fatura = new Sale();
-        fatura.setCodigo(1L);
-        fatura.setValor(new BigDecimal(1000));
-        fatura.setEmissao(new Date());
-        return fatura;
+        Sale sale = new Sale();
+        sale.setId(1L);
+        sale.setTotal(new BigDecimal(1000));
+        sale.setDate(new Date());
+        return sale;
     }
-    
-    
-    
+
 }

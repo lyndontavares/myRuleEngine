@@ -21,37 +21,67 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package com.idomine.ruleengine.helper;
+package com.idomine.model;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.idomine.business.SaleRule;
-import com.idomine.model.Person;
-import com.idomine.model.Sale;
-import com.idomine.myruleengine.MyRuleFact;
-import com.idomine.myruleengine.helper.MyRuleReflectionHelper;
-
-public class MyRuleEngineReflectionHelperTest
+public class Customer
 {
 
-    @Test
-    public void testeAnotacao()
-    {
-        SaleRule faturaRule = new SaleRule();
-        
-        List<MyRuleFact> fatos = new ArrayList<>();
-        fatos.add(new MyRuleFact("fatura", Sale.getFake()));
-        fatos.add(new MyRuleFact("entidade",Person.getFake()));
-        fatos.add(new MyRuleFact("valorMinimo",BigDecimal.TEN));
+    private Long id;
 
-        MyRuleReflectionHelper.prepareFacts(faturaRule, fatos); 
-         Assert.assertTrue(faturaRule.fatura.getCodigo() == 1);
-        
+    private String name;
+
+    private String email;
+
+    private List<Customer> contacts;
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public List<Customer> getContacts()
+    {
+        return contacts;
+    }
+
+    public void setContacts(List<Customer> contacts)
+    {
+        this.contacts = contacts;
+    }
+
+    public static Customer getFake()
+    {
+        Customer customer = new Customer();
+        customer.setName("Lyndon Tavares");
+        customer.setEmail("integraldomiinio@gmail.com");
+        return customer;
     }
 
 }

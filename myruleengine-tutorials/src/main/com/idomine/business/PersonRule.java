@@ -23,27 +23,27 @@
  */
 package com.idomine.business;
 
-import com.idomine.model.Person;
+import com.idomine.model.Customer;
 import com.idomine.myruleengine.annotations.InjectFact;
 import com.idomine.myruleengine.notification.Notification;
 
 public class PersonRule  
 {
-    @InjectFact(name="entidade")
-    private Person entidade;
+    @InjectFact(name="customer")
+    private Customer customer;
 
-    public Notification validarNome()
+    public Notification checkName()
     {
-        boolean regra = entidade.getNome() != null;
+        boolean regra = customer.getName() != null;
         return new Notification()
                 .expressaoLogica(regra)
                 .addMensagemInfo("6 Nome entidade checado")
                 .addMensagemFalse("6 Informe nome para entidade.");
     }
 
-    public Notification validarEmail()
+    public Notification checkEmail()
     {
-        boolean regra = entidade.getEmail() != null;
+        boolean regra = customer.getEmail() != null;
         return new Notification()
                 .expressaoLogica(regra)
                 .addMensagemInfo("7 Email entidade checado")

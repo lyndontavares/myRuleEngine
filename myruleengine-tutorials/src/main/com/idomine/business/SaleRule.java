@@ -27,7 +27,7 @@ import static com.idomine.business.helper.LogicHelper.moreThenOrEquals;
 
 import java.math.BigDecimal;
 
-import com.idomine.model.Person;
+import com.idomine.model.Customer;
 import com.idomine.model.Sale;
 import com.idomine.myruleengine.annotations.InjectFact;
 import com.idomine.myruleengine.annotations.RuleCondition;
@@ -35,34 +35,30 @@ import com.idomine.myruleengine.notification.Notification;
 
 public class SaleRule
 {
-    @InjectFact(name = "fatura")
+    @InjectFact(name = "sale")
     public Sale fatura;
 
-    @InjectFact(name = "entidade")
-    private Person entidade;
+    @InjectFact(name = "customer")
+    private Customer customer;
 
-    @InjectFact(name = "valorMinimo")
-    private BigDecimal valor;
+    @InjectFact(name = "minimal")
+    private BigDecimal minimal;
 
     @RuleCondition(prioridade=1)
-    public Notification validarValor()
+    public Notification checkTotal()
     {
-        boolean regra = moreThenOrEquals(fatura.getValor(), valor);
+        boolean regra = moreThenOrEquals(fatura.getTotal(), minimal);
         return new Notification()
                 .expressaoLogica(regra)
                 .addMensagemInfo("1 Checando valor fatura")
-                //.addMensagemInfo("1 Valor fatura dentro do limite de credito!")
-                //.addMensagemAdvertencia("Teste msg warning!")
-                //.addMensagemErro("1 Teste msg erro!")
-                //.addMensagemTrue("1 Valor fatura passou na checagem")
-                .addMensagemFalse("1 valor fatura deve ser maior ou igual a " + valor);
+                .addMensagemFalse("1 valor fatura deve ser maior ou igual a " + minimal);
  
     }
 
     @RuleCondition(prioridade=2)
-    public Notification validarEntidade()
+    public Notification checkCustomer()
     {
-        boolean regra = fatura.getEntidade() != null;
+        boolean regra = fatura.getCustomer()!= null;
         return new Notification()
                 .expressaoLogica(regra)
                 .addMensagemInfo("2 Checando Entidade fatura")
@@ -70,9 +66,9 @@ public class SaleRule
     }
 
     @RuleCondition(prioridade=3)
-    public Notification validarData()
+    public Notification checkDate()
     {
-        boolean regra = fatura.getEmissao() != null;
+        boolean regra = fatura.getDate() != null;
 
         return new Notification()
                 .expressaoLogica(regra)
@@ -81,10 +77,10 @@ public class SaleRule
     }
 
     @RuleCondition(prioridade=4)
-    public Notification validarListaRegras()
+    public Notification checkOtherConditions()
     {
         Notification notificacao = new Notification();
-        Notification regraUm = regraUm();
+        Notification regraUm = contition1();
         
         //criar metodos fluente para rule
         notificacao.setNotificationContext( regraUm.getNotificationContext() );
@@ -93,31 +89,32 @@ public class SaleRule
         
         if (notificacao.isResultado())
         {
-            notificacao.setNotificationContext( regraDois().getNotificationContext() );
-            notificacao.getMensagens().addAll( regraDois().getMensagens());
-            notificacao.setResultado(regraDois().isResultado());
+            notificacao.setNotificationContext( contition1().getNotificationContext() );
+            notificacao.getMensagens().addAll( contition2().getMensagens());
+            notificacao.setResultado(contition2().isResultado());
         }
         
         return notificacao;
     }
 
-    private Notification regraUm()
+    private Notification contition1()
     {
         boolean regra = true;
         return new Notification()
                 .expressaoLogica(regra)
-                .addMensagemInfo("4 Regra 1 checada")
-                .addMensagemFalse("4 Regra 1 da fatura falhou");
+                .addMensagemInfo("checking contition 1")
+                .addMensagemFalse("condition 1 fail")
+                .addMensagemContext("condition1");
     }
 
-    private Notification regraDois()
+    private Notification contition2()
     {
         boolean regra = true;
         return new Notification()
                 .expressaoLogica(regra)
-                .addMensagemInfo("5 Regra 2 checada")
-                .addMensagemFalse("5 Regra 2 da fatura falhou")
-                .addMensagemContext("regradois");
+                .addMensagemInfo("checking condition 2")
+                .addMensagemFalse("conditio 2 fail")
+                .addMensagemContext("condition2");
     }
 
 }

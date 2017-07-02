@@ -30,16 +30,16 @@ import com.idomine.myruleengine.notification.Notification;
 public class ProductRule
 {
 
-    @InjectFact(name="mercadoria")
-    private Product mercadoria;
+    @InjectFact(name="product")
+    private Product product;
     
-    public Notification validarNomeMercadoria()
+    public Notification checkName()
     {
-        boolean regra=mercadoria.getNome()!=null;
+        boolean regra=product.getNome()!=null;
         return new Notification()
                 .expressaoLogica(regra)
-                .addMensagemInfo("mercadoria checada")
-                .addMensagemFalse("Informe nome mercadoria");
+                .addMensagemInfo("checking product...")
+                .addMensagemFalse("Name of product dont be null");
     }
     
     

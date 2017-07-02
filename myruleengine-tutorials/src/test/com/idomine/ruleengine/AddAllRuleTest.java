@@ -31,7 +31,7 @@ import org.junit.Test;
 import com.idomine.business.NotificationsHelper;
 import com.idomine.business.PersonRule;
 import com.idomine.business.SaleRule;
-import com.idomine.model.Person;
+import com.idomine.model.Customer;
 import com.idomine.model.Sale;
 import com.idomine.myruleengine.MyRuleEngine;
 
@@ -41,36 +41,42 @@ public class AddAllRuleTest
     @Test
     public void testeRuleEngine()
     {
-        // fatos
-        Sale fatura = Sale.getFake();
-        Person entidade = Person.getFake();
-        fatura.setEntidade(entidade);
+        // facts
+        Sale sale = Sale.getFake();
+        Customer customer = Customer.getFake();
+        sale.setCustomer(customer);
 
         // rules
-        SaleRule faturaRule = new SaleRule();
-        PersonRule entidadeRule = new PersonRule();
+        SaleRule saleRule = new SaleRule();
+        PersonRule customerRule = new PersonRule();
 
-        // Engine 1
-        MyRuleEngine re = MyRuleEngine
+        // RuleEngine 1
+        MyRuleEngine re1 = new MyRuleEngine();
+        re1.setMensagemCheckTrue("Success!");
+        re1.setMensagemCheckFalse("Validations fails!");
+        re1.setMensagemChecking("Checking rules...");
+        re1.setClassOutputMesagem(NotificationsHelper.class);
+
+        //RuleEngine 2
+        MyRuleEngine re2 = MyRuleEngine
                 .Builder()
-                .addFato("entidade", entidade)
-                .addFato("fatura", fatura)
-                .addFato("valorMinimo", new BigDecimal(1L)) 
+                .addFato("customer", customer)
+                .addFato("sale", sale)
+                .addFato("minimal", new BigDecimal(11))
 
-                .addClasseRule(faturaRule)
+                .addClasseRule(saleRule)
                 .addAllMetodoRule()
 
-                .addNovoClasseRule(entidadeRule)
-                .addMetodoRule("validarEmail")
+                .addNovoClasseRule(customerRule)
+                .addAllMetodoRule()
+                
                 .buildRules();
 
-        re.setMensagemCheckTrue("Gravado com sucesso!");
-        re.setMensagemCheckFalse("Validacoes falharam!");
-        re.setMensagemChecking("Checando validacoes!");
-        re.setClassOutputMesagem(NotificationsHelper.class);
+        // RuleEngine 1 + 2
+        re1.addRuleEngine(re2);
 
-        boolean res = re.fireRules();
-        System.out.println(">>> engine result " + res); 
+        boolean res = re1.fireRules();
+        System.out.println(">>> engine result " + res);
 
         Assert.assertTrue(res);
 
