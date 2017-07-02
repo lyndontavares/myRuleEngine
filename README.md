@@ -175,9 +175,7 @@ public class RuleEngineBuiderTest
 <<PRIMEFACES INFO>> Name checked
 <<PRIMEFACES INFO>> Email checked
 <<PRIMEFACES INFO>> Success!
->>> engine result true
-
-
+>>> engine result true 
 
 
 ```
