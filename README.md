@@ -33,8 +33,8 @@ public class SaleRule
         boolean regra = moreThenOrEquals(fatura.getTotal(), minimal);
         return new Notification()
                 .condition(regra)
-                .addMessageTrue("(1) Total checked")
-                .addMessageFalse("(1) Total must be greaterthan equals " + minimal);
+                .addMessageTrue("Total checked")
+                .addMessageFalse("Total must be greaterthan equals " + minimal);
  
     }
 
@@ -44,8 +44,8 @@ public class SaleRule
         boolean regra = fatura.getCustomer()!= null;
         return new Notification()
                 .condition(regra)
-                .addMessageInfo("(2) Customer checked")
-                .addMessageFalse("(2) Customer dont be null");
+                .addMessageInfo("Customer checked")
+                .addMessageFalse("Customer dont be null");
     }
 
     @RuleCondition(prioridade=3)
@@ -55,8 +55,8 @@ public class SaleRule
 
         return new Notification()
                 .condition(regra)
-                .addMessageInfo("(2) Date checked")
-                .addMessageFalse("(3) Date dont be null");
+                .addMessageInfo("Date checked")
+                .addMessageFalse("Date dont be null");
     }
 
     @RuleCondition(prioridade=4)
@@ -100,6 +100,7 @@ public class SaleRule
     }
 
 }
+
 
 ```
 
