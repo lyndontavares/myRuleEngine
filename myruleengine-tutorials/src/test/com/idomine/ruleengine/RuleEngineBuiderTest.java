@@ -57,15 +57,15 @@ public class RuleEngineBuiderTest
         re1.setMensagemCheckFalse("Validations fails!");
         re1.setMensagemChecking("Checking rules...");
         
-        // send messages to primefaces (see tutorial)
+        // send messages to primefaces (see tutorials)
         re1.setClassOutputMesagem(NotificationsHelper.class);
 
         //RuleEngine 2
         MyRuleEngine re2 = MyRuleEngine
                 .Builder()
-                .addFato("customer", customer)
-                .addFato("sale", sale)
-                .addFato("minimal", new BigDecimal(11))
+                .addFact("customer", customer)
+                .addFact("sale", sale)
+                .addFact("minimal", new BigDecimal(11))
 
                 .addClasseRule(saleRule)
                 .addMetodoRule("checkTotal")

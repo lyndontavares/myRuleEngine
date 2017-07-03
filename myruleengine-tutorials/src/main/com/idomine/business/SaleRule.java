@@ -51,7 +51,7 @@ public class SaleRule
         return new Notification()
                 .condition(regra)
                 .addMessageTrue("Total checked")
-                .addMessageFalse("Total must be greaterthan equals " + minimal);
+                .addMessageFalse("Total must be greater than equals " + minimal);
  
     }
 

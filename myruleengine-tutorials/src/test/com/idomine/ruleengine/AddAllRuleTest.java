@@ -60,9 +60,9 @@ public class AddAllRuleTest
         //RuleEngine 2
         MyRuleEngine re2 = MyRuleEngine
                 .Builder()
-                .addFato("customer", customer)
-                .addFato("sale", sale)
-                .addFato("minimal", new BigDecimal(11))
+                .addFact("customer", customer)
+                .addFact("sale", sale)
+                .addFact("minimal", new BigDecimal(11))
 
                 .addClasseRule(saleRule)
                 .addAllMetodoRule()

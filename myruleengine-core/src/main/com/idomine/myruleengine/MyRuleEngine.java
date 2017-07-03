@@ -317,7 +317,7 @@ public class MyRuleEngine
 
     public interface InformeFato
     {
-        InformeFato addFato(String nomeFato, Object objeto);
+        InformeFato addFact(String nomeFato, Object objeto);
 
         InformeRule addClasseRule(Object rule);
     }
@@ -391,7 +391,7 @@ public class MyRuleEngine
         }
 
         @Override
-        public InformeFato addFato(String nomeFato, Object objeto)
+        public InformeFato addFact(String nomeFato, Object objeto)
         {
             verificarNomeValido(nomeFato);
             MyRuleFact fato = new MyRuleFact(nomeFato, objeto);
