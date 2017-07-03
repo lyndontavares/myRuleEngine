@@ -8,6 +8,20 @@
 	<name>MyRuleEngine</name>
 	<description>MyRuleEngine</description>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+		<junit.version>4.12</junit.version>
+		<assertj.version>2.6.0</assertj.version>
+		<mockito.version>2.7.1</mockito.version>
+		<maven-cobertura-plugin.version>2.7</maven-cobertura-plugin.version>
+		<maven-coveralls-plugin.version>4.3.0</maven-coveralls-plugin.version>
+		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+		<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+		<maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+		<maven-license-plugin.version>3.0</maven-license-plugin.version>
+	</properties>
 
 	<developers>
 		<developer>
@@ -57,6 +71,24 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>${maven-coveralls-plugin.version}</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<includes>
+						<include>**/*Test*.java</include>
+					</includes>
+					<reportFormat>html</reportFormat>
 				</configuration>
 			</plugin>
 
