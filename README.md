@@ -4,7 +4,9 @@ MyRule Engine is a Java rules engine inspired in EasyRule.
 
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/lyndontavares/myRuleEngine.svg?branch=master)](https://travis-ci.org/lyndontavares/myRuleEngine)
-[![Coverage](https://coveralls.io/repos/lyndontavares/myRuleEngine/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/jlyndontavares/myRuleEngine?branch=master)
+[![Coverage](https://coveralls.io/github/lyndontavares/myRuleEngine/badge.svg?style=flat&branch=master&service=github)](https://coveralls.io/github/lyndontavares/myRuleEngine?branch=master)
+
+
 ## Core features
 
  * Lightweight library and easy to learn API
