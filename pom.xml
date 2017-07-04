@@ -7,6 +7,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>MyRuleEngine</name>
 	<description>MyRuleEngine</description>
+	<url>https://github.com/lyndontavares/myRuleEngine</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
