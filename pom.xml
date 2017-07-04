@@ -9,6 +9,12 @@
 	<description>MyRuleEngine</description>
 	<url>https://github.com/lyndontavares/myRuleEngine</url>
 
+	<scm>
+		<connection>scm:git:git://github.com/lyndontavares/myruleengine.git</connection>
+		<developerConnection>scm:git:ssh://github.com:lyndontavares/ossrh-demo.git</developerConnection>
+		<url>https://github.com/lyndontavares/myRuleEngine/tree/master</url>
+	</scm>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
@@ -42,7 +48,7 @@
 			<url>http://www.opensource.org/licenses/mit-license.php</url>
 		</license>
 	</licenses>
-	
+
 	<modules>
 		<module>myruleengine-core</module>
 		<module>myruleengine-tutorials</module>
