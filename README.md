@@ -15,6 +15,44 @@ MyRule Engine is a Java rules engine inspired in EasyRule.
 
 ## Example
 
+```java
+
+    public class BusinessRule{
+        
+        @InjectFact
+        private String fact1;
+
+        @InjectFact(name="Tavares")
+        private String fact2;
+        
+        @RuleCondition
+        public Notification rule()
+        {
+            return new Notification()
+                    .addMessageInfo(fact1)
+                    .condition("Lyndon".equals(fact1) && "Tavares".equals(fact2));
+        }
+    }
+    
+    @Test
+    public void factTest()
+    {
+        
+        MyRuleEngine re = MyRuleEngine.Builder()
+                .addFact("fact1", "Lyndon")
+                .addFact("fact2", "Tavares")
+                .addClasseRule( new BusinessRule() )
+                .addAllMetodoRule()
+                .buildRules();
+        Assert.assertTrue(re.checkRules());
+    }
+
+```
+
+
+## More complex example
+
+
 ##### First, define your rule..
 
 ```java

@@ -57,7 +57,7 @@ public final class MyRuleReflectionHelper
 
                 try
                 {
-                    retorno = m.invoke(o); 
+                    retorno = m.invoke(o);
                     break;
                 }
                 catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
@@ -153,6 +153,7 @@ public final class MyRuleReflectionHelper
 
     private static Field localizarAtributo(Object classe, String nome)
     {
+        // 1st by atribute name
         for (Field field : classe.getClass().getDeclaredFields())
         {
             if (contemAnotacao(field, nome))
@@ -160,6 +161,15 @@ public final class MyRuleReflectionHelper
                 return field;
             }
         }
+        // 2nd by field name
+        for (Field field : classe.getClass().getDeclaredFields())
+        {
+            if (field.getName().equals(nome))
+            {
+                return field;
+            }
+        }
+
         return null;
     }
 
@@ -183,8 +193,11 @@ public final class MyRuleReflectionHelper
         if (annotations.length != 0)
             for (int j = 0; j < annotations.length; j++)
             {
+                String[] aName = ((InjectFact) annotations[j]).name();
+
                 if ((annotations[j].annotationType() == InjectFact.class)
-                        && ((InjectFact) annotations[j]).name()[0].equals(nome))
+                        && aName.length > 0
+                        && nome.equals(aName[0]))
                 {
                     return true;
                 }
@@ -301,14 +314,14 @@ public final class MyRuleReflectionHelper
         for (MyRuleMethod metodo : metodos)
         {
             metodo.setPrioridade(prioridade(rule, metodo));
-            
+
         }
 
         metodos = metodos.stream().sorted((p1, p2) -> p1.getPrioridade().compareTo(p2.getPrioridade()))
                 .collect(Collectors.toList());
-        
+
         return metodos;
-        
+
     }
 
     private static long prioridade(Object rule, MyRuleMethod metodo)
