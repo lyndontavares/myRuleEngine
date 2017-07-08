@@ -22,7 +22,7 @@ MyRule Engine is a Java rules engine inspired in EasyRule.
         @InjectFact
         private String fact1;
 
-        @InjectFact(name="Tavares")
+        @InjectFact 
         private String fact2;
         
         @RuleCondition
