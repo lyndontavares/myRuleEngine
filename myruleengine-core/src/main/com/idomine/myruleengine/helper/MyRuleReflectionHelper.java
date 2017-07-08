@@ -161,15 +161,6 @@ public final class MyRuleReflectionHelper
                 return field;
             }
         }
-        // 2nd by field name
-        for (Field field : classe.getClass().getDeclaredFields())
-        {
-            if (field.getName().equals(nome))
-            {
-                return field;
-            }
-        }
-
         return null;
     }
 
@@ -196,11 +187,18 @@ public final class MyRuleReflectionHelper
                 String[] aName = ((InjectFact) annotations[j]).name();
 
                 if ((annotations[j].annotationType() == InjectFact.class)
-                        && aName.length > 0
+                        && aName!=null && aName.length > 0
                         && nome.equals(aName[0]))
                 {
                     return true;
                 }
+                else if ((annotations[j].annotationType() == InjectFact.class)
+                        && aName!=null && aName.length == 0 && field.getName().equals(nome) )
+                {
+                    return true;
+                }
+                
+                
             }
         return false;
     }

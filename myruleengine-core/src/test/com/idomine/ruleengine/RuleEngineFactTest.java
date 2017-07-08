@@ -17,7 +17,7 @@ public class RuleEngineFactTest
         @InjectFact
         private String fact1;
 
-        @InjectFact(name="Tavares")
+        @InjectFact 
         private String fact2;
         
         @RuleCondition
