@@ -29,7 +29,6 @@ MyRule Engine is a Java rules engine inspired in EasyRule.
         public Notification rule()
         {
             return new Notification()
-                    .addMessageInfo(fact1)
                     .condition("Lyndon".equals(fact1) && "Tavares".equals(fact2));
         }
     }
