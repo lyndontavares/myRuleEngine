@@ -36,8 +36,8 @@ public class RuleEngineFactTest
         MyRuleEngine re = MyRuleEngine.Builder()
                 .addFact("fact1", "Lyndon")
                 .addFact("fact2", "Tavares")
-                .addClasseRule( new BusinessRule() )
-                .addAllMetodoRule()
+                .addClassRule( new BusinessRule() )
+                .addAllMethods()
                 .buildRules();
         Assert.assertTrue(re.checkRules());
     }

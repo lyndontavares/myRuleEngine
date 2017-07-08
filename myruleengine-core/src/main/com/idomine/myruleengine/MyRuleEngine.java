@@ -319,14 +319,14 @@ public class MyRuleEngine
     {
         InformeFato addFact(String nomeFato, Object objeto);
 
-        InformeRule addClasseRule(Object rule);
+        InformeRule addClassRule(Object rule);
     }
 
     // step 3
 
     public interface InformeRule
     {
-        InformeAllRule addAllMetodoRule();
+        InformeAllRule addAllMethods();
 
         InformeMetodo addMethod(String nomeMetodo);
     }
@@ -335,7 +335,7 @@ public class MyRuleEngine
 
     public interface InformeAllRule
     {
-        InformeNovoRule addNovoClasseRule(Object rule);
+        InformeNovoRule addNewClassRule(Object rule);
 
         MyRuleEngine buildRules();
     }
@@ -346,7 +346,7 @@ public class MyRuleEngine
     {
         InformeMetodo addMethod(String nomeMetodo);
 
-        InformeNovoRule addNovoClasseRule(Object rule);
+        InformeNovoRule addNewClassRule(Object rule);
 
         MyRuleEngine buildRules();
 
@@ -359,7 +359,7 @@ public class MyRuleEngine
 
     public interface InformeNovoRule
     {
-        InformeAllRule addAllMetodoRule();
+        InformeAllRule addAllMethods();
 
         InformeMetodo addMethod(String nomeMetodo);
     }
@@ -400,7 +400,7 @@ public class MyRuleEngine
         }
 
         @Override
-        public InformeRule addClasseRule(Object rule)
+        public InformeRule addClassRule(Object rule)
         {
             checkNull(rule, "Rule nao pode ser null!");
             iniciarRule(rule);
@@ -408,7 +408,7 @@ public class MyRuleEngine
         }
 
         @Override
-        public InformeAllRule addAllMetodoRule()
+        public InformeAllRule addAllMethods()
         {
             metodoRule.add(new MyRuleMethod("@all"));
             return this;
@@ -425,7 +425,7 @@ public class MyRuleEngine
         }
 
         @Override
-        public InformeNovoRule addNovoClasseRule(Object rule)
+        public InformeNovoRule addNewClassRule(Object rule)
         {
             checkNull(rule, "Rule nao pode ser null!");
             adicionarRuleModel();

@@ -67,13 +67,13 @@ public class RuleEngineBuiderTest
                 .addFact("sale", sale)
                 .addFact("minimal", new BigDecimal(11))
 
-                .addClasseRule(saleRule)
+                .addClassRule(saleRule)
                 .addMethod("checkTotal")
                 .addMethod("checkCustomer")
                 .addMethod("checkDate")
                 .addMethod("checkOtherConditions")
 
-                .addNovoClasseRule(customerRule)
+                .addNewClassRule(customerRule)
                 .addMethod("checkName")
                 .addMethod("checkEmail")
                 .buildRules();

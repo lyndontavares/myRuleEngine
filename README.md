@@ -40,8 +40,8 @@ MyRule Engine is a Java rules engine inspired in EasyRule.
         MyRuleEngine re = MyRuleEngine.Builder()
                 .addFact("fact1", "Lyndon")
                 .addFact("fact2", "Tavares")
-                .addClasseRule( new BusinessRule() )
-                .addAllMetodoRule()
+                .addClassRule( new BusinessRule() )
+                .addAllMethods()
                 .buildRules();
         Assert.assertTrue(re.checkRules());
     }
@@ -173,17 +173,17 @@ public class SaleRule
         //RuleEngine 2
         MyRuleEngine re2 = MyRuleEngine
                 .Builder()
-                .addFato("customer", customer)
-                .addFato("sale", sale)
-                .addFato("minimal", new BigDecimal(11))
+                .addFact("customer", customer)
+                .addFact("sale", sale)
+                .addFact("minimal", new BigDecimal(11))
 
-                .addClasseRule(saleRule)
+                .addClassRule(saleRule)
                 .addMethod("checkTotal")
                 .addMethod("checkCustomer")
                 .addMethod("checkDate")
                 .addMethod("checkOtherConditions")
 
-                .addNovoClasseRule(customerRule)
+                .addNewClassRule(customerRule)
                 .addMethod("checkName")
                 .addMethod("checkEmail")
                 .buildRules();

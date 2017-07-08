@@ -64,11 +64,11 @@ public class AddAllRuleTest
                 .addFact("sale", sale)
                 .addFact("minimal", new BigDecimal(11))
 
-                .addClasseRule(saleRule)
-                .addAllMetodoRule()
+                .addClassRule(saleRule)
+                .addAllMethods()
 
-                .addNovoClasseRule(customerRule)
-                .addAllMetodoRule()
+                .addNewClassRule(customerRule)
+                .addAllMethods()
                 
                 .buildRules();
 
