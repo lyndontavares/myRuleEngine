@@ -328,7 +328,7 @@ public class MyRuleEngine
     {
         InformeAllRule addAllMetodoRule();
 
-        InformeMetodo addMetodoRule(String nomeMetodo);
+        InformeMetodo addMethod(String nomeMetodo);
     }
 
     // step 4
@@ -344,7 +344,7 @@ public class MyRuleEngine
 
     public interface InformeMetodo
     {
-        InformeMetodo addMetodoRule(String nomeMetodo);
+        InformeMetodo addMethod(String nomeMetodo);
 
         InformeNovoRule addNovoClasseRule(Object rule);
 
@@ -361,7 +361,7 @@ public class MyRuleEngine
     {
         InformeAllRule addAllMetodoRule();
 
-        InformeMetodo addMetodoRule(String nomeMetodo);
+        InformeMetodo addMethod(String nomeMetodo);
     }
 
     // step 7
@@ -415,7 +415,7 @@ public class MyRuleEngine
         }
 
         @Override
-        public InformeMetodo addMetodoRule(String nomeMetodo)
+        public InformeMetodo addMethod(String nomeMetodo)
         {
             verificarNomeValido(nomeMetodo);
             verificarNomeMetodoRepetido(nomeMetodo);

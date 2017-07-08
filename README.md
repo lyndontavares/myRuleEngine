@@ -178,14 +178,14 @@ public class SaleRule
                 .addFato("minimal", new BigDecimal(11))
 
                 .addClasseRule(saleRule)
-                .addMetodoRule("checkTotal")
-                .addMetodoRule("checkCustomer")
-                .addMetodoRule("checkDate")
-                .addMetodoRule("checkOtherConditions")
+                .addMethod("checkTotal")
+                .addMethod("checkCustomer")
+                .addMethod("checkDate")
+                .addMethod("checkOtherConditions")
 
                 .addNovoClasseRule(customerRule)
-                .addMetodoRule("checkName")
-                .addMetodoRule("checkEmail")
+                .addMethod("checkName")
+                .addMethod("checkEmail")
                 .buildRules();
 
         // RuleEngine 1 + 2
