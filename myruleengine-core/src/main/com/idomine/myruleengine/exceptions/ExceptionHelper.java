@@ -70,6 +70,12 @@ public final class ExceptionHelper
         throwException(new MyRuleNullException(messageTypeError));
     }
 
+    public static void myRuleCovertionException(String message)
+    {
+        String messageTypeError =  "Check types of facts. See @InjectFact annotation. " + message;
+        throwException(new MyRuleConvertionException(messageTypeError));
+    }
+
     public static void checkNull(final Object o, String message)
     {
         if (o == null)

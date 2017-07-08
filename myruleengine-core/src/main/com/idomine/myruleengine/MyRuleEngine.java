@@ -166,7 +166,8 @@ public class MyRuleEngine
 
         for (MyRuleModel ruleModel : ruleModel)
         {
-            MyRuleReflectionHelper.prepareFacts(ruleModel.getRule(), fatos);
+            
+            prepareFacts(ruleModel);
 
             if (ruleModel.getMetodoRule().get(0).getNome().equals("@all"))
             {
@@ -184,6 +185,19 @@ public class MyRuleEngine
 
         showMensagemCheck();
         return result;
+    }
+
+    private void prepareFacts(MyRuleModel ruleModel)
+    {
+        try
+        {
+            MyRuleReflectionHelper.prepareFacts(ruleModel.getRule(), fatos);
+        }
+        catch (Exception e)
+        {
+           e.printStackTrace();
+        }
+        
     }
 
     // mensagemChecking

@@ -37,6 +37,8 @@ import com.idomine.myruleengine.MyRuleFact;
 import com.idomine.myruleengine.MyRuleMethod;
 import com.idomine.myruleengine.annotations.InjectFact;
 import com.idomine.myruleengine.annotations.RuleCondition;
+import com.idomine.myruleengine.exceptions.ExceptionHelper;
+import com.idomine.myruleengine.exceptions.MyRuleConvertionException;
 import com.idomine.myruleengine.notification.Notification;
 
 public final class MyRuleReflectionHelper
@@ -125,7 +127,7 @@ public final class MyRuleReflectionHelper
         }
     }
 
-    public static void prepareFacts(Object classe, List<MyRuleFact> fatos)
+    public static void prepareFacts(Object classe, List<MyRuleFact> fatos) throws MyRuleConvertionException
     {
         if (fatos != null)
             for (MyRuleFact fato : fatos)
@@ -134,7 +136,7 @@ public final class MyRuleReflectionHelper
             }
     }
 
-    private static void atribuirFato(Object classe, MyRuleFact fato)
+    private static void atribuirFato(Object classe, MyRuleFact fato) throws MyRuleConvertionException
     {
         Field field = localizarAtributo(classe, fato.getNome());
         if (field != null)
@@ -143,11 +145,16 @@ public final class MyRuleReflectionHelper
             {
                 field.setAccessible(true);
                 field.set(classe, fato.getValor());
+                
             }
             catch (IllegalArgumentException | IllegalAccessException e)
             {
-                e.printStackTrace();
+                
+                ExceptionHelper.myRuleCovertionException("ClassRule:["+classe.getClass().getName()+"] fact:["+fato.getNome()+"] "+e.getMessage());
+                
             }
+            
+            
         }
     }
 
