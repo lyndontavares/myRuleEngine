@@ -1,4 +1,4 @@
-= AdminFaces Starter project
+= myRuleEngine with AdminFaces
 
 image:starter1.png[]
  
