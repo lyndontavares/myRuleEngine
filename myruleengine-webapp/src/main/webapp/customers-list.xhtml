@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:adm="http://github.com/adminfaces"
+                template="#{layoutMB.layout}">
+
+    <ui:define name="head-end">
+        <style type="text/css">
+            .ui-datatable .ui-datatable-header {
+                text-align: right !important;
+            }
+
+        </style>
+    </ui:define>
+
+    <ui:define name="title">
+        Customers listing
+    </ui:define>
+
+    <ui:define name="description">
+        Find customer by name 
+    </ui:define>
+
+    <ui:define name="body">
+        <adm:breadcrumb title="Customer list"/>
+
+        <h:form>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+
+                    <div id="main-buttons" class="hidden-sm hidden-xs">
+                        <p:commandButton action="car-form?faces-redirect=true" icon="fa fa-plus"
+                                         value="New" styleClass="btn-primary"/>
+                        <p:spacer width="5"/>
+                        <p:commandButton value="Delete Selected" icon="fa fa-trash" styleClass="btn-danger"
+                                         process="@this" update="@form"
+                        >
+                        </p:commandButton>
+                        <p:spacer width="5"/>
+                    </div>
+
+
+                    <p:separator/>
+                    <p:dataTable widgetVar="carsTable" var="c" value="#{bysinesstMB.customers}" rows="5"
+                                 rowKey="#{c.id}" lazy="true" paginator="true"
+                                 filteredValue="#{carListMB.filteredValue}"
+                            >
+
+
+                        <p:column headerText="Name" sortBy="#{c.name}" filterBy="#{c.name}">
+                            #{c.name}
+                        </p:column>
+
+                    </p:dataTable>
+                </div>
+            </div>
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

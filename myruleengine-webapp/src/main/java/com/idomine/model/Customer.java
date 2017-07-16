@@ -25,15 +25,26 @@ package com.idomine.model;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Customer
 {
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     private String name;
 
     private String email;
 
+    @OneToMany(fetch=FetchType.LAZY,orphanRemoval=true)
     private List<Customer> contacts;
 
     public Long getId()

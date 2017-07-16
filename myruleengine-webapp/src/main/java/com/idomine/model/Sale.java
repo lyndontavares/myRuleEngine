@@ -26,15 +26,26 @@ package com.idomine.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Sale
 {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date date;
 
     private BigDecimal total;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
     public Long getId()

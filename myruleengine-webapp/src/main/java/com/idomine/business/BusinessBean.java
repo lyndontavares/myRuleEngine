@@ -2,8 +2,12 @@ package com.idomine.business;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
 import org.omnifaces.cdi.ViewScoped;
 
@@ -16,6 +20,17 @@ import com.idomine.myruleengine.MyRuleEngine;
 public class BusinessBean implements Serializable
 {
     private static final long serialVersionUID = 1L;
+
+    private List<Customer> customers;
+
+    private CustomerRepository customerRepository;
+
+    @PostConstruct
+    public void init()
+    {
+        popule();
+        customers = customerRepository.findAll();
+    }
 
     public void fireRules()
     {
@@ -55,6 +70,32 @@ public class BusinessBean implements Serializable
 
         // fire rules
         re1.fireRules();
+    }
+
+    public List<Customer> getCustomers()
+    {
+        return customers;
+    }
+
+    @Inject
+    private CustomerRepository customerRepositor;
+
+    @Transactional
+    public void popule()
+    {
+        if (customerRepository.count().equals(0L))
+        {
+
+            for (int i = 0; i < 100; i++)
+            {
+                Customer c = new Customer();
+                c.setName("Customer " + 1);
+                c.setEmail("email_" + i + "@email.com");
+                customerRepositor.save(c);
+                System.out.println(c);
+            }
+        }
+
     }
 
 }
