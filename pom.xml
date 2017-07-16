@@ -52,6 +52,7 @@
 	<modules>
 		<module>myruleengine-core</module>
 		<module>myruleengine-tutorials</module>
+		<module>myruleengine-webapp</module>
 	</modules>
 
 

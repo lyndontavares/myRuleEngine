@@ -1,0 +1,243 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.idomine</groupId>
+		<artifactId>MyRuleEngine</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>myruleengine-webapp</artifactId>
+	<name>myRuleEngine web demo</name>
+	<description>Public WebApp implementation of myRuleEngine Rules</description>
+
+	<packaging>
+		war
+	</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<developers>
+		<developer>
+			<id>lyndon</id>
+			<name>Lyndon Tavares</name>
+			<url></url>
+			<email>integraldominio@gmail.com</email>
+			<roles>
+				<role>Lead developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.adminfaces</groupId>
+			<artifactId>admin-template</artifactId>
+			<version>1.0.0-RC9</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.github.adminfaces</groupId>
+					<artifactId>admin-theme</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.adminfaces</groupId>
+			<artifactId>admin-theme</artifactId>
+			<version>1.0.0-RC9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.idomine</groupId>
+			<artifactId>myruleengine-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
+	</dependencies>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+
+	<build>
+		<finalName>${project.name}</finalName>
+
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/docs</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<testResources>
+			<testResource>
+				<filtering>true</filtering>
+				<directory>src/test/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/java/</directory>
+			</testResource>
+		</testResources>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+	<profiles>
+		<profile>
+			<id>swarm</id>
+			<properties>
+				<version.wildfly-swarm>2017.2.0</version.wildfly-swarm>
+			</properties>
+
+			<dependencies>
+				<dependency>
+					<groupId>org.wildfly.swarm</groupId>
+					<artifactId>jsf</artifactId>
+					<version>${version.wildfly-swarm}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.wildfly.swarm</groupId>
+					<artifactId>cdi</artifactId>
+					<version>${version.wildfly-swarm}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.wildfly.swarm</groupId>
+					<artifactId>ejb</artifactId>
+					<version>${version.wildfly-swarm}</version>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-compiler-plugin</artifactId>
+						<version>3.5</version>
+						<configuration>
+							<source>1.8</source>
+							<target>1.8</target>
+						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.19.1</version>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>2.6</version>
+						<configuration>
+							<failOnMissingWebXml>false</failOnMissingWebXml>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.wildfly.swarm</groupId>
+						<artifactId>wildfly-swarm-plugin</artifactId>
+						<version>${version.wildfly-swarm}</version>
+						<executions>
+							<execution>
+								<id>package</id>
+							</execution>
+							<execution>
+								<id>start</id>
+							</execution>
+							<execution>
+								<id>stop</id>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+
+			<repositories>
+				<repository>
+					<id>jboss-public-repository-group</id>
+					<name>JBoss Public Repository Group</name>
+					<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>never</updatePolicy>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>daily</updatePolicy>
+					</snapshots>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
+
+
+
+	<repositories>
+		<repository>
+			<snapshots />
+			<id>snapshots</id>
+			<name>libs-snapshot</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
+
+</project>
