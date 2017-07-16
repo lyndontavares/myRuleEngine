@@ -79,7 +79,21 @@ public final class MyRuleReflectionHelper
         }
     }
 
-    public static void executeNotificacao(Class<?> o, String msg, Class<?> anotacao)
+    
+    public static void executeNotificacao(Object o, String msg, Class<?> anotacao)
+    {
+        if ( o.getClass().equals( Class.class) )
+        {
+            executeNotify( (Class<?>) o , msg, anotacao);
+        }
+        else
+        {
+            executeNotify(  o , msg, anotacao);
+
+        }
+    }
+    
+    private static void executeNotify(Class<?> o, String msg, Class<?> anotacao)
     {
         Class<?> cc = null;
         try
@@ -92,6 +106,25 @@ public final class MyRuleReflectionHelper
         }
 
         for (Method m : cc.getMethods())
+        {
+            if (metodoContemAnotacao(m, anotacao))
+            {
+                try
+                {
+                    m.invoke(o, msg);
+                    break;
+                }
+                catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    private static void executeNotify(Object o, String msg, Class<?> anotacao)
+    {
+        for (Method m : o.getClass().getMethods())
         {
             if (metodoContemAnotacao(m, anotacao))
             {

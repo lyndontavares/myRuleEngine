@@ -8,8 +8,8 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>myruleengine-webapp</artifactId>
-	<name>myRuleEngine web demo</name>
+	<artifactId>admin-starter</artifactId>
+	<name>admin-starter</name>
 	<description>Public WebApp implementation of myRuleEngine Rules</description>
 
 	<packaging>

@@ -1,6 +1,10 @@
 package com.github.adminfaces.starter.util;
 
 import com.github.adminfaces.starter.model.Car;
+import com.idomine.myruleengine.annotations.NotifyError;
+import com.idomine.myruleengine.annotations.NotifyInformation;
+import com.idomine.myruleengine.annotations.NotifyWarning;
+
 import org.omnifaces.util.Messages;
 
 import javax.annotation.PostConstruct;
@@ -49,5 +53,7 @@ public class Utils implements Serializable {
     public List<Car> getCars() {
         return cars;
     }
+    
+
 
 }
