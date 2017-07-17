@@ -81,11 +81,7 @@ public class BusinessBean implements Serializable
     {
         return customers;
     }
-
-    @Inject
-    private CustomerRepository customerRepositor;
-
-  
+   
     @Transactional
     public void popule()
     {
@@ -97,7 +93,7 @@ public class BusinessBean implements Serializable
                 Customer c = new Customer();
                 c.setName("Customer " + 1);
                 c.setEmail("email_" + i + "@email.com");
-                Customer c2 = entityManager.merge(c);
+                Customer c2 = customerRepository.save(c);
                 System.out.println(c2);
             }
         }
