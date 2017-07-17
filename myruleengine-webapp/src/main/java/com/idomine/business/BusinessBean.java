@@ -23,6 +23,7 @@ public class BusinessBean implements Serializable
 
     private List<Customer> customers;
 
+    @Inject
     private CustomerRepository customerRepository;
 
     @PostConstruct
@@ -80,7 +81,7 @@ public class BusinessBean implements Serializable
     @Inject
     private CustomerRepository customerRepositor;
 
-    @Transactional
+  
     public void popule()
     {
         if (customerRepository.count().equals(0L))

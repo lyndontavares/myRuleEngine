@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
 @ApplicationScoped
 public class EntityManagerProducer {
  
-    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PERSISTENCE_UNIT", setProperties());
+    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("idomine", setProperties());
  
     private EntityManager entityManager;
  
