@@ -7,7 +7,7 @@ import org.apache.deltaspike.data.api.Repository;
 
 import com.idomine.model.Customer;
 
-@Repository
+@Repository(forEntity = Customer.class)
 public interface CustomerRepository  extends EntityRepository <Customer, Long> {
     
    List<Customer> findByName(String name);

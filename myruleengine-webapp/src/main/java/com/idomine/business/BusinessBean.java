@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.omnifaces.cdi.ViewScoped;
@@ -25,6 +26,9 @@ public class BusinessBean implements Serializable
 
     @Inject
     private CustomerRepository customerRepository;
+    
+    @Inject
+    private EntityManager entityManager;
 
     @PostConstruct
     public void init()
@@ -82,6 +86,7 @@ public class BusinessBean implements Serializable
     private CustomerRepository customerRepositor;
 
   
+    @Transactional
     public void popule()
     {
         if (customerRepository.count().equals(0L))
@@ -92,8 +97,8 @@ public class BusinessBean implements Serializable
                 Customer c = new Customer();
                 c.setName("Customer " + 1);
                 c.setEmail("email_" + i + "@email.com");
-                customerRepositor.save(c);
-                System.out.println(c);
+                Customer c2 = entityManager.merge(c);
+                System.out.println(c2);
             }
         }
 

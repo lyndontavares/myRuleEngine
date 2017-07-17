@@ -4,13 +4,19 @@
                http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
 	version="2.1">
 
-	<persistence-unit name="idomine">
+	<persistence-unit name="idomine" transaction-type="RESOURCE_LOCAL ">
 		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
 		<properties>
+			
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
+			
+<!-- 			<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
+<!--             <property name="javax.persistence.schema-generation.create-source" value="metadata"/> -->
+<!--             <property name="javax.persistence.schema-generation.drop-source" value="metadata"/> -->
+<!--             <property name="javax.persistence.sql-load-script-source" value="import.sql"/> -->
+			
 		</properties>
 
 	</persistence-unit>
